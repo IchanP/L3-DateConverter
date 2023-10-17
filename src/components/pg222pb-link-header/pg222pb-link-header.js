@@ -1,6 +1,7 @@
 import { ErrorRenderer } from '../../Utility/ErrorRenderer'
 import { Validator } from '../../Utility/Validator'
 import { AElementBuilder } from './AElementBuilder'
+import { LinkElementBuilder } from './ALinkElementBuilder'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -34,27 +35,16 @@ export class LinkHeader extends HTMLElement {
    */
   #prepareElements (aLinkBuilderArray) {
     // NOTE DOES Array.isArray() violate abstraction level rule?
-    if (Array.isArray(aLinkBuilderArray) && new Validator().isAllElementsOfType(aLinkBuilderArray, AElementBuilder)) {
-      this.#buildLinkElements(aLinkBuilderArray)
-    } else {
-      this.#handleError(new TypeError('The array passed to the constructor must contain only AElementBuilder objects.'))
+    const validator = new Validator()
+    try {
+      validator.validateIsThisAnArray(aLinkBuilderArray)
+      validator.validateAllElementsOfType(aLinkBuilderArray, AElementBuilder)
+    } catch (error) {
+      console.error(error + ' in LinkHeader.prepareElements() , in pg222pb-link-header.js')
+      return
     }
+    this.#buildLinkElements(aLinkBuilderArray)
   }
-
-  /**
-   * Verifies that the array passed to the constructor contains only ALinkBuilder objects.
-   *
-   * @param {Array<unknown>} aLinkBuilderArray - The array to verify.
-   * @returns {boolean} - True if the array contains only ALinkBuilder objects, false otherwise.
-   */
-  /* #isValidALinkBuilderArray (aLinkBuilderArray) {
-    for (const obj of aLinkBuilderArray) {
-      if (!(obj instanceof AElementBuilder)) {
-        return false
-      }
-    }
-    return true
-  } */
 
   /**
    * Constructs the a elements and appends them to the shadowroot.
@@ -62,34 +52,9 @@ export class LinkHeader extends HTMLElement {
    * @param {Array<AElementBuilder>} aLinkBuilderArray - The array of ALinkBuilder objects to convert to elements.
    */
   #buildLinkElements (aLinkBuilderArray) {
-    const aElements = []
-    for (const aElementToBuild of aLinkBuilderArray) {
-      const aElement = document.createElement('a')
-      aElement.textContent = aElementToBuild.aLinkTextContent
-      aElement.onclick = aElementToBuild.onClickCallback
-      aElement.href = ''
-      aElements.push(aElement)
-    }
-    // TODO make this prettier
+    const aElements = aLinkBuilderArray.map(aElementToBuild => new LinkElementBuilder(aElementToBuild).createElement())
     this.shadowRoot.querySelector('.header-div').append(...aElements)
   }
-
-  /**
-   * Calls the ErrorRenderer class to render the error.
-   *
-   * @param {Error} error - The error to handle.
-   */
-  #handleError (error) {
-    // eslint-disable-next-line no-new
-    new ErrorRenderer(this.shadowRoot.querySelector('.header-div'), error)
-  }
-
-  /**
-   * Executed when the element is inserted into the DOM.
-   */
-  connectedCallback () {
-    // TODO refactor this completely
-  }
 }
-
+ 
 customElements.define('pg222pb-link-header', LinkHeader)

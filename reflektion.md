@@ -6,10 +6,29 @@ Decided to make a class for building an "a" element. I wanted to create a more g
 
 // TODO IMAGES!!!
 
+## Chapter 7
+
+As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in.
+
+![Pre-refactoring](./reportimages/previous-error-method.png)
+How the handleError method looked before refactoring.
+
+![Pre-refactoring](./reportimages/errorhandling-in-header.png)
+How the validation occured before the refactoring
+
+Provide Context with Exceptions
+Each exception that you throw should provide enough context to determine the source and
+location of an error. In Java, you can get a stack trace from any exception; however, a stack
+trace can’t tell you the intent of the operation that failed.
+Create informative error messages and pass them along with your exceptions. Mention the operation that failed and the type of failure. If you are logging in your application,
+pass along enough information to be able to log the error in your catch
+
 ## Chapter 9
 
 Following test driven development cycle by writing my tests right before implementation.
 I did make it easier for myself, for example in the header test I did not test whether the error message was actually rendered, as I would have had to spend a lot of time reading documentation for Jest to achieve this... which is not ideal. I instead made it easier for myself by testing whether the console.error occured. I decided to mainly rely on the automatic test to make sure that everything works as expected, while the automatic tests are for testing things hard to test as a user. (Error handling as in previous example).
+
+// TODO update as ur not supposed to render this specific message
 
 ## Chapter 10
 
