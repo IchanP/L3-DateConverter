@@ -1,4 +1,11 @@
 * {
 	margin: 0;
 	padding: 0;
+	color: white;
+	
+}
+
+
+body {
+    background-color: #1a1a1f; /* This is a light gray color */
 }

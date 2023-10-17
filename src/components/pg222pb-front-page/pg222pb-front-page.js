@@ -1,7 +1,3 @@
-// TODO a shitload of imports
-
-// const IMG_URL = (new URL(, import.meta.url)).href
-
 const template = document.createElement('template')
 template.innerHTML = `
 <style>

@@ -20,13 +20,28 @@ The front page of the application should now be rendered
 
 // TODO insert image here
 
-### TC1.2 Clicking the Second Page link in the header should render the second page
+### TC1.2 Clicking the Big Conversion Page link in the header should render the second page
 
 #### Test Steps
 
 1. Test step 1.1 done
-2. Click on the "Large Text Conversion" // TODO rename // link in the header.
+2. Click on the "Big Text Conversion Page" // TODO rename // link in the header.
 
 #### Expected Result
 
-The "Large Text Conversion" page of the application is now rendered and the URL has changed to reflect it.
+The "Big Text Conversion" page of the application is now rendered.
+
+### TC1.3 Clicking the Small Date Conversion Page link in the header should render the third page
+
+### Test Steps
+
+1. Test step 1.1 done
+2. Click on the "Small Date Conversion Page"  link in the header.
+
+#### Expected Result
+
+The "Small Date Conversion Page" is now rendered.
+
+### TC2
+
+// TODO wait until the HTML is done

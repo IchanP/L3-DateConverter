@@ -3,8 +3,9 @@
 import '../pg222pb-front-page/index.js'
 import '../pg222pb-link-header/index.js'
 import '../pg222pb-bigconversion-page/index.js'
+import '../pg222pb-simpledateconversion-page/index.js'
 import { LinkHeader } from '../pg222pb-link-header/pg222pb-link-header.js'
-import { AElementBuilder } from '../pg222pb-link-header/AElementBuilder.js'
+import { AElementBuilder } from '../../DataStructure/AElementBuilder.js'
 
 // const IMG_URL = (new URL(, import.meta.url)).href
 
@@ -34,6 +35,7 @@ class PageController extends HTMLElement {
   #pageContainer
   #frontPageElement
   #bigTextConversionPageElement
+  #smallDateConversionPageElement
   /**
    * Create an instance of the component and initializes fields.
    */
@@ -42,22 +44,19 @@ class PageController extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-    // Initialize the fields.
     this.#pageContainer = this.shadowRoot.querySelector('.page-container')
     this.#frontPageElement = document.createElement('pg222pb-front-page')
     this.#bigTextConversionPageElement = document.createElement('pg222pb-bigconversion-page')
+    this.#smallDateConversionPageElement = document.createElement('pg222pb-simpledateconverison-page')
   }
-
-  // NOTE I'm considering the building of the items required to be part of rendering the header.
-  // They are the same concept in my head.
 
   /**
    * Builds and renders the header of the application.
    */
   #buildHeader () {
     const aBuilders = [new AElementBuilder('Front Page', this.#frontPageOnClickCallback.bind(this)),
-      new AElementBuilder('Big Text Conversion Page', this.#bigTextConversionPageOnClickCallback.bind(this))
-      // TODO ONE MORE
+      new AElementBuilder('Big Text Conversion Page', this.#bigTextConversionPageOnClickCallback.bind(this)),
+      new AElementBuilder('Small Date Conversion Page', this.#smallDateConversionPageOnClickCallback.bind(this))
     ]
     const header = new LinkHeader(aBuilders)
     this.shadowRoot.querySelector('.root').prepend(header)
@@ -72,7 +71,7 @@ class PageController extends HTMLElement {
    */
   connectedCallback () {
     this.#buildHeader()
-    this.#renderPage(this.#frontPageElement)
+    this.#renderPage(this.#smallDateConversionPageElement)
   }
 
   /**
@@ -107,6 +106,17 @@ class PageController extends HTMLElement {
   #bigTextConversionPageOnClickCallback (e) {
     e.preventDefault()
     this.#renderPage(this.#bigTextConversionPageElement)
+  }
+
+  /**
+   * The callback fucntion to pass to the Header component.
+   * Executed when the link to the small conversion page is clicked.
+   *
+   * @param {Event} e - The event object.
+   */
+  #smallDateConversionPageOnClickCallback (e) {
+    e.preventDefault()
+    this.#renderPage(this.#smallDateConversionPageElement)
   }
 }
 

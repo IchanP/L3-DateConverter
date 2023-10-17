@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import '@testing-library/jest-dom'
 import { LinkHeader } from '../src/components/pg222pb-link-header/pg222pb-link-header'
 import { expect, describe, jest } from '@jest/globals'
-import { AElementBuilder } from '../src/components/pg222pb-link-header/AElementBuilder'
+import { AElementBuilder } from '../src/DataStructure/AElementBuilder'
+import { Validator } from '../src/Utility/Validator'
 
 // TODO: Write tests for the LinkHeader class
 describe('testetstst.js', () => {
@@ -9,6 +11,15 @@ describe('testetstst.js', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
     const header = new LinkHeader([1])
+
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
+  })
+  test('should log error if passed wrong type of object in constructor', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const header = new LinkHeader([new Validator()])
 
     expect(consoleSpy).toHaveBeenCalled()
 

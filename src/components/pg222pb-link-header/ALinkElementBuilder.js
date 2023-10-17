@@ -1,4 +1,4 @@
-import { AElementBuilder } from './AElementBuilder'
+import { AElementBuilder } from '../../DataStructure/AElementBuilder'
 
 /**
  *
@@ -17,7 +17,6 @@ export class LinkElementBuilder {
   /**
    * Creates an element from the aElementToBuild field.
    *
-   * @param elementToBuildFrom
    * @returns {HTMLElement} - The element constructed as an "a" element.
    */
   createElement () {
