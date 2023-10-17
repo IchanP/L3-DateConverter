@@ -2,7 +2,8 @@
 
 import '../pg222pb-front-page/index.js'
 import '../pg222pb-header/index.js'
-import { Header } from '../pg222pb-header/pg222pb-header.js'
+import '../pg222pb-bigconversion-page/index.js'
+import { LinkHeader } from '../pg222pb-header/pg222pb-header.js'
 
 // const IMG_URL = (new URL(, import.meta.url)).href
 
@@ -20,6 +21,8 @@ template.innerHTML = `
 
  </style>
     <div class="root">
+        <div class="page-container">
+        </div>
     </div>
 `
 
@@ -28,6 +31,7 @@ template.innerHTML = `
  */
 class PageController extends HTMLElement {
   #root
+  #pageContainer
   #frontPageElement
   #bigTextConversionPageElement
   /**
@@ -40,11 +44,12 @@ class PageController extends HTMLElement {
 
     // Initialize the fields.
     this.#root = this.shadowRoot.querySelector('.root')
+    this.#pageContainer = this.shadowRoot.querySelector('.page-container')
     this.#frontPageElement = document.createElement('pg222pb-front-page')
-    // this.#bigTextConversionPageElement = document.createElement('') // TODO implement
+    this.#bigTextConversionPageElement = document.createElement('pg222pb-bigconversion-page')
 
-    const header = new Header(this.#frontPageOnClickCallback.bind(this))
-    this.#root.append(header)
+    const header = new LinkHeader(this.#frontPageOnClickCallback.bind(this))
+    this.#root.prepend(header)
   }
 
   /**
@@ -52,24 +57,26 @@ class PageController extends HTMLElement {
    * Renders the front page upon being inserted.
    */
   connectedCallback () {
-    this.#renderPage()
+    this.#renderPage(this.#bigTextConversionPageElement)
   }
 
   /**
-   * Inserts the passed argument into the div "root" of the shadow DOM.
+   * Removes the current page and renders the page passed as an argument.
    *
    * @param {HTMLElement} page - The HTML element to render.
    */
   #renderPage (page) {
-    // TODO remove old page.
-    this.#root.append(page)
+    while (this.#pageContainer.firstChild) {
+      this.#pageContainer.removeChild(this.#pageContainer.firstChild)
+    }
+    this.#pageContainer.append(page)
   }
 
   /**
    * The callback function to pass to the Header component.
    * Executed when the link to the front page is clicked.
    *
-   * @param {object} e - The event object.
+   * @param {Event} e - The event object.
    */
   #frontPageOnClickCallback (e) {
     e.preventDefault()
