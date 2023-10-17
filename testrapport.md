@@ -20,4 +20,13 @@ The front page of the application should now be rendered
 
 // TODO insert image here
 
-### TC1.2 The
+### TC1.2 Clicking the Second Page link in the header should render the second page
+
+#### Test Steps
+
+1. Test step 1.1 done
+2. Click on the "Large Text Conversion" // TODO rename // link in the header.
+
+#### Expected Result
+
+The "Large Text Conversion" page of the application is now rendered and the URL has changed to reflect it.

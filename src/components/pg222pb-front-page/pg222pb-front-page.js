@@ -6,9 +6,9 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
 </style>
-<div class="root">
-    yo
-</div>`
+<p>
+YO THIS IS FRONTPAGE
+</p>`
 
 /**
  * Defines the front page of this web application.
