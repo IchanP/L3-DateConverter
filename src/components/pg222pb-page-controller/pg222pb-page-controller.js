@@ -1,9 +1,10 @@
 // TODO a shitload of imports
 
 import '../pg222pb-front-page/index.js'
-import '../pg222pb-header/index.js'
+import '../pg222pb-link-header/index.js'
 import '../pg222pb-bigconversion-page/index.js'
-import { LinkHeader } from '../pg222pb-header/pg222pb-header.js'
+import { LinkHeader } from '../pg222pb-link-header/pg222pb-link-header.js'
+import { AElementBuilder } from '../pg222pb-link-header/AElementBuilder.js'
 
 // const IMG_URL = (new URL(, import.meta.url)).href
 
@@ -30,7 +31,6 @@ template.innerHTML = `
  * Defines the page controller, responsible for rendering the different pages of the application.
  */
 class PageController extends HTMLElement {
-  #root
   #pageContainer
   #frontPageElement
   #bigTextConversionPageElement
@@ -43,21 +43,36 @@ class PageController extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     // Initialize the fields.
-    this.#root = this.shadowRoot.querySelector('.root')
     this.#pageContainer = this.shadowRoot.querySelector('.page-container')
     this.#frontPageElement = document.createElement('pg222pb-front-page')
     this.#bigTextConversionPageElement = document.createElement('pg222pb-bigconversion-page')
-
-    const header = new LinkHeader(this.#frontPageOnClickCallback.bind(this))
-    this.#root.prepend(header)
   }
+
+  // NOTE I'm considering the building of the items required to be part of rendering the header.
+  // They are the same concept in my head.
+
+  /**
+   * Builds and renders the header of the application.
+   */
+  #buildHeader () {
+    const aBuilders = [new AElementBuilder('Front Page', this.#frontPageOnClickCallback.bind(this)),
+      new AElementBuilder('Big Text Conversion Page', this.#bigTextConversionPageOnClickCallback.bind(this))
+      // TODO ONE MORE
+    ]
+    const header = new LinkHeader(aBuilders)
+    this.shadowRoot.querySelector('.root').prepend(header)
+  }
+
+  // NOTE grouping these together and keeping header above
+  // makes it easier to see what is going on.
 
   /**
    * Called when the element is inserted into the DOM.
    * Renders the front page upon being inserted.
    */
   connectedCallback () {
-    this.#renderPage(this.#bigTextConversionPageElement)
+    this.#buildHeader()
+    this.#renderPage(this.#frontPageElement)
   }
 
   /**
@@ -81,6 +96,17 @@ class PageController extends HTMLElement {
   #frontPageOnClickCallback (e) {
     e.preventDefault()
     this.#renderPage(this.#frontPageElement)
+  }
+
+  /**
+   * The callback function to pass to the Header component.
+   * Executed when the link to the big conversion page is clicked.
+   *
+   * @param {Event} e - The event object.
+   */
+  #bigTextConversionPageOnClickCallback (e) {
+    e.preventDefault()
+    this.#renderPage(this.#bigTextConversionPageElement)
   }
 }
 

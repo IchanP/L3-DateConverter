@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { LinkHeader } from '../src/components/pg222pb-link-header/pg222pb-link-header'
 import { expect, describe, jest } from '@jest/globals'
-import { ALinkBuilder } from '../src/DataStructure/ALinkBuilder'
+import { AElementBuilder } from '../src/components/pg222pb-link-header/AElementBuilder'
 
 // TODO: Write tests for the LinkHeader class
 describe('testetstst.js', () => {
@@ -14,11 +14,10 @@ describe('testetstst.js', () => {
 
     consoleSpy.mockRestore()
   })
-
   test('should not log an error if passed wrong type in constructor', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
-    const header = new LinkHeader([new ALinkBuilder('test', () => {})])
+    const header = new LinkHeader([new AElementBuilder('test', () => {})])
 
     expect(consoleSpy).not.toHaveBeenCalled()
 

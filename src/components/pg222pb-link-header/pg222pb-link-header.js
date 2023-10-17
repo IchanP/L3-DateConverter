@@ -1,4 +1,6 @@
-import { ALinkBuilder } from '../../DataStructure/ALinkBuilder'
+import { ErrorRenderer } from '../../Utility/ErrorRenderer'
+import { Validator } from '../../Utility/Validator'
+import { AElementBuilder } from './AElementBuilder'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -7,55 +9,79 @@ template.innerHTML = `
 <div class="header-div">
 </div>`
 
-// TODO generalize this by making it a header link class
-// Accept a datastructure with the callbacks and create an "a" element for each one.
-// Maybe accept textcontent of link too?
 /**
  * Defines a header class.
  */
 export class LinkHeader extends HTMLElement {
-  #aLinks
   /**
    * Create an instance of the component.
    *
-   * @param {Array<ALinkBuilder>} aLinkBuilderArray - Accepts an array of ALinkBuilder objects, to build "a" elements from.
+   * @param {Array<AElementBuilder>} aLinkBuilderArray - Accepts an array of ALinkBuilder objects, to build "a" elements from.
    */
   constructor (aLinkBuilderArray) {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-
-    this.#buildaElements(aLinkBuilderArray)
+    this.#prepareElements(aLinkBuilderArray)
   }
 
+  // NOTE they are listed in the order they are called.
+
   /**
-   * Attempts to build "a" elements from the array passed as an argument.
+   * Prepares the elements to be built and appended by validating them first.
    *
-   * @param {Array<ALinkBuilder>} aLinkBuilderArray - Accepts an array of ALinkBuilder objects, to build "a" elements from.
+   * @param {Array<AElementBuilder>} aLinkBuilderArray - The array of ALinkBuilder objects to work on.
    */
-  #buildaElements (aLinkBuilderArray) {
-    try {
-      // TODO refactor this to only have try catch in it
-      this.#validateALinkBuilderArray(aLinkBuilderArray)
-    } catch (error) {
-      // NOTE console error for testing purposes
-      console.error(error)
-      // TODO render error message
-      this.shadowRoot.querySelector('.header-div').textContent = `Error: ${error.message}`
+  #prepareElements (aLinkBuilderArray) {
+    // NOTE DOES Array.isArray() violate abstraction level rule?
+    if (Array.isArray(aLinkBuilderArray) && new Validator().isAllElementsOfType(aLinkBuilderArray, AElementBuilder)) {
+      this.#buildLinkElements(aLinkBuilderArray)
+    } else {
+      this.#handleError(new TypeError('The array passed to the constructor must contain only AElementBuilder objects.'))
     }
   }
 
   /**
-   * Validates that the objects passed in the array are of the ALinkBuilder type.
+   * Verifies that the array passed to the constructor contains only ALinkBuilder objects.
    *
-   * @param {Array<unknown>} aLinkBuilderArray - The array to validate.
+   * @param {Array<unknown>} aLinkBuilderArray - The array to verify.
+   * @returns {boolean} - True if the array contains only ALinkBuilder objects, false otherwise.
    */
-  #validateALinkBuilderArray (aLinkBuilderArray) {
+  /* #isValidALinkBuilderArray (aLinkBuilderArray) {
     for (const obj of aLinkBuilderArray) {
-      if (!(obj instanceof ALinkBuilder)) {
-        throw new TypeError('The array passed to the constructor must contain only ALinkBuilder objects.')
+      if (!(obj instanceof AElementBuilder)) {
+        return false
       }
     }
+    return true
+  } */
+
+  /**
+   * Constructs the a elements and appends them to the shadowroot.
+   *
+   * @param {Array<AElementBuilder>} aLinkBuilderArray - The array of ALinkBuilder objects to convert to elements.
+   */
+  #buildLinkElements (aLinkBuilderArray) {
+    const aElements = []
+    for (const aElementToBuild of aLinkBuilderArray) {
+      const aElement = document.createElement('a')
+      aElement.textContent = aElementToBuild.aLinkTextContent
+      aElement.onclick = aElementToBuild.onClickCallback
+      aElement.href = ''
+      aElements.push(aElement)
+    }
+    // TODO make this prettier
+    this.shadowRoot.querySelector('.header-div').append(...aElements)
+  }
+
+  /**
+   * Calls the ErrorRenderer class to render the error.
+   *
+   * @param {Error} error - The error to handle.
+   */
+  #handleError (error) {
+    // eslint-disable-next-line no-new
+    new ErrorRenderer(this.shadowRoot.querySelector('.header-div'), error)
   }
 
   /**

@@ -1,7 +1,7 @@
 /**
  * A data structure for building an a link.
  */
-export class ALinkBuilder {
+export class AElementBuilder {
   #aLinkTextContent
   #onClickCallback
 

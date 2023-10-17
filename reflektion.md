@@ -9,4 +9,9 @@ Decided to make a class for building an "a" element. I wanted to create a more g
 ## Chapter 9
 
 Following test driven development cycle by writing my tests right before implementation.
-Decided to try out some automatic testing and learning jest...
+I did make it easier for myself, for example in the header test I did not test whether the error message was actually rendered, as I would have had to spend a lot of time reading documentation for Jest to achieve this... which is not ideal. I instead made it easier for myself by testing whether the console.error occured. I decided to mainly rely on the automatic test to make sure that everything works as expected, while the automatic tests are for testing things hard to test as a user. (Error handling as in previous example).
+
+## Chapter 10
+
+The private methods in link.header.js are listed in the order that they are called from top-down. This kind of adheres to the public>private rule talked about in this chapter.
+I do not believe that my PageController fulfills the SRP, as it builds and renders the header as well as handles the rendering of the Page components. It also lacks cohesion as the page fields are only used in their specific callbacks. I decided on this structure due to other one I had making it difficult to achieve the "swapping" of components, and instead reloaded the entire page (i wanted it to be more like React). I am aware of this flaw but decided to keep it anyway.
