@@ -1,1 +1,1 @@
-import './pg222pb-front-page/index.js'
+import './pg222pb-page-controller/index.js'

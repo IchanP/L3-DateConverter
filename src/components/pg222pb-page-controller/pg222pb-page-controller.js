@@ -1,5 +1,7 @@
 // TODO a shitload of imports
 
+import '../pg222pb-front-page/index.js'
+
 // const IMG_URL = (new URL(, import.meta.url)).href
 
 const template = document.createElement('template')
@@ -7,13 +9,12 @@ template.innerHTML = `
 <style>
 </style>
 <div class="root">
-    yo
 </div>`
 
 /**
- * Defines the front page of this web application.
+ * Defines the page controller, responsible for rendering the different pages of the application.
  */
-class FrontPage extends HTMLElement {
+class PageController extends HTMLElement {
   /**
    * Create an instance of the component.
    */
@@ -25,12 +26,11 @@ class FrontPage extends HTMLElement {
 
   /**
    * Called when the element is inserted into the DOM.
-   * Responsible for managing event listeners and etc from the front page.
-   * // TODO update this comment.
+   * Responsible for rendering the pages.
    */
   connectedCallback () {
-    // TODO implement
+    
   }
 }
 
-customElements.define('pg222pb-front-page', FrontPage)
+customElements.define('pg222pb-page-controller', PageController)
