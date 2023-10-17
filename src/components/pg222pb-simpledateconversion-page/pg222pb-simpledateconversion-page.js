@@ -1,3 +1,5 @@
+import { DateConversionDetail } from '../../DataStructure/DateConversionDetail.js'
+import { Validator } from '../../Utility/Validator.js'
 import '../pg222pb-smalldateconverter/index.js'
 
 const template = document.createElement('template')
@@ -35,9 +37,18 @@ class SimpleDateConversionPage extends HTMLElement {
 
   /**
    * Called when the event 'convert' is catched by the event listener declared in connectedCallback.
+   *
+   * @param {Event} event - The event that triggered the callback.
    */
-  #buttonOnClickCallback () {
-    console.log('WAHOOWA')
+  #buttonOnClickCallback (event) {
+    const conversionDetails = event.detail
+    // TODO this probably needs refactoring
+    try {
+      Validator.validateType(conversionDetails, DateConversionDetail)
+    } catch (error) {
+      console.error(error.message + 'buttonOnClickCallback, in pg222pb-simpledateconversion-page.js')
+    }
+    // NOTE i can access the shadowroot of dateConverter here
   }
 }
 

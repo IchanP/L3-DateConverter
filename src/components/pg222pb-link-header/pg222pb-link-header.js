@@ -64,10 +64,9 @@ export class LinkHeader extends HTMLElement {
    * @param {Array<AElementBuilder>} aLinkBuilderArray - The array of ALinkBuilder objects to work on.
    */
   #constructAElements (aLinkBuilderArray) {
-    const validator = new Validator()
     try {
-      validator.validateIsThisAnArray(aLinkBuilderArray)
-      validator.validateAllElementsOfType(aLinkBuilderArray, AElementBuilder)
+      Validator.validateIsThisAnArray(aLinkBuilderArray)
+      Validator.validateAllElementsOfType(aLinkBuilderArray, AElementBuilder)
     } catch (error) {
       console.error(error + ' in LinkHeader.prepareElements() , in pg222pb-link-header.js')
       return
