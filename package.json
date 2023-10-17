@@ -1,0 +1,24 @@
+{
+  "name": "l3-dateconverter",
+  "version": "1.0.0",
+  "description": "This application is part of the course `1DV610 - Introduction to Software Quality` at [Linneaus University](https://lnu.se/), Sweden.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchanP/L3-DateConverter.git"
+  },
+  "keywords": [],
+  "author": "Pontus Grandin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IchanP/L3-DateConverter/issues"
+  },
+  "homepage": "https://github.com/IchanP/L3-DateConverter#readme",
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.10",
+    "vite": "^4.4.11"
+  }
+}
