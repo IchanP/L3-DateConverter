@@ -49,3 +49,6 @@ The event being fired.
 ### Overall
 
 I WISH I WAS WRITING TYPESCRIPT RIGHT NOW
+
+
+Had to think quite hard, since my model ended up depending on the calendars listed in the view, i.e the names of the calendars. To avoid this I created a list of acceptable calendars and their "name". I want to render this in the view but not sure about how to do it as my validator is kinda scuffed now...

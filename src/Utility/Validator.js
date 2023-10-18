@@ -1,5 +1,7 @@
+// TODO I think this breaks against the single responsibility principle.
+// I think it should be split into multiple classes.
 /**
- *
+ * General purpose validator class.
  */
 export class Validator {
   /**
@@ -28,6 +30,18 @@ export class Validator {
   }
 
   /**
+   * Validates that the passed object is of the passed type.
+   *
+   * @param {object} argumentToValidate - The object to validate.
+   * @param {object} type - The type the object should be.
+   */
+  static validateType (argumentToValidate, type) {
+    if (!(argumentToValidate instanceof type)) {
+      throw new TypeError('Expected argument to be of type ' + type.name + '.')
+    }
+  }
+
+  /**
    * Validates that the passed string is not empty.
    *
    * @param {string} stringToCheck - The string to check.
@@ -40,12 +54,11 @@ export class Validator {
   /**
    * Validates that the passed object is of the passed type.
    *
-   * @param {object} argumentToValidate - The object to validate.
+   * @param {object} objectToCheck - The object to validate is type of type.
    * @param {object} type - The type the object should be.
+   * @returns {boolean} - Returns true if the object is of the passed type, false otherwise.
    */
-  static validateType (argumentToValidate, type) {
-    if (!(argumentToValidate instanceof type)) {
-      throw new TypeError('Expected argument to be of type ' + type.name + '.')
-    }
+  static isSameType (objectToCheck, type) {
+    return objectToCheck instanceof type
   }
 }

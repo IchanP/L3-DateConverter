@@ -2,6 +2,8 @@
  * Simple class for rendering errors.
  */
 export class ErrorRenderer {
+  #elementToRenderTo
+  #error
   /**
    * Create an instance of the class.
    *
@@ -9,7 +11,8 @@ export class ErrorRenderer {
    * @param {Error} error - The error.
    */
   constructor (elementToRenderTo, error) {
-    this.#renderError(elementToRenderTo, error)
+    this.#elementToRenderTo = elementToRenderTo
+    this.#error = error
   }
 
   /**
@@ -18,7 +21,7 @@ export class ErrorRenderer {
    * @param {HTMLElement} elementToRenderTo - The element to render the error in.
    * @param {Error} error - The error.
    */
-  #renderError (elementToRenderTo, error) {
+  renderError (elementToRenderTo, error) {
     console.error(error)
     elementToRenderTo.textContent = error.message
   }

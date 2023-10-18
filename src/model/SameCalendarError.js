@@ -6,7 +6,7 @@ export class SameCalendarError extends Error {
    * Create an instance of the class.
    */
   constructor () {
-    const erorrMessage = 'Same calendar was selected to convert from and to convert to.'
+    const erorrMessage = 'Same calendar was selected to convert from and to convert to. Please select two different calendars.'
     super(erorrMessage)
     this.name = 'SameCalendarError'
   }
