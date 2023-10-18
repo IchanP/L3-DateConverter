@@ -43,7 +43,7 @@ export class Validator {
    * @param {object} argumentToValidate - The object to validate.
    * @param {object} type - The type the object should be.
    */
-  validateType (argumentToValidate, type) {
+  static validateType (argumentToValidate, type) {
     if (!(argumentToValidate instanceof type)) {
       throw new TypeError('Expected argument to be of type ' + type.name + '.')
     }

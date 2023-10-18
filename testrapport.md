@@ -42,6 +42,18 @@ The "Big Text Conversion" page of the application is now rendered.
 
 The "Small Date Conversion Page" is now rendered.
 
-### TC2
+### TC2.1 User should be informed of errors in Small Date Converter
+
+### Test Steps
+
+1. Select the same calendar to from and to convert to.
+2. Write in a [valid date](https://github.com/IchanP/L3-DateConverter/issues/4) format based on calendar you selected.
+3. Press the `convert` button.
+
+### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as they are the same calendar.
+
+### TC2.2
 
 // TODO wait until the HTML is done

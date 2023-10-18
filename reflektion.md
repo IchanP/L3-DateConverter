@@ -8,7 +8,10 @@ Decided to make a class for building an "a" element. I wanted to create a more g
 
 ## Chapter 7
 
-As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in. The try catch encapsulates more than I would like
+As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in. The try catch encapsulates more than I would like.
+
+// TODO are all the error messages set inside the controller/view and not in the model?
+// NOTE model should only throw?
 
 ![Pre-refactoring](./reportimages/previous-error-method.png)
 How the handleError method looked before refactoring.
@@ -42,3 +45,7 @@ The listener that has a hidden dependency to "convert".
 
 ![Example of the event that could have been avoided](./reportimages/convert-dispatch.png)
 The event being fired.
+
+### Overall
+
+I WISH I WAS WRITING TYPESCRIPT RIGHT NOW

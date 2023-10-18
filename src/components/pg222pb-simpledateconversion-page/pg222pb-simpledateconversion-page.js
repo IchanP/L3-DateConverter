@@ -1,5 +1,5 @@
 import { DateConversionDetail } from '../../DataStructure/DateConversionDetail.js'
-import { Validator } from '../../Utility/Validator.js'
+import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator.js'
 import '../pg222pb-smalldateconverter/index.js'
 
 const template = document.createElement('template')
@@ -41,14 +41,24 @@ class SimpleDateConversionPage extends HTMLElement {
    * @param {Event} event - The event that triggered the callback.
    */
   #buttonOnClickCallback (event) {
-    const conversionDetails = event.detail
-    // TODO this probably needs refactoring
+    const conversionDetails = event.detail.data
+
+    this.#checkForUserErrors(conversionDetails)
+  }
+
+  /**
+   * Checks whether the user has made any user errors, and if so, renders them to the view.
+   *
+   * @param {DateConversionDetail} dateDetailsToCheck - The date details to check for user errors.
+   */
+  #checkForUserErrors (dateDetailsToCheck) {
     try {
-      Validator.validateType(conversionDetails, DateConversionDetail)
+      const conversionValidator = new DateConvertorDetailValidator(dateDetailsToCheck)
+      conversionValidator.verifyDifferentCalendars()
     } catch (error) {
-      console.error(error.message + 'buttonOnClickCallback, in pg222pb-simpledateconversion-page.js')
+      // TODO implement different error handling depending on type of error
+      console.error(error.message + ' in checkForUserErrors, in pg222pb-simpledateconversion-page.js')
     }
-    // NOTE i can access the shadowroot of dateConverter here
   }
 }
 
