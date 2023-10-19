@@ -1,5 +1,6 @@
 import temporalConverter from 'temporalconverter'
 import { BasicDateTransformer } from './BasicDateTransformer'
+import { DateObject } from '../DataStructure/DateObject'
 
 /**
  * Wraps the temporalConverter public interface in a class.
@@ -26,7 +27,7 @@ export class TemporalConverterWrapper {
   convertGregorianToKoki (dateToConvert) {
     const dateObject = this.#basicDateTransformer.getFormattedDate(dateToConvert)
     const kokiYear = temporalConverter.KokiFromGregorian(dateObject.year, 'CE')
-    return kokiYear + `/${dateObject.month}`
+    return kokiYear + this.#buildWesternMonthDayString(dateObject)
   }
 
   /**
@@ -36,5 +37,16 @@ export class TemporalConverterWrapper {
    */
   convertGregorianToJapaneseEra (dateToConvert) {
 
+  }
+
+  /**
+   * Builds a string in /MM/DD format from a date object.
+   * The /DD part is optional, depending on whether the dateObject.day field is null.
+   *
+   * @param {DateObject} dateObject - The date object to build the string from.
+   * @returns {string} - Returns a string in /MM/DD format.
+   */
+  #buildWesternMonthDayString (dateObject) {
+    return `/${dateObject.month}` + (dateObject.day !== null ? `/${dateObject.day}` : '')
   }
 }

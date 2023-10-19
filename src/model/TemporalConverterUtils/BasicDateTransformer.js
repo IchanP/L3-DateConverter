@@ -36,7 +36,16 @@ export class BasicDateTransformer {
       return this.#convertMonthYear(dateToFormat)
     }
     if (format === 'yearMonth') {
-      return this.#yearMonth(dateToFormat)
+      return this.#convertYearMonth(dateToFormat)
+    }
+    if (format === 'monthDateYear') {
+      return this.#convertMonthDateYear(dateToFormat)
+    }
+    if (format === 'dateMonthYear') {
+      return this.#convertDateMonthYear(dateToFormat)
+    }
+    if (format === 'yearMonthDate') {
+      return this.#convertYearMonthDate(dateToFormat)
     }
   }
 
@@ -74,11 +83,53 @@ export class BasicDateTransformer {
    * @param {string} yearMonthDate - The string to convert.
    * @returns {DateObject} - Returns a date object containing the month and year.
    */
-  #yearMonth (yearMonthDate) {
+  #convertYearMonth (yearMonthDate) {
     const yearMonthArray = yearMonthDate.split('/')
     const year = yearMonthArray[0]
     const month = yearMonthArray[1]
     return this.#buildDateStructure(null, month, year)
+  }
+
+  /**
+   * Converts a date in the format MM/DD/YYYY to a datastructure holding a date, month and year field.
+   *
+   * @param {string} monthDateYearDate - The string to convert.
+   * @returns {DateObject} - Returns a date object containing the date, month and year.
+   */
+  #convertMonthDateYear (monthDateYearDate) {
+    const monthDateYearArray = monthDateYearDate.split('/')
+    const year = monthDateYearArray[2]
+    const month = monthDateYearArray[0]
+    const date = monthDateYearArray[1]
+    return this.#buildDateStructure(date, month, year)
+  }
+
+  /**
+   * Converts a date in the format DD/MM/YYYY to a datastructure holding a date, month and year field.
+   *
+   * @param {string} dateMonthYear - The string to convert.
+   * @returns {DateObject} - Returns a date object containing the date, month and year.
+   */
+  #convertDateMonthYear (dateMonthYear) {
+    const dateMonthYearArray = dateMonthYear.split('/')
+    const year = dateMonthYearArray[2]
+    const month = dateMonthYearArray[1]
+    const date = dateMonthYearArray[0]
+    return this.#buildDateStructure(date, month, year)
+  }
+
+  /**
+   * Converts a date in the format YYYY/MM/DD to a datastructure holding a date, month and year field.
+   *
+   * @param {string} yearMonthDate - The string to convert.
+   * @returns {DateObject} - Returns a date object containing the date, month and year.
+   */
+  #convertYearMonthDate (yearMonthDate) {
+    const yearMonthDateArray = yearMonthDate.split('/')
+    const year = yearMonthDateArray[0]
+    const month = yearMonthDateArray[1]
+    const date = yearMonthDateArray[2]
+    return this.#buildDateStructure(date, month, year)
   }
 
   /**
