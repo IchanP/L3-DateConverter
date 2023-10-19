@@ -42,7 +42,7 @@ The "Big Text Conversion" page of the application is now rendered.
 
 The "Small Date Conversion Page" is now rendered.
 
-### TC2.1 User should be informed of errors in Small Date Converter
+### TC2.1 User should be informed of same calendar errors in Small Date Converter
 
 ### Test Steps
 
@@ -54,6 +54,17 @@ The "Small Date Conversion Page" is now rendered.
 
 An error message is displayed to the user telling them they cannot perform that operation as they are the same calendar.
 
-### TC2.2
+### TC2.2 User should be informed of invalid date format errors in Small Date Converter
+
+### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Kõki Calendar to convert to
+3. In the input field type in "27/1990"
+4. Press convert
+
+### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
 
 // TODO wait until the HTML is done

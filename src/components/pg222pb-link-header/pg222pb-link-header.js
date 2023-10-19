@@ -1,5 +1,5 @@
 import { Validator } from '../../Utility/Validator'
-import { AElementBuilder } from '../../DataStructure/AElementBuilder'
+import { AElementBuilder } from '../../model/DataStructure/AElementBuilder'
 import { LinkElementBuilder } from './ALinkElementBuilder'
 
 const IMG_URL = (new URL('../../../public/images/banner.jpg', import.meta.url)).href

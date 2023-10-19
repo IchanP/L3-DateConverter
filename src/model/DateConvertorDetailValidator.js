@@ -2,6 +2,7 @@ import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { Validator } from '../Utility/Validator'
 import { SameCalendarError } from './Errors/SameCalendarError'
 import { NotValidCalendarError } from './Errors/NotValidCalendarError'
+import { GregorianCalendarDateValidator } from './GregorianCalendarDateValidator'
 
 /**
  * Performs validation for DateConverterDetail objects.
@@ -89,7 +90,8 @@ export class DateConvertorDetailValidator {
    * Validates that the user has input a valid date format for the Gregorian calendar.
    */
   #validateGregorianDateFormat () {
-    // TODO probably need a specific class for acceptable gregorian formats? idk something like that
+    const gregorianValidator = new GregorianCalendarDateValidator(this.#conversionDetails.dateToConvert)
+    gregorianValidator.validateDate()
   }
 
   /**

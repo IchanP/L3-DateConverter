@@ -1,4 +1,4 @@
-import { AElementBuilder } from '../../DataStructure/AElementBuilder'
+import { AElementBuilder } from '../../model/DataStructure/AElementBuilder'
 
 /**
  *

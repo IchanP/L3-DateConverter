@@ -5,6 +5,7 @@ import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailVal
 import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
 import '../pg222pb-smalldateconverter/index.js'
 import { SmallDateConverter } from '../pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
+import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -67,7 +68,7 @@ class SimpleDateConversionPage extends HTMLElement {
       // TODO implement different error handling depending on type of error
       // TODO maybe break out the if statement should it be repeated somewhere.
       console.error(error.message + ' in checkForUserErrors, in pg222pb-simpledateconversion-page.js')
-      if (Validator.isSameType(error, SameCalendarError)) {
+      if (Validator.isSameType(error, SameCalendarError) || Validator.isSameType(error, InvalidDateFormatError)) {
         const errorElement = this.#dateConverter.getErrorElement()
         const errorRenderer = new ErrorRenderer(errorElement, error)
         errorRenderer.renderError(errorElement, error)
