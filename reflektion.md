@@ -26,6 +26,10 @@ Created a try-catch that returns should an error be thrown.
 
 I am certain that I have missed a few points in my code where the applicability is similar but, I decided to try to take the "minimze impact of change" to heart, hence why I in my Validator class decided to wrap the "isArray" in my own API. (As this is a class that I can see myself reusing I also don't feel like it matters to much whether this particular function was reused in this project). Benefit obviously being that if the isArray function for some ungodly reason would change in the future this is the only place in the project where a change would have to occur. (I am aware that making the methods static breaks against OOP convention/rules(?) however I did not feel like it made much sense to have to declare a Validator as an object everytime I wanted to use it, this simply looks cleaner).
 
+In vein with what I mentioned earlier I refactored my code to hold the DateStringBuilder object inside my TemporalConverterWrapper class, I thought this made sense as a change in how the TemporalConverter class returns its dates would require a change in logic in the DateStringBuilder class. Keeping it close to the TemporalConverter class makes it easier to see that they are related and that a change in one may require a change in the other.
+
+// TODO add image of how the class looks like now.
+
 ## Chapter 9
 
 I decided to follow a TTD, where I wrote tests right before the implementation code. This worked quite well, especially for the few automatic tests I wrote, as I was refactoring my code after writing it for the first time to see that it worked. This made the refactoring process a lot easier as I could quite easily tell whether something worked or not by simply running the test. The book also pressed that the test code should follow the same standard as the production code, I did not write that many automatic tests however, I made a concious effort to group concepts/related tests together. Example being I grouped tests that SHOULD throw next to eachother.

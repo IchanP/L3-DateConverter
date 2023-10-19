@@ -123,3 +123,63 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 ### Expected
 
 In the unselectable input field "Kõki 2660/12/25" is rendered.
+
+## TC 4 - Kõki to Gregorian Conversions
+
+#### Common Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+
+### TC4.1 User should be able to convert using MM/YYYY format
+
+### Test Steps
+
+3. In the input field type "12/2000"
+4. Press Convert
+
+### Expected
+
+In the unselectable input field "Kõki 2660/12" is rendered.
+
+### TC 4.2 User should be able to convert using YYYY/MM format
+
+3. In the input field type "2000/12"
+4. Press Convert
+
+### Expected
+
+In the unselectable input field "Kõki 2660/12" is rendered.
+
+### TC4.3 User should be able to convert using MM/DD/YYYY format
+
+### Test Steps
+
+3. In the input field type "12/25/2000"
+4. Press Convert
+
+### Expected
+
+In the unselectable input field "Kõki 2660/12/25" is rendered.
+
+### TC4.4 User should be able to convert using DD/MM/YYYY format
+
+### Test Steps
+
+3. In the input field type "25/12/2000"
+4. Press Convert
+
+### Expected
+
+In the unselectable input field "Kõki 2660/12/25" is rendered.
+
+### TC4.5 User should be able to convert using YYYY/MM/DD format
+
+### Test Steps
+
+3. In the input field type "2000/12/25"
+4. Press Convert
+
+### Expected
+
+In the unselectable input field "Kõki 2660/12/25" is rendered.
