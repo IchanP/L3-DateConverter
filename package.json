@@ -1,6 +1,6 @@
 {
   "name": "l3-dateconverter",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "This application is part of the course `1DV610 - Introduction to Software Quality` at [Linneaus University](https://lnu.se/), Sweden.",
   "type": "module",
   "main": "./src/controller/index.js",
