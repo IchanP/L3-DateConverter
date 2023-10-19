@@ -4,6 +4,7 @@ import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
 import { NotValidCalendarError } from './Errors/NotValidCalendarError'
 import { SameCalendarError } from './Errors/SameCalendarError'
 import { TemporalConverterWrapper } from './TemporalConverterUtils/TemporalConverterWrapper'
+import { BasicDateTransformer } from './TemporalConverterUtils/BasicDateTransformer'
 
 /**
  * Handles the conversion of dates.
@@ -18,7 +19,10 @@ export class DateConverter {
    */
   constructor (conversionDetails) {
     this.#setConversionDetails(conversionDetails)
-    this.#converterWrapper = new TemporalConverterWrapper()
+    const dateTransformer = this.#conversionDetails.fromCalendar === 'Japanese Era'
+      ? new JapaneseEraDateTransformer(this.#conversionDetails.dateToConvert) // TODO create this class
+      : new BasicDateTransformer(this.#conversionDetails.dateToConvert)
+    this.#converterWrapper = new TemporalConverterWrapper(dateTransformer)
   }
 
   /**
@@ -51,6 +55,9 @@ export class DateConverter {
     if (this.#conversionDetails.fromCalendar === 'Gregorian') {
       return this.#convertFromGregorian()
     }
+    if (this.#conversionDetails.fromCalendar === 'Kōki') {
+      return this.#convertFromKoki()
+    }
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -65,6 +72,22 @@ export class DateConverter {
     }
     if (this.#conversionDetails.toCalendar === 'Japanese Era') {
       this.#converterWrapper.convertGregorianToJapaneseEra(this.#conversionDetails.dateToConvert)
+    }
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Handles the conversion of dates from Kōki to the other calendars.
+   *
+   * @returns {string} - Returns the converted date in either Gregorian or Japanese Era format.
+   */
+  #convertFromKoki () {
+    if (this.#conversionDetails.toCalendar === 'Gregorian') {
+      return this.#converterWrapper.convertKokiToGregorian(this.#conversionDetails.dateToConvert)
+      //      return this.#dateStringBuilder.addWesternMonthDate(convertedGregorian, kokiDateObject)
+    }
+    if (this.#conversionDetails.toCalendar === 'Japanese Era') {
+      return this.#converterWrapper.convertKokiToJapaneseEra(this.#conversionDetails.dateToConvert)
     }
   }
 }

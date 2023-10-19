@@ -6,21 +6,36 @@ import { AcceptableBasicDateFormats } from '../AcceptableBasicDateFormats'
  */
 export class BasicDateTransformer {
   #acceptableFormats
+  #dateFormat
+  #dateObject
   /**
    * Initializes the acceptableFormats field.
+   *
+   * @param {string} dateToConvert - The date from which the DateObject is constructed from.
    */
-  constructor () {
+  constructor (dateToConvert) {
     this.#acceptableFormats = AcceptableBasicDateFormats
+    this.#setDateFormat(dateToConvert)
+    this.#dateObject = this.#formatDate(dateToConvert)
   }
 
   /**
    * Returns the formatted date.
    *
-   * @param {string} dateToConvert - The date to convert.
    * @returns {DateObject} - Returns a DateObject which may have a null day field.
    */
-  getFormattedDate (dateToConvert) {
-    return this.#formatDate(dateToConvert)
+  getDateObject () {
+    return this.#dateObject
+  }
+
+  /**
+   * Returns the date format which the date object is constructed from.
+   *
+   * @returns {string} - Returns a string from which the the date object is constructed from. Possible values are:
+   * monthYear, yearMonth, monthDateYear, dateMonthYear, yearMonthDate.
+   */
+  get dateFormat () {
+    return this.#dateFormat
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -31,20 +46,20 @@ export class BasicDateTransformer {
    * @returns {DateObject} - Returns a DateObject which may have a null day field.
    */
   #formatDate (dateToFormat) {
-    const format = this.getDateFormat(dateToFormat)
-    if (format === 'monthYear') {
+    this.#setDateFormat(dateToFormat)
+    if (this.#dateFormat === 'monthYear') {
       return this.#convertMonthYear(dateToFormat)
     }
-    if (format === 'yearMonth') {
+    if (this.#dateFormat === 'yearMonth') {
       return this.#convertYearMonth(dateToFormat)
     }
-    if (format === 'monthDateYear') {
+    if (this.#dateFormat === 'monthDateYear') {
       return this.#convertMonthDateYear(dateToFormat)
     }
-    if (format === 'dateMonthYear') {
+    if (this.#dateFormat === 'dateMonthYear') {
       return this.#convertDateMonthYear(dateToFormat)
     }
-    if (format === 'yearMonthDate') {
+    if (this.#dateFormat === 'yearMonthDate') {
       return this.#convertYearMonthDate(dateToFormat)
     }
   }
@@ -54,12 +69,11 @@ export class BasicDateTransformer {
    * Matches the date to the acceptable formats.
    *
    * @param {string} dateToMatch - The date to match.
-   * @returns {string} - Returns the format that the date matches.
    */
-  getDateFormat (dateToMatch) {
+  #setDateFormat (dateToMatch) {
     for (const [key, value] of Object.entries(this.#acceptableFormats)) {
       if (value.test(dateToMatch)) {
-        return key
+        this.#dateFormat = key
       }
     }
   }

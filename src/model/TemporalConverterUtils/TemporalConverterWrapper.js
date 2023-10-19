@@ -1,18 +1,23 @@
 import temporalConverter from 'temporalconverter'
-import { BasicDateTransformer } from './BasicDateTransformer'
-import { DateObject } from '../DataStructure/DateObject'
+import { DateStringBuilder } from '../DateStringBuilder'
 
 /**
  * Wraps the temporalConverter public interface in a class.
  */
 export class TemporalConverterWrapper {
-  #basicDateTransformer
+  #dateTransformer
+  #dateStringBuilder
   /**
    * Create an instance of the class.
+   *
+   * @param {object} dateTransformer - Should be an object of either the BasicDateTransformer or the JapaneseEraDateTransformer.
    */
-  constructor () {
-    this.#basicDateTransformer = new BasicDateTransformer()
+  constructor (dateTransformer) {
+    this.#dateTransformer = dateTransformer
+    this.#dateStringBuilder = new DateStringBuilder()
   }
+  // TODO might add a build date object function here,
+  // depends on whether it's possible with a japanese era date object
 
   // TODO - Look over this note before hand in
   // NOTE - The functions performing conversions from Gregorian have hardcoded 'CE' as the era,
@@ -21,13 +26,13 @@ export class TemporalConverterWrapper {
   /**
    * Converts from the Gregorian Calendar to the Koki Calendar.
    *
-   * @param {string} dateToConvert - The date to convert.
+   * @param {string} gregorianYear - The Gregorian year to convert
    * @returns {string} - Returns the converted date in the format "Kõki YYYY/MM"
    */
-  convertGregorianToKoki (dateToConvert) {
-    const dateObject = this.#basicDateTransformer.getFormattedDate(dateToConvert)
-    const kokiYear = temporalConverter.KokiFromGregorian(dateObject.year, 'CE')
-    return kokiYear + this.#buildWesternMonthDayString(dateObject)
+  convertGregorianToKoki (gregorianYear) {
+    const gregorianDateObject = this.#dateTransformer.getDateObject()
+    const kokiFromGregorianYear = temporalConverter.KokiFromGregorian(gregorianDateObject.year, 'CE')
+    return this.#dateStringBuilder.addWesternMonthDate(kokiFromGregorianYear, gregorianDateObject)
   }
 
   /**
@@ -40,13 +45,12 @@ export class TemporalConverterWrapper {
   }
 
   /**
-   * Builds a string in /MM/DD format from a date object.
-   * The /DD part is optional, depending on whether the dateObject.day field is null.
+   * Converts from the Kõki Calendar to the Gregorian Calendar.
    *
-   * @param {DateObject} dateObject - The date object to build the string from.
-   * @returns {string} - Returns a string in /MM/DD format.
+   * @param {string} kokiYear - The Koki year to convert.
+   * @returns {string} - Returns the converted date in the format "YYYY BCE/CE"
    */
-  #buildWesternMonthDayString (dateObject) {
-    return `/${dateObject.month}` + (dateObject.day !== null ? `/${dateObject.day}` : '')
+  convertKokiToGregorian (kokiYear) {
+    return temporalConverter.KokiToFormattedGregorian(Number(kokiYear))
   }
 }
