@@ -1,4 +1,4 @@
-import { DateConversionDetail } from '../../DataStructure/DateConversionDetail'
+import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail'
 import { Validator } from '../../Utility/Validator'
 
 const template = document.createElement('template')
@@ -46,9 +46,6 @@ template.innerHTML = `
             <div class="above-input">
                 <label for="fromDate">From</label>
                 <select name="fromDropdown">
-                    <option value="gregorian">Gregorian</option>
-                    <option value="koki">Kōki</option>
-                    <option value="jpEra">Japanese Era</option>
                 </select>
             </div>
             <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
@@ -60,9 +57,6 @@ template.innerHTML = `
             <div class="above-input">
                 <label for="toDate">To</label>
                 <select name="toDropdown">
-                    <option value="gregorian">Gregorian</option>
-                    <option value="koki">Kōki</option>
-                    <option value="jpEra">Japanese Era</option>
                 </select>
             </div>
             <input type="text" name="toDate" id="totextinput" disabled>
@@ -94,7 +88,7 @@ export class SmallDateConverter extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.#buildDropDown(calendarsToPickFrom)
+    this.#buildDropDowns(calendarsToPickFrom)
 
     this.#convertButton = this.shadowRoot.querySelector('button')
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
@@ -109,8 +103,14 @@ export class SmallDateConverter extends HTMLElement {
    *
    * @param {Array<string>} calendarsToPickFrom - The calendars the user can pick from.
    */
-  #buildDropDown (calendarsToPickFrom) {
-    // TODO implement this
+  #buildDropDowns (calendarsToPickFrom) {
+    calendarsToPickFrom.forEach(calendar => {
+      const option = document.createElement('option')
+      option.value = calendar
+      option.textContent = calendar
+      this.shadowRoot.querySelector('select[name="fromDropdown"]').appendChild(option)
+      this.shadowRoot.querySelector('select[name="toDropdown"]').appendChild(option.cloneNode(true))
+    })
   }
 
   /**

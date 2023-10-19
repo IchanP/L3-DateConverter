@@ -1,12 +1,15 @@
-import { DateConversionDetail } from '../DataStructure/DateConversionDetail'
+import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { Validator } from '../Utility/Validator'
-import { SameCalendarError } from './SameCalendarError'
+import { SameCalendarError } from './Errors/SameCalendarError'
+import { NotValidCalendarError } from './Errors/NotValidCalendarError'
 
 /**
- * Performs checks on the DateConversionDetail object.
+ * Performs validation for DateConverterDetail objects.
  */
 export class DateConvertorDetailValidator {
   #conversionDetails
+  // TODO maybe change these to hold classes
+  // And not be an array?
   #acceptableCalendars = ['Gregorian', 'Kōki', 'Japanese Era']
   /**
    * Initializes the fields of the class.
@@ -39,12 +42,32 @@ export class DateConvertorDetailValidator {
     }
   }
 
-  // TODO add validation that the passed calendar is in the list of acceptable calendars
+  /**
+   * Checks whether the passed in calendars is in the acceptable calendar list.
+   */
+  validateAcceptableCalendars () {
+    this.#validateAcceptableCalendar(this.#conversionDetails.fromCalendar)
+    this.#validateAcceptableCalendar(this.#conversionDetails.toCalendar)
+  }
+
+  /**
+   * Validates that the fromCalendar field on the conversionDetails field is an acceptable calendar.
+   *
+   * @param {string} calendarToValidate - The calendar to perform the validation on
+   */
+  #validateAcceptableCalendar (calendarToValidate) {
+    for (const calendar of this.#acceptableCalendars) {
+      if (calendar === calendarToValidate) {
+        return
+      }
+    }
+    throw new NotValidCalendarError(calendarToValidate)
+  }
 
   /**
    * Verifies that the user has input a valid date format for the selected calendar to convert from.
    */
-  validateValidDateFormat () {
+  validateDateFormat () {
     // Switch case has dependency to acceptableCalendars
     switch (this.#conversionDetails.fromCalendar) {
       case 'Gregorian':
@@ -66,7 +89,7 @@ export class DateConvertorDetailValidator {
    * Validates that the user has input a valid date format for the Gregorian calendar.
    */
   #validateGregorianDateFormat () {
-
+    // TODO probably need a specific class for acceptable gregorian formats? idk something like that
   }
 
   /**
