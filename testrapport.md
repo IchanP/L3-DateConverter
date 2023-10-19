@@ -66,33 +66,3 @@ An error message is displayed to the user telling them they cannot perform that 
 ### Expected
 
 An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
-
-// TODO these should really be automatic tests
-
-### TC3.1 Year 0 should never be accepted when converting from Gregorian (YYYY/MM/DD format)
-
-### Test Steps
-
-1. Select the Gregorian Calendar to convert from
-2. Select the Kõki Calendar to convert to
-3. In the input field type in "0/12/26"
-4. Press convert
-
-### Expected
-
-An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
-
-### TC3.2 Year 0 should never be accepted when converting from Gregorian (DD/MM/YYYY format)
-
-### Test Steps
-
-1. Select the Gregorian Calendar to convert from
-2. Select the Kõki Calendar to convert to
-3. In the input field type in "26/12/0"
-4. Press convert
-
-### Expected
-
-An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
-
-// TODO wait until the HTML is done

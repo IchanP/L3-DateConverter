@@ -6,6 +6,7 @@ import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
 import '../pg222pb-smalldateconverter/index.js'
 import { SmallDateConverter } from '../pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
 import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
+import { DateConverter } from '../../model/DateConverter.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -50,22 +51,19 @@ class SimpleDateConversionPage extends HTMLElement {
   #buttonOnClickCallback (event) {
     const conversionDetails = event.detail.data
 
-    this.#checkForUserErrors(conversionDetails)
+    //  this.#checkForUserErrors(conversionDetails)
+    this.#convertDate(conversionDetails)
   }
 
   /**
-   * Checks whether the user has made any user errors.
+   * Calls the model to perform conversion.
    *
-   * @param {DateConversionDetail} dateDetailsToCheck - The date details to check for user errors.
+   * @param {DateConversionDetail} dateDetailsToConvert - The date details to convert.
    */
-  #checkForUserErrors (dateDetailsToCheck) {
+  #convertDate (dateDetailsToConvert) {
     try {
-      const conversionValidator = new DateConvertorDetailValidator(dateDetailsToCheck)
-      conversionValidator.validateDifferentCalendars()
-      conversionValidator.validateAcceptableCalendars()
-      conversionValidator.validateDateFormat()
+      const dateConverter = new DateConverter(dateDetailsToConvert)
     } catch (error) {
-      // TODO maybe break out the if statement should it be repeated somewhere.
       console.error(error.message + ' in checkForUserErrors, in pg222pb-simpledateconversion-page.js')
       this.#handleUserError(error)
     }
