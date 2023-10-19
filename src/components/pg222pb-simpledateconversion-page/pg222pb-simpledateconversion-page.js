@@ -54,7 +54,7 @@ class SimpleDateConversionPage extends HTMLElement {
   }
 
   /**
-   * Checks whether the user has made any user errors, and if so, renders them to the view.
+   * Checks whether the user has made any user errors.
    *
    * @param {DateConversionDetail} dateDetailsToCheck - The date details to check for user errors.
    */
@@ -65,14 +65,22 @@ class SimpleDateConversionPage extends HTMLElement {
       conversionValidator.validateAcceptableCalendars()
       conversionValidator.validateDateFormat()
     } catch (error) {
-      // TODO implement different error handling depending on type of error
       // TODO maybe break out the if statement should it be repeated somewhere.
       console.error(error.message + ' in checkForUserErrors, in pg222pb-simpledateconversion-page.js')
-      if (Validator.isSameType(error, SameCalendarError) || Validator.isSameType(error, InvalidDateFormatError)) {
-        const errorElement = this.#dateConverter.getErrorElement()
-        const errorRenderer = new ErrorRenderer(errorElement, error)
-        errorRenderer.renderError(errorElement, error)
-      }
+      this.#handleUserError(error)
+    }
+  }
+
+  /**
+   * Checks whether the error is a user error, and if so, renders it to the view.
+   *
+   * @param {Error} error - The error to handle.
+   */
+  #handleUserError (error) {
+    if (Validator.isSameType(error, SameCalendarError) || Validator.isSameType(error, InvalidDateFormatError)) {
+      const errorElement = this.#dateConverter.getErrorElement()
+      const errorRenderer = new ErrorRenderer(errorElement, error)
+      errorRenderer.renderError(errorElement, error)
     }
   }
 }

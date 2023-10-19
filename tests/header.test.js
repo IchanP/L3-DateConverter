@@ -2,11 +2,11 @@
 import '@testing-library/jest-dom'
 import { LinkHeader } from '../src/components/pg222pb-link-header/pg222pb-link-header'
 import { expect, describe, jest } from '@jest/globals'
-import { AElementBuilder } from '../src/DataStructure/AElementBuilder'
+import { AElementBuilder } from '../src/model/DataStructure/AElementBuilder'
 import { Validator } from '../src/Utility/Validator'
 
 // TODO: Write tests for the LinkHeader class
-describe('testetstst.js', () => {
+describe('LinkHeader.js', () => {
   test('should log an error if passed wrong type in constructor', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 

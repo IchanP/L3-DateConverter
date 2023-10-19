@@ -95,7 +95,7 @@ export class DateConvertorDetailValidator {
   }
 
   /**
-   * Valdiates that the user has input a valid date format for the Koki calendar.
+   * Valdiates that the user has input a valid date format for the Kōki calendar.
    */
   #validateKokiDateFormat () {
   }
