@@ -11,8 +11,6 @@ import { JapaneseEraDateValidator } from './JapaneseEraDateValidator'
  */
 export class DateConvertorDetailValidator {
   #conversionDetails
-  // TODO maybe change these to hold classes
-  // And not be an array?
   #acceptableCalendars = ['Gregorian', 'Kōki', 'Japanese Era']
   /**
    * Initializes the fields of the class.

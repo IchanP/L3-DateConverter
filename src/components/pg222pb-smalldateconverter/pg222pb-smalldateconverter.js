@@ -114,6 +114,15 @@ export class SmallDateConverter extends HTMLElement {
   }
 
   /**
+   * Renders the result of the conversion inside the locked input field.
+   *
+   * @param {string} convertedDate - The converted date to render
+   */
+  renderResult (convertedDate) {
+    this.shadowRoot.querySelector('#totextinput').value = convertedDate
+  }
+
+  /**
    * Getter for the element responsible for rendering an error message.
    *
    * @returns {HTMLElement} - Returns the HTML element responsible for displaying user error messages.

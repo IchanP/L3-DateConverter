@@ -52,9 +52,13 @@ class SimpleDateConversionPage extends HTMLElement {
     const conversionDetails = event.detail.data
 
     //  this.#checkForUserErrors(conversionDetails)
-    this.#convertDate(conversionDetails)
+    const convertedDate = this.#convertDate(conversionDetails)
+    if (convertedDate) {
+      this.#dateConverter.renderResult(convertedDate)
+    }
   }
 
+  // eslint-disable-next-line jsdoc/require-returns
   /**
    * Calls the model to perform conversion.
    *
@@ -63,6 +67,7 @@ class SimpleDateConversionPage extends HTMLElement {
   #convertDate (dateDetailsToConvert) {
     try {
       const dateConverter = new DateConverter(dateDetailsToConvert)
+      return dateConverter.convertDate()
     } catch (error) {
       console.error(error.message + ' in checkForUserErrors, in pg222pb-simpledateconversion-page.js')
       this.#handleUserError(error)

@@ -3,12 +3,14 @@ import { DateConvertorDetailValidator } from './DateConvertorDetailValidator'
 import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
 import { NotValidCalendarError } from './Errors/NotValidCalendarError'
 import { SameCalendarError } from './Errors/SameCalendarError'
+import { TemporalConverterWrapper } from './TemporalConverterUtils/TemporalConverterWrapper'
 
 /**
  * Handles the conversion of dates.
  */
 export class DateConverter {
   #conversionDetails
+  #converterWrapper
   /**
    * Initializes the fields.
    *
@@ -16,6 +18,7 @@ export class DateConverter {
    */
   constructor (conversionDetails) {
     this.#setConversionDetails(conversionDetails)
+    this.#converterWrapper = new TemporalConverterWrapper()
   }
 
   /**
@@ -34,5 +37,34 @@ export class DateConverter {
     conversionValidator.validateAcceptableCalendars()
     conversionValidator.validateDateFormat()
     this.#conversionDetails = conversionDetails
+  }
+
+  // TODO add return values to the functions below
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Performs the conversion from one calendar to another.
+   *
+   * @returns {string} - Returns the converted date.
+   */
+  convertDate () {
+    if (this.#conversionDetails.fromCalendar === 'Gregorian') {
+      return this.#convertFromGregorian()
+    }
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Handles the conversion of dates from Gregorian to the other calendars.
+   *
+   * @returns {string} - Returns the converted date in either Kōki or Japanese Era format.
+   */
+  #convertFromGregorian () {
+    if (this.#conversionDetails.toCalendar === 'Kōki') {
+      return this.#converterWrapper.convertGregorianToKoki(this.#conversionDetails.dateToConvert)
+    }
+    if (this.#conversionDetails.toCalendar === 'Japanese Era') {
+      this.#converterWrapper.convertGregorianToJapaneseEra(this.#conversionDetails.dateToConvert)
+    }
   }
 }
