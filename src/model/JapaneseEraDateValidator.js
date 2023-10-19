@@ -1,15 +1,13 @@
-import { InvalidDateFormatError } from './Errors/InvalidDateFormatError.js'
+import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
 
 /**
- * Checks that the passed date is a valid date for the Gregorian calendar.
+ * Checks that the passed date is a valid date for a Japanes Era calendar.
+ * This does NOT validate that the passed date has a valid era name.
  */
-export class GregorianCalendarDateValidator {
+export class JapaneseEraDateValidator {
   #acceptableDateFormats = {
-    yearMonthDate: /^(?!0{1,4})(\d{1,4})\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/,
-    dateMonthYear: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(?!0{1,4})(\d{1,4})$/,
-    monthDateYear: /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(?!0{1,4})(\d{1,4})$/,
-    monthYear: /^(0[1-9]|1[0-2])\/(?!0{1,4})(\d{1,4})$/,
-    yearMonth: /^(?!0{1,4})(\d{1,4})\/(0[1-9]|1[0-2])$/
+    yearMonth: /^[a-zA-Z]{1,30}\s(?!0{1,2})(\d{1,2})\/(0[1-9]|1[0-2])$/,
+    year: /^[a-zA-Z]{1,30}\s(?!0{1,2})\d{1,2}$/
   }
 
   #dateFormat
@@ -23,7 +21,10 @@ export class GregorianCalendarDateValidator {
   }
 
   /**
-   * Validates the date.
+   * Validates the date by parsing it against the acceptable date formats.
+   * Acceptable formats:
+   * "EraName" YY/MM
+   * "EraName" YY .
    *
    * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
    */

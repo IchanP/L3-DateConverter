@@ -9,6 +9,10 @@ This application is part of the course `1DV610 - Introduction to Software Qualit
 
 ## Usage
 
+### Limitations
+
+This app does not yet handle negative year conversions, meaning that it is currently not possible to convert a year from before BC using the Gregorian Calendar or to perform a conversion from before Kõki 0.
+
 ### How to install
 
 1. Clone this repo

@@ -2,7 +2,9 @@ import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { Validator } from '../Utility/Validator'
 import { SameCalendarError } from './Errors/SameCalendarError'
 import { NotValidCalendarError } from './Errors/NotValidCalendarError'
-import { GregorianCalendarDateValidator } from './GregorianCalendarDateValidator'
+import { BasicCalendarDateValidator } from './BasicCalendarDateValidator'
+import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
+import { JapaneseEraDateValidator } from './JapaneseEraDateValidator'
 
 /**
  * Performs validation for DateConverterDetail objects.
@@ -45,6 +47,8 @@ export class DateConvertorDetailValidator {
 
   /**
    * Checks whether the passed in calendars is in the acceptable calendar list.
+   *
+   * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
    */
   validateAcceptableCalendars () {
     this.#validateAcceptableCalendar(this.#conversionDetails.fromCalendar)
@@ -55,6 +59,7 @@ export class DateConvertorDetailValidator {
    * Validates that the fromCalendar field on the conversionDetails field is an acceptable calendar.
    *
    * @param {string} calendarToValidate - The calendar to perform the validation on
+   * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
    */
   #validateAcceptableCalendar (calendarToValidate) {
     for (const calendar of this.#acceptableCalendars) {
@@ -67,42 +72,43 @@ export class DateConvertorDetailValidator {
 
   /**
    * Verifies that the user has input a valid date format for the selected calendar to convert from.
+   *
+   * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
    */
   validateDateFormat () {
     // Switch case has dependency to acceptableCalendars
     switch (this.#conversionDetails.fromCalendar) {
       case 'Gregorian':
-        this.#validateGregorianDateFormat()
+        this.#validateWesternStyleDateFormat()
         break
       case 'Kōki':
-        this.#validateKokiDateFormat()
+        this.#validateWesternStyleDateFormat()
         break
       case 'Japanese Era':
         this.#validateJapaneseEraDateFormat()
         break
       default:
-        // TODO throw an error here?
-        break
+        throw new NotValidCalendarError(this.#conversionDetails.fromCalendar)
     }
   }
 
   /**
-   * Validates that the user has input a valid date format for the Gregorian calendar.
+   * Validates that the user has input a valid date format for calendars that can be written using the western date type format.
+   *
+   * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
    */
-  #validateGregorianDateFormat () {
-    const gregorianValidator = new GregorianCalendarDateValidator(this.#conversionDetails.dateToConvert)
-    gregorianValidator.validateDate()
-  }
-
-  /**
-   * Valdiates that the user has input a valid date format for the Kōki calendar.
-   */
-  #validateKokiDateFormat () {
+  #validateWesternStyleDateFormat () {
+    const westernDateValidator = new BasicCalendarDateValidator(this.#conversionDetails.dateToConvert)
+    westernDateValidator.validateDate()
   }
 
   /**
    * Validates that the user has input a valid date format for the Japanese Era calendar.
+   *
+   * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
    */
   #validateJapaneseEraDateFormat () {
+    const eraValidator = new JapaneseEraDateValidator(this.#conversionDetails.dateToConvert)
+    eraValidator.validateDate()
   }
 }
