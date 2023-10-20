@@ -1,10 +1,10 @@
 // TODO a shitload of imports
 
 import '../pg222pb-front-page/index.js'
-import '../pg222pb-link-header/index.js'
+import '../../view/pg222pb-link-header/index.js'
 import '../pg222pb-bigconversion-page/index.js'
 import '../pg222pb-simpledateconversion-page/index.js'
-import { LinkHeader } from '../pg222pb-link-header/pg222pb-link-header.js'
+import { LinkHeader } from '../../view/pg222pb-link-header/pg222pb-link-header.js'
 import { AElementBuilder } from '../../model/DataStructure/AElementBuilder.js'
 
 // const IMG_URL = (new URL(, import.meta.url)).href

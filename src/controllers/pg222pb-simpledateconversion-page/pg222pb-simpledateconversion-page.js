@@ -1,10 +1,9 @@
 import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail.js'
-import { ErrorRenderer } from '../../Utility/ErrorRenderer.js'
+import { ErrorRenderer } from '../../view/ErrorRenderer.js'
 import { Validator } from '../../Utility/Validator.js'
 import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator.js'
 import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
-import '../pg222pb-smalldateconverter/index.js'
-import { SmallDateConverter } from '../pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
+import { SmallDateConverter } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
 import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
 import { DateConverter } from '../../model/DateConverter.js'
 

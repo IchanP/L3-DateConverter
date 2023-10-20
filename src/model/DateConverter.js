@@ -43,8 +43,6 @@ export class DateConverter {
     this.#conversionDetails = conversionDetails
   }
 
-  // TODO add return values to the functions below
-
   // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Performs the conversion from one calendar to another.
@@ -71,7 +69,7 @@ export class DateConverter {
       return this.#converterWrapper.convertGregorianToKoki(this.#conversionDetails.dateToConvert)
     }
     if (this.#conversionDetails.toCalendar === 'Japanese Era') {
-      this.#converterWrapper.convertGregorianToJapaneseEra(this.#conversionDetails.dateToConvert)
+      return this.#converterWrapper.convertGregorianToJapaneseEra(this.#conversionDetails.dateToConvert)
     }
   }
 
@@ -84,7 +82,6 @@ export class DateConverter {
   #convertFromKoki () {
     if (this.#conversionDetails.toCalendar === 'Gregorian') {
       return this.#converterWrapper.convertKokiToGregorian(this.#conversionDetails.dateToConvert)
-      //      return this.#dateStringBuilder.addWesternMonthDate(convertedGregorian, kokiDateObject)
     }
     if (this.#conversionDetails.toCalendar === 'Japanese Era') {
       return this.#converterWrapper.convertKokiToJapaneseEra(this.#conversionDetails.dateToConvert)
