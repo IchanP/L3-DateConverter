@@ -1,5 +1,5 @@
 import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
-import { AcceptableJapaneseEraDateFormats } from './AcceptableDateFormats'
+import { AcceptableJapaneseEraDateFormats } from './Data/AcceptableDateFormats'
 
 /**
  * Checks that the passed date is a valid date for a Japanes Era calendar.

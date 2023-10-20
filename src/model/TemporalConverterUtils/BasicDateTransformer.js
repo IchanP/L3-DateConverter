@@ -1,5 +1,5 @@
 import { DateObject } from '../DataStructure/DateObject'
-import { AcceptableBasicDateFormats } from '../AcceptableDateFormats'
+import { AcceptableBasicDateFormats } from '../Data/AcceptableDateFormats'
 import { DateTransformer } from './DateTransformer'
 
 /**
@@ -59,10 +59,8 @@ export class BasicDateTransformer extends DateTransformer {
    * @returns {DateObject} - Returns a date object containing the month and year.
    */
   #convertMonthYear (monthYearDate) {
-    const monthYearArray = monthYearDate.split('/')
-    const year = monthYearArray[1]
-    const month = monthYearArray[0]
-    return this.#buildDateStructure(null, month, year)
+    const [month, year] = this.#splitDate(monthYearDate)
+    return this.#buildDateObject(null, month, year)
   }
 
   /**
@@ -72,10 +70,8 @@ export class BasicDateTransformer extends DateTransformer {
    * @returns {DateObject} - Returns a date object containing the month and year.
    */
   #convertYearMonth (yearMonthDate) {
-    const yearMonthArray = yearMonthDate.split('/')
-    const year = yearMonthArray[0]
-    const month = yearMonthArray[1]
-    return this.#buildDateStructure(null, month, year)
+    const [year, month] = this.#splitDate(yearMonthDate)
+    return this.#buildDateObject(null, month, year)
   }
 
   /**
@@ -85,11 +81,8 @@ export class BasicDateTransformer extends DateTransformer {
    * @returns {DateObject} - Returns a date object containing the date, month and year.
    */
   #convertMonthDateYear (monthDateYearDate) {
-    const monthDateYearArray = monthDateYearDate.split('/')
-    const year = monthDateYearArray[2]
-    const month = monthDateYearArray[0]
-    const date = monthDateYearArray[1]
-    return this.#buildDateStructure(date, month, year)
+    const [month, date, year] = this.#splitDate(monthDateYearDate)
+    return this.#buildDateObject(date, month, year)
   }
 
   /**
@@ -99,11 +92,8 @@ export class BasicDateTransformer extends DateTransformer {
    * @returns {DateObject} - Returns a date object containing the date, month and year.
    */
   #convertDateMonthYear (dateMonthYear) {
-    const dateMonthYearArray = dateMonthYear.split('/')
-    const year = dateMonthYearArray[2]
-    const month = dateMonthYearArray[1]
-    const date = dateMonthYearArray[0]
-    return this.#buildDateStructure(date, month, year)
+    const [date, month, year] = this.#splitDate(dateMonthYear)
+    return this.#buildDateObject(date, month, year)
   }
 
   /**
@@ -113,26 +103,33 @@ export class BasicDateTransformer extends DateTransformer {
    * @returns {DateObject} - Returns a date object containing the date, month and year.
    */
   #convertYearMonthDate (yearMonthDate) {
-    const yearMonthDateArray = yearMonthDate.split('/')
-    const year = yearMonthDateArray[0]
-    const month = yearMonthDateArray[1]
-    const date = yearMonthDateArray[2]
-    return this.#buildDateStructure(date, month, year)
+    const [year, month, date] = this.#splitDate(yearMonthDate)
+    return this.#buildDateObject(date, month, year)
   }
 
   /**
    * Builds a data structure containing the date, month and year.
    *
-   * @param {string} date - The date of the date to convert, if null builds an object containing month and year.
-   * @param {string} month - The month of the date to convert.
-   * @param {string} year - The year of the date to convert.'
+   * @param {string} buildDate - The date of the date to convert, if null builds an object containing month and year.
+   * @param {string} buildMonth - The month of the date to convert.
+   * @param {string} buildYear - The year of the date to convert.'
    * @returns {DateObject} - Returns a date object which may have a null day field.
    */
-  #buildDateStructure (date, month, year) {
-    if (date !== null) {
-      return new DateObject(year, month, date)
+  #buildDateObject (buildDate, buildMonth, buildYear) {
+    if (buildDate !== null) {
+      return new DateObject(buildYear, buildMonth, buildDate)
     } else {
-      return new DateObject(year, month, null)
+      return new DateObject(buildYear, buildMonth, null)
     }
+  }
+
+  /**
+   * Splits the passed string with the "/" symbol, returns it as an array.
+   *
+   * @param {string} dateToSplit - The date to split.
+   * @returns {string[]} - Returns an array with the elements split by "/".
+   */
+  #splitDate (dateToSplit) {
+    return dateToSplit.split('/')
   }
 }

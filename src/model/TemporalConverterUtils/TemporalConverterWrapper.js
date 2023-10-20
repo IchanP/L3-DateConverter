@@ -7,7 +7,7 @@ import { CannotConvertError } from '../Errors/CannotConvertError'
  */
 export class TemporalConverterWrapper {
   #dateStringBuilder
-  #dateObject
+  #dateHolder
   /**
    * Create an instance of the class.
    *
@@ -15,10 +15,8 @@ export class TemporalConverterWrapper {
    */
   constructor (dateTransformer) {
     this.#dateStringBuilder = new DateStringBuilder()
-    this.#dateObject = dateTransformer.getDateObject()
+    this.#dateHolder = dateTransformer.getDateObject()
   }
-  // TODO might add a build date object function here,
-  // depends on whether it's possible with a japanese era date object
 
   // TODO - Look over this note before hand in
   // NOTE - The functions performing conversions from Gregorian have hardcoded 'CE' as the era,
@@ -30,8 +28,8 @@ export class TemporalConverterWrapper {
    * @returns {string} - Returns the converted date in the format "Kõki YYYY/MM"
    */
   convertGregorianToKoki () {
-    const kokiFromGregorianYear = temporalConverter.KokiFromGregorian(this.#dateObject.year, 'CE')
-    return this.#dateStringBuilder.addWesternMonthDate(kokiFromGregorianYear, this.#dateObject)
+    const kokiFromGregorianYear = temporalConverter.KokiFromGregorian(this.#dateHolder.year, 'CE')
+    return this.#dateStringBuilder.addWesternMonthDate(kokiFromGregorianYear, this.#dateHolder)
   }
 
   /**
@@ -40,8 +38,8 @@ export class TemporalConverterWrapper {
    * @returns {string} - Returns the converted date in the format "DD Month YYYY BCE/CE"
    */
   convertKokiToGregorian () {
-    const gregorianFromKokiYear = temporalConverter.KokiToFormattedGregorian(Number(this.#dateObject.year))
-    return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromKokiYear, this.#dateObject)
+    const gregorianFromKokiYear = temporalConverter.KokiToFormattedGregorian(Number(this.#dateHolder.year))
+    return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromKokiYear, this.#dateHolder)
   }
 
   /**
@@ -50,9 +48,9 @@ export class TemporalConverterWrapper {
    * @returns {string} - Returns the converted date in the format "Japanese Era YY"
    */
   convertKokiToJapaneseEra () {
-    const yearToExtract = temporalConverter.KokiToFormattedGregorian(Number(this.#dateObject.year))
+    const yearToExtract = temporalConverter.KokiToFormattedGregorian(Number(this.#dateHolder.year))
     const extractedGregorianYear = yearToExtract.split(' ')[0]
-    return this.#tryConvertGregorianToJapaneseEra(extractedGregorianYear, this.#dateObject.month)
+    return this.#tryConvertGregorianToJapaneseEra(extractedGregorianYear, this.#dateHolder.month)
   }
 
   /**
@@ -61,7 +59,7 @@ export class TemporalConverterWrapper {
    * @returns {string} - Returns a string in the format "Japanese Era YY".
    */
   convertGregorianToJapaneseEra () {
-    return this.#tryConvertGregorianToJapaneseEra(this.#dateObject.year, this.#dateObject.month)
+    return this.#tryConvertGregorianToJapaneseEra(this.#dateHolder.year, this.#dateHolder.month)
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -88,7 +86,14 @@ export class TemporalConverterWrapper {
    */
   #handleJapaneseEraError (error) {
     if (error.message === 'The passed arguments do not match any existing eras.') {
-      throw new CannotConvertError(this.#dateObject.year + '/' + this.#dateObject.month + (this.#dateObject.day ? '/' + this.#dateObject.day : ''))
+      throw new CannotConvertError(this.#dateHolder.year + '/' + this.#dateHolder.month + (this.#dateHolder.day ? '/' + this.#dateHolder.day : ''))
     }
+  }
+
+  /**
+   * Converts from the Japanese Era Calendar to the Gregorian Calendar.
+   */
+  convertJapaneseEraToGregorian () {
+
   }
 }

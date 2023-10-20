@@ -23,11 +23,11 @@ export class DateStringBuilder {
    * Inserts the month and date into a string matching "YYYY BC/AD/BCE/CE".
    * Month and date are inserted as "DD MonthName" before the year.
    *
-   * @param {string} year - The year to add the month and day to.
+   * @param {string} gregorianYear - The year to add the month and day to.
    * @param {DateObject} dateObject - The date object containing the month and day to add to the string.
    * @returns {string} - Returns a string in the format "DD MonthName YYYY BC/AD/BCE/CE", DD may be omitted.
    */
-  addMonthDateToGregorian (year, dateObject) {
-    return (dateObject.day !== null ? `${dateObject?.day} ` : '') + `${this.#monthNames[dateObject.month - 1]} ${year}`
+  addMonthDateToGregorian (gregorianYear, dateObject) {
+    return (dateObject.day !== null ? `${dateObject?.day} ` : '') + `${this.#monthNames[dateObject.month - 1]} ${gregorianYear}`
   }
 }

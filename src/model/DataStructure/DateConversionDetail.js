@@ -1,6 +1,3 @@
-// TODO maybe add validation here?
-// TODO refactor this to a proper class?
-
 /**
  * A data structure encapsulating the data required to make a date conversion.
  */

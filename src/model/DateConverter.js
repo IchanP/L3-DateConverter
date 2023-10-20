@@ -39,6 +39,9 @@ export class DateConverter {
     if (this.#conversionDetails.fromCalendar === 'Kōki') {
       return this.#convertFromKoki()
     }
+    if (this.#conversionDetails.fromCalendar === 'Japanese Era') {
+      return this.#convertFromJapaneseEra()
+    }
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -71,6 +74,21 @@ export class DateConverter {
     }
   }
 
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Handles the conversion of dates from Japanese Era to the other calendars.
+   *
+   * @returns {string} - Returns the converted date in either Gregorian or Kõki format.
+   */
+  #convertFromJapaneseEra () {
+    if (this.#conversionDetails.toCalendar === 'Gregorian') {
+      return this.#converterWrapper.convertJapaneseEraToGregorian(this.#conversionDetails.dateToConvert)
+    }
+    if (this.#conversionDetails.toCalendar === 'Kōki') {
+      return this.#converterWrapper.convertJapaneseEraToKoki(this.#conversionDetails.dateToConvert)
+    }
+  }
+
   /**
    * Sets the details of the conversion, if the validation passes.
    *
@@ -80,7 +98,6 @@ export class DateConverter {
    * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
    * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
    */
-  // eslint-disable-next-line accessor-pairs
   #setConversionDetails (conversionDetails) {
     const conversionValidator = new DateConvertorDetailValidator(conversionDetails)
     conversionValidator.validateDifferentCalendars()

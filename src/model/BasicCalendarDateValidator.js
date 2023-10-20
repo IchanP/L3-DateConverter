@@ -1,5 +1,5 @@
 import { InvalidDateFormatError } from './Errors/InvalidDateFormatError.js'
-import { AcceptableBasicDateFormats } from './AcceptableDateFormats.js'
+import { AcceptableBasicDateFormats } from './Data/AcceptableDateFormats.js'
 
 /**
  * Checks that the passed date is a valid date for calendars that write dates in a western fashion.
