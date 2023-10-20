@@ -62,6 +62,19 @@ An error message is displayed to the user telling them they cannot perform that 
 
 An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
 
+### TC2.3 User should be informed of invalid date when converting from Gregorian to Japanese Era
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "644/12/25" // TODO fix this
+4. Press Convert
+
+#### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Era on that day.
+
 ## TC 3 - Date Formats
 
 #### Common Steps
@@ -122,7 +135,7 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 In the unselectable input field "Kõki 2660/12/25" is rendered.
 
-### TC4 Gregorian to Japanese Era Conversions
+### TC4 Converting to Japanese Era
 
 ### TC4.1 User should be able to convert from Gregorian to Japanese Era
 
@@ -137,9 +150,22 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 In the unselectable input field "Heisei 12" is rendered.
 
+### TC4.2 User should be able to convert from Kõki to Japanese Era
+
+#### Test Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "2000/12/25"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "Ryakuõ 4" is rendered.
+
 // TODO move this somewhere else?
 
-### TC4.2 User errors should be handled when converting from Gregorian to Japanese Era
+### TC4.3 User errors should be handled when converting from Gregorian to Japanese Era
 
 #### Test Steps
 

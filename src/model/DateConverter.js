@@ -5,6 +5,7 @@ import { NotValidCalendarError } from './Errors/NotValidCalendarError'
 import { SameCalendarError } from './Errors/SameCalendarError'
 import { TemporalConverterWrapper } from './TemporalConverterUtils/TemporalConverterWrapper'
 import { BasicDateTransformer } from './TemporalConverterUtils/BasicDateTransformer'
+import { JapaneseEraDateTransformer } from './TemporalConverterUtils/JapaneseEraDateTransformer'
 
 /**
  * Handles the conversion of dates.
@@ -20,27 +21,9 @@ export class DateConverter {
   constructor (conversionDetails) {
     this.#setConversionDetails(conversionDetails)
     const dateTransformer = this.#conversionDetails.fromCalendar === 'Japanese Era'
-      ? new JapaneseEraDateTransformer(this.#conversionDetails.dateToConvert) // TODO create this class
+      ? new JapaneseEraDateTransformer(this.#conversionDetails.dateToConvert)
       : new BasicDateTransformer(this.#conversionDetails.dateToConvert)
     this.#converterWrapper = new TemporalConverterWrapper(dateTransformer)
-  }
-
-  /**
-   * Sets the details of the conversion, if the validation passes.
-   *
-   * @param {DateConversionDetail} conversionDetails - The details of the conversion to be performed.
-   * @throws {TypeError} - Throws a typeError if the argument is not of type DateConversionDetail.
-   * @throws {SameCalendarError} - Throws a SameCalendarError if the user has selected the same calendar for both the from and to calendars.
-   * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
-   * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
-   */
-  // eslint-disable-next-line accessor-pairs
-  #setConversionDetails (conversionDetails) {
-    const conversionValidator = new DateConvertorDetailValidator(conversionDetails)
-    conversionValidator.validateDifferentCalendars()
-    conversionValidator.validateAcceptableCalendars()
-    conversionValidator.validateDateFormat()
-    this.#conversionDetails = conversionDetails
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -86,5 +69,23 @@ export class DateConverter {
     if (this.#conversionDetails.toCalendar === 'Japanese Era') {
       return this.#converterWrapper.convertKokiToJapaneseEra(this.#conversionDetails.dateToConvert)
     }
+  }
+
+  /**
+   * Sets the details of the conversion, if the validation passes.
+   *
+   * @param {DateConversionDetail} conversionDetails - The details of the conversion to be performed.
+   * @throws {TypeError} - Throws a typeError if the argument is not of type DateConversionDetail.
+   * @throws {SameCalendarError} - Throws a SameCalendarError if the user has selected the same calendar for both the from and to calendars.
+   * @throws {NotValidCalendarError} - Throws an error if the calendar is not an acceptable calendar.
+   * @throws {InvalidDateFormatError} - Throws an InvalidDateFormatError if the date is not valid.
+   */
+  // eslint-disable-next-line accessor-pairs
+  #setConversionDetails (conversionDetails) {
+    const conversionValidator = new DateConvertorDetailValidator(conversionDetails)
+    conversionValidator.validateDifferentCalendars()
+    conversionValidator.validateAcceptableCalendars()
+    conversionValidator.validateDateFormat()
+    this.#conversionDetails = conversionDetails
   }
 }

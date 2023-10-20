@@ -1,23 +1,21 @@
 import { InvalidDateFormatError } from './Errors/InvalidDateFormatError'
+import { AcceptableJapaneseEraDateFormats } from './AcceptableDateFormats'
 
 /**
  * Checks that the passed date is a valid date for a Japanes Era calendar.
  * This does NOT validate that the passed date has a valid era name.
  */
 export class JapaneseEraDateValidator {
-  #acceptableDateFormats = {
-    yearMonth: /^[a-zA-Z]{1,30}\s(?!0{1,2})(\d{1,2})\/(0[1-9]|1[0-2])$/,
-    year: /^[a-zA-Z]{1,30}\s(?!0{1,2})\d{1,2}$/
-  }
-
+  #acceptableDateFormats
   #dateFormat
   /**
-   * Initializes the dateformat field.
+   * Initializes the fields.
    *
    * @param {string} dateFormat - The date that needs validation.
    */
   constructor (dateFormat) {
     this.#dateFormat = dateFormat
+    this.#acceptableDateFormats = AcceptableJapaneseEraDateFormats
   }
 
   /**

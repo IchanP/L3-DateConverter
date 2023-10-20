@@ -1,4 +1,18 @@
-# FUTURE REFLECTION
+# Reflections Clean Code
+
+## Sidenote
+
+I would have liked to use OOP concepts more such as interfaces and abstract classes to better adhere to things such as DRY and just general file structure, however you cannot create interfaces or abstract classes in Javascript, only Typescript...
+
+## Chapter 3
+
+I've done a reasonably good job at not mixing the abstraction levels of my functions, the essence of this rule is to keep things non-confusing and the author Robert, states that mixing them is always confusing. I have conciously violated this rule in my `convertKokiToJapaneseEra` function, seen below, where the operation to split the returned string is of medium level abstraction. It is a concious choice as I feel like the operation is simple enough and the variable names clear enough for this to not cause confusion. I believe a worse offense would have been to perform a low level operation in a high abstraction method.
+
+Furthermore in accordance with the rule of extracting try/catch blocks, this has been done wherever possible. While this makes the code a lot easier to understand it also makes the handling of the error substantially easier, as the error is handled closer to where it was thrown, compared to how I was previously handling them, while also keeping the number of try/catches to a minimum. This also synergizes with the rule of DRY, as the error handling and catching is now done in one place, and one place only.
+
+
+![convertKokiToJapaneseEra](./reportimages/extracted-try-catch.png)
+Found in [temporalconverterwrapper.js](./src/model/TemporalConverterUtils/TemporalConverterWrapper.js)
 
 ## Chapter 4
 
@@ -14,7 +28,9 @@ Decided to make a class for building an "a" element. I wanted to create a more g
 
 ## Chapter 7
 
-As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in. The try catch encapsulates more than I would like.
+As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in.
+
+Furthermore I opted to set
 
 // TODO are all the error messages set inside the controller/view and not in the model?
 // NOTE model should only throw?
@@ -25,6 +41,7 @@ How the handleError method looked before refactoring.
 ![Pre-refactoring](./reportimages/errorhandling-in-header.png)
 How the validation occured before the refactoring
 
+// TODO this needs to be remade
 ![Post-Refactoring](./reportimages/error-post-refactoring.png)
 Created a try-catch that returns should an error be thrown.
 
@@ -44,11 +61,9 @@ I decided to follow a TTD, where I wrote tests right before the implementation c
 
 ## Chapter 10
 
-The private methods in link.header.js are listed in the order that they are called from top-down. This kind of adheres to the public>private rule talked about in this chapter.
-I do not believe that my PageController fulfills the SRP, as it builds and renders the Header as well as handles the rendering of the Page components. It also lacks cohesion as the page fields are only used in their specific callbacks. I decided on this structure due to other one I had making it difficult to achieve the "swapping" of components, and instead reloaded the entire page (i wanted it to be more like React). I am aware of this flaw but decided to keep it anyway. I would have liked to use abstractions more, by for example implementing the Observer pattern instead of sending out events to listen to, however Javascript does not support interfaces. One example is in the `SimpleDateConversionPage` where I would have liked to send it in as an Observer into the `SmallDateConverter`, instead of relying on the "convert" event that is fired inside `SmallDateConverter`. As should the event name change it would also have to change in `SimpleDataConversionPage`. Essentially, there's a hidden dependency here which could have been avoided.
+I do not believe that my PageController fulfills the SRP, as it builds and renders the Header as well as handles the rendering of the Page components. It also lacks cohesion as the page fields are only used in their specific callbacks. I decided on this structure due to the  other one I had making it difficult to achieve the "swapping" of components, and instead reloaded the entire page (i wanted it to be more like React). I am aware of this flaw but decided to keep it anyway. I would have liked to use abstractions more, by for example implementing the Observer pattern instead of sending out events to listen to, however Javascript does not support interfaces. One example is in the `SimpleDateConversionPage` where I would have liked to send it in as an Observer into the `SmallDateConverter`, instead of relying on the "convert" event that is fired inside `SmallDateConverter`. As should the event name change it would also have to change in `SimpleDataConversionPage`. Essentially, there's a hidden dependency here which could have been avoided.
 
-![Called-in-order](./reportimages/caleld-in-order.png)
-The functions are declared in the order that they are called.
+My classes has, where it's applicable followed the guideline of public>private>public for methods and fields, where the public method is imemdiately followed by any private method it uses. I have previously tried to put my public functions at the top and all my private functions at the bottom. However this way of doing it makes it a lot easier to grasp the full context and details of any given function. This is also supported by the rule "Vertical Distance" found in chapter 5, which states the following: `Dependent Functions. If one function calls another, they should be vertically close, and the caller should be above the callee, if at all possible`.
 
 ![Example of the event that could have been avoided](./reportimages/convert-listen.png)
 The listener that has a hidden dependency to "convert".
@@ -56,8 +71,9 @@ The listener that has a hidden dependency to "convert".
 ![Example of the event that could have been avoided](./reportimages/convert-dispatch.png)
 The event being fired.
 
+![public-private-public](./reportimages/public-private-public.png)
+Example of public>private>public methods.
+
 ### Overall
 
 I WISH I WAS WRITING TYPESCRIPT RIGHT NOW
-
-The simpledateconversionpage constructor uses the DateConvertorDetailValidator only to get the acceptable calendars, and has to create a DateConversionDetail object simply to get it... I'm pretty sure this breaks against some form of rule...

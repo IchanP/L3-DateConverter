@@ -1,5 +1,5 @@
 import { DateObject } from '../DataStructure/DateObject'
-import { AcceptableBasicDateFormats } from '../AcceptableBasicDateFormats'
+import { AcceptableBasicDateFormats } from '../AcceptableDateFormats'
 
 /**
  * Converts dates in various formats to a data structure split between date, month and year.
@@ -9,23 +9,13 @@ export class BasicDateTransformer {
   #dateFormat
   #dateObject
   /**
-   * Initializes the acceptableFormats field.
+   * Initializes the fields.
    *
    * @param {string} dateToConvert - The date from which the DateObject is constructed from.
    */
   constructor (dateToConvert) {
     this.#acceptableFormats = AcceptableBasicDateFormats
-    this.#setDateFormat(dateToConvert)
     this.#dateObject = this.#formatDate(dateToConvert)
-  }
-
-  /**
-   * Returns the formatted date.
-   *
-   * @returns {DateObject} - Returns a DateObject which may have a null day field.
-   */
-  getDateObject () {
-    return this.#dateObject
   }
 
   /**
@@ -36,6 +26,15 @@ export class BasicDateTransformer {
    */
   get dateFormat () {
     return this.#dateFormat
+  }
+
+  /**
+   * Returns the formatted date.
+   *
+   * @returns {DateObject} - Returns a DateObject which may have a null day field.
+   */
+  getDateObject () {
+    return this.#dateObject
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check

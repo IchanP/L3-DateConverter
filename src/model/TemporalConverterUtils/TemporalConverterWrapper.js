@@ -34,28 +34,51 @@ export class TemporalConverterWrapper {
     return this.#dateStringBuilder.addWesternMonthDate(kokiFromGregorianYear, this.#dateObject)
   }
 
-  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Converts from the Kõki Calendar to the Gregorian Calendar.
+   *
+   * @returns {string} - Returns the converted date in the format "DD Month YYYY BCE/CE"
+   */
+  convertKokiToGregorian () {
+    const gregorianFromKokiYear = temporalConverter.KokiToFormattedGregorian(Number(this.#dateObject.year))
+    return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromKokiYear, this.#dateObject)
+  }
+
+  /**
+   * Converts from the Kõki Calendar to the Japanese Era Calendar.
+   *
+   * @returns {string} - Returns the converted date in the format "Japanese Era YY"
+   */
+  convertKokiToJapaneseEra () {
+    const yearToExtract = temporalConverter.KokiToFormattedGregorian(Number(this.#dateObject.year))
+    const extractedGregorianYear = yearToExtract.split(' ')[0]
+    return this.#tryConvertGregorianToJapaneseEra(extractedGregorianYear, this.#dateObject.month)
+  }
+
   /**
    * Converts from the Gregorian Calendar to the Japanese Era Calendar.
    *
    * @returns {string} - Returns a string in the format "Japanese Era YY".
    */
   convertGregorianToJapaneseEra () {
+    return this.#tryConvertGregorianToJapaneseEra(this.#dateObject.year, this.#dateObject.month)
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Attempts to convert the date from Gregorian to Japanese Era format.
+   * Handles errors thrown by the conversion.
+   *
+   * @param {string} year - May be of both string or number format, conversion is made inside the function.
+   * @param {string} month - May be of both string or number format, conversion is made inside the function.
+   * @returns {string} - Returns a string in the format "Japanese Era YY".
+   */
+  #tryConvertGregorianToJapaneseEra (year, month) {
     try {
-      return temporalConverter.GregorianToFormattedJpEra(Number(this.#dateObject.year), Number(this.#dateObject.month))
+      return temporalConverter.GregorianToFormattedJpEra(Number(year), Number(month))
     } catch (error) {
       this.#handleJapaneseEraError(error)
     }
-  }
-
-  /**
-   * Converts from the Kõki Calendar to the Gregorian Calendar.
-   *
-   * @returns {string} - Returns the converted date in the format "YYYY BCE/CE"
-   */
-  convertKokiToGregorian () {
-    const gregorianFromKokiYear = temporalConverter.KokiToFormattedGregorian(Number(this.#dateObject.year))
-    return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromKokiYear, this.#dateObject)
   }
 
   /**

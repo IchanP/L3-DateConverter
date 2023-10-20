@@ -1,20 +1,21 @@
 import { InvalidDateFormatError } from './Errors/InvalidDateFormatError.js'
-import { AcceptableBasicDateFormats } from './AcceptableBasicDateFormats.js'
+import { AcceptableBasicDateFormats } from './AcceptableDateFormats.js'
 
 /**
  * Checks that the passed date is a valid date for calendars that write dates in a western fashion.
  */
 export class BasicCalendarDateValidator {
-  #acceptableDateFormats = AcceptableBasicDateFormats
+  #acceptableDateFormats
 
   #dateFormat
   /**
-   * Initializes the dateformat field.
+   * Initializes the fields.
    *
    * @param {string} dateFormat - The date that needs validation.
    */
   constructor (dateFormat) {
     this.#dateFormat = dateFormat
+    this.#acceptableDateFormats = AcceptableBasicDateFormats
   }
 
   /**

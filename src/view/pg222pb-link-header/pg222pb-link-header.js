@@ -58,22 +58,32 @@ export class LinkHeader extends HTMLElement {
   // NOTE this does break the single responsibility principle.
   // However I'm not sure how to do this without putting the try catch in the constructor which I feel is worse..
 
+  // TODO maybe move the validateArray out to controller instead?
+
   /**
    * Construct the a elements, also performs validation before constructing the elements.
    *
    * @param {Array<AElementBuilder>} aLinkBuilderArray - The array of ALinkBuilder objects to work on.
    */
   #constructAElements (aLinkBuilderArray) {
-    try {
-      Validator.validateIsThisAnArray(aLinkBuilderArray)
-      Validator.validateAllElementsOfType(aLinkBuilderArray, AElementBuilder)
-    } catch (error) {
-      console.error(error + ' in LinkHeader.prepareElements() , in pg222pb-link-header.js')
-      return
-    }
+    this.#validateArray(aLinkBuilderArray)
     const aElements = this.#buildLinkElements(aLinkBuilderArray)
     this.#addClassTagToElements(aElements)
     this.#addToShadowRoot(aElements)
+  }
+
+  /**
+   * Validates the array of ALinkBuilder objects.
+   *
+   * @param {Array<AElementBuilder>} arrayToValidate - The array of ALinkBuilder objects to perform validation on.
+   */
+  #validateArray (arrayToValidate) {
+    try {
+      Validator.validateIsThisAnArray(arrayToValidate)
+      Validator.validateAllElementsOfType(arrayToValidate, AElementBuilder)
+    } catch (error) {
+      console.error(error + ' in LinkHeader.validateArray , in pg222pb-link-header.js')
+    }
   }
 
   /**
