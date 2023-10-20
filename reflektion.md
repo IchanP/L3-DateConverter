@@ -15,12 +15,15 @@ Initially I did not follow the One Word Per Concept in the `Transformer` and `Te
 // TODO rename the method names to not all be convert
 
 ![Bad-Names](./reportimages/badnames.png)
+
 The names that were poor
 
 ![Good-Names](./reportimages/updated-names.png)
+
 The updated names, the `convert` issue is also visible here in the DateConverter
 
 ![Wrapper-Method-Names](./reportimages/wrapper-method-names.png)
+
 The method names sharing `convert` in the `TemporalConverterWrapper` class.
 
 ## Chapter 3
@@ -30,6 +33,7 @@ I've done a reasonably good job at not mixing the abstraction levels of my funct
 Furthermore in accordance with the rule of extracting try/catch blocks, this has been done wherever possible. While this makes the code a lot easier to understand it also makes the handling of the error substantially easier, as the error is handled closer to where it was thrown, compared to how I was previously handling them, while also keeping the number of try/catches to a minimum. This also synergizes with the rule of DRY, as the error handling and catching is now done in one place, and one place only.
 
 ![convertKokiToJapaneseEra](./reportimages/extracted-try-catch.png)
+
 Found in [temporalconverterwrapper.js](./src/model/TemporalConverterUtils/TemporalConverterWrapper.js)
 
 ## Chapter 4
@@ -54,13 +58,16 @@ Furthermore I opted to set
 // NOTE model should only throw?
 
 ![Pre-refactoring](./reportimages/previous-error-method.png)
+
 How the handleError method looked before refactoring.
 
 ![Pre-refactoring](./reportimages/errorhandling-in-header.png)
+
 How the validation occured before the refactoring
 
 // TODO this needs to be remade
 ![Post-Refactoring](./reportimages/error-post-refactoring.png)
+
 Created a try-catch that returns should an error be thrown.
 
 ## Chapter 8
@@ -86,12 +93,15 @@ My classes has, where it's applicable followed the guideline of public>private>p
 I am not entirely sure how to treat methods called from the constructor, for example I have in my DateConverter class that calls several validation methods, which is placed in the constructor, should this be right below the constructor? This to me breaks the public>private>public pattern as the first method would then be a private method, therefore I simply opted to put it at the bottom. [Link to the class in question](./src/model/DateConverter.js)
 
 ![Example of the event that could have been avoided](./reportimages/convert-listen.png)
+
 The listener that has a hidden dependency to "convert".
 
 ![Example of the event that could have been avoided](./reportimages/convert-dispatch.png)
+
 The event being fired.
 
 ![public-private-public](./reportimages/public-private-public.png)
+
 Example of public>private>public methods.
 
 ### Overall
