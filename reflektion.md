@@ -73,33 +73,23 @@ Decided to make a class for building an "a" element. I wanted to create a more g
 
 ## Chapter 7 Error Handling
 
-As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I already had a "handleError" method in this class. (For context the errors thrown in this class are only relevant to the developer). At this point I realized that an end user may not want or need this problem rendered in the UI and simply removed the #handleError function and opted to simply console.error() the error for testing in my try catch with the addition of the filename and the method that the try catch is located in.
+As I was working I decided to refactor my code in my LinkHeader class, I broke out some validation methods into their own seperate class and decided to throw the error there rather than in the class itself. I then quickly realized that it would become a lot harder to see where the error actually occured, in accordance with the rule "Provide Context with Exceptions". I therefore decided to console.error the name of the file that the error was caught in, which worked fine in this specific scenario. However it provided far less information when used in the `SmallDateConverter` class, as the error bubbled through the application to reach there. I therefore believe that this should be used on a case-by-case basis, as the errors that bubbled through to `SmallDateConverter` were still easily traceable, but had very little to do with what was actually going on in the `SmallDateConverter` class. However this may change as the application grows...
 
-Furthermore I opted to set
+Furthermore I opted to set any error messages inside the extended error classes I made, as these are the ones that will be rendered to the user. I did this as I felt like it would be easier to keep track of the error messages and to keep them consistent. This also makes it easier to change the error messages should the need arise.
 
-// TODO are all the error messages set inside the controller/view and not in the model?
-// NOTE model should only throw?
+![error-class](./reportimages/error-class.png)
 
-![Pre-refactoring](./reportimages/previous-error-method.png)
-
-How the handleError method looked before refactoring.
-
-![Pre-refactoring](./reportimages/errorhandling-in-header.png)
-
-How the validation occured before the refactoring
-
-// TODO this needs to be remade
-![Post-Refactoring](./reportimages/error-post-refactoring.png)
-
-Created a try-catch that returns should an error be thrown.
+Example of my custom made error class.
 
 ## Chapter 8 Boundaries
 
 I am certain that I have missed a few points in my code where the applicability is similar but, I decided to try to take the "minimze impact of change" to heart, hence why I in my Validator class decided to wrap the "isArray" in my own API. (As this is a class that I can see myself reusing I also don't feel like it matters to much whether this particular function was reused in this project). Benefit obviously being that if the isArray function for some ungodly reason would change in the future this is the only place in the project where a change would have to occur. (I am aware that making the methods static breaks against OOP convention/rules(?) however I did not feel like it made much sense to have to declare a Validator as an object everytime I wanted to use it, this simply looks cleaner).
 
-In vein with what I mentioned earlier I refactored my code to hold the DateStringBuilder object inside my TemporalConverterWrapper class, I thought this made sense as a change in how the TemporalConverter class returns its dates would require a change in logic in the DateStringBuilder class. Keeping it close to the TemporalConverter class makes it easier to see that they are related and that a change in one may require a change in the other. The third party code (my own module), is also wrapped inside the TemporalConverterClass, keeping it contained so that should any changes to the module occur that would impact this app any changes would only have to occur inside this class and the DateStringBuilder class.
+In vein with what I mentioned earlier I refactored my code to hold the `DateStringBuilder` object inside my `TemporalConverterWrapper` class, I thought this made sense as a change in how the `TemporalConverterWrapper` class returns its dates would require a change in logic in the `DateStringBuilder` class. Keeping it close to the `TemporalConverterWrapper` class makes it easier to see that they are related and that a change in one may require a change in the other. The third party code (my own module), is also wrapped inside the `TemporalConverterWrapper`, keeping it contained so that should any changes to the module occur that would impact this app any changes would only have to occur inside this class and the `DateStringBuilder` class.
 
-// TODO add image of how the class looks like now.
+![date-string-builder](./reportimages/date-string-builder.png)
+
+Date string builder is held as a field in the `TemporalConverterWrapper` class.
 
 ## Chapter 9 Unit Tests
 
