@@ -28,9 +28,14 @@ The method names sharing `convert` in the `TemporalConverterWrapper` class.
 
 ## Chapter 3
 
-I've done a reasonably good job at not mixing the abstraction levels of my functions, the essence of this rule is to keep things non-confusing and the author Robert, states that mixing them is always confusing. I have conciously violated this rule in my `convertKokiToJapaneseEra` function, seen below, where the operation to split the returned string is of medium level abstraction. It is a concious choice as I feel like the operation is simple enough and the variable names clear enough for this to not cause confusion. I believe a worse offense would have been to perform a low level operation in a high abstraction method.
+I've done a reasonably good job at not mixing the abstraction levels of my functions, the essence of this rule is to keep things non-confusing and the author Robert, states that mixing them is always confusing. I have conciously violated this rule in my `convertKokiToJapaneseEra` function, seen below, where the operation to split the returned string is of medium level abstraction. It is a concious choice as I feel like the operation is simple enough and the variable names clear enough for this to not cause confusion. I believe a worse offense would have been to perform a low level operation in a high abstraction method, such as also including the following try/catch in this statement
+(although this would have violated other rules aswell).
 
 Furthermore in accordance with the rule of extracting try/catch blocks, this has been done wherever possible. While this makes the code a lot easier to understand it also makes the handling of the error substantially easier, as the error is handled closer to where it was thrown, compared to how I was previously handling them, while also keeping the number of try/catches to a minimum. This also synergizes with the rule of DRY, as the error handling and catching is now done in one place, and one place only.
+
+![mix-abstraction](./reportimages/mix-abstraction.png)
+
+The mixing of abstraction levels in the `convertKokiToJapaneseEra` function.
 
 ![convertKokiToJapaneseEra](./reportimages/extracted-try-catch.png)
 
