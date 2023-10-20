@@ -16,7 +16,7 @@ export class DateStringBuilder {
    * @returns {string} - Returns the date string in the format "YYYY/MM/DD" or "YYYY/MM".
    */
   addWesternMonthDate (westernStyleYear, dateObject) {
-    return `${westernStyleYear}/${dateObject.month}` + (dateObject.day !== null ? `/${dateObject.day}` : '')
+    return `${westernStyleYear}` + (dateObject.month ? `/${dateObject.month}` : '') + (dateObject.day ? `/${dateObject.day}` : '')
   }
 
   /**

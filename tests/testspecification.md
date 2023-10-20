@@ -18,7 +18,7 @@ The front page of the application should now be rendered
 #### Test Steps
 
 1. Test step 1.1 done
-2. Click on the "Big Text Conversion Page"1 link in the header.
+2. Click on the "Big Text Conversion" link in the header.
 
 #### Expected Result
 
@@ -29,7 +29,7 @@ The "Big Text Conversion" page of the application is now rendered.
 ### Test Steps
 
 1. Test step 1.1 done
-2. Click on the "Small Date Conversion Page"  link in the header.
+2. Click on the "Small Date Conversion"  link in the header.
 
 #### Expected Result
 

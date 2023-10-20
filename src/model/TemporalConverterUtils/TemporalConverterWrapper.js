@@ -97,8 +97,19 @@ export class TemporalConverterWrapper {
    */
   translateJapaneseEraToGregorian () {
     const gregorianFromJapaneseEraYear = this.#tryTranslateJapaneseEraToGregorian(this.#dateHolder.name, this.#dateHolder.year)
-    console.log(this.#dateHolder)
     return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromJapaneseEraYear, this.#dateHolder)
+  }
+
+  /**
+   * Converts from the Japanese Era Calendar to the Kõki Calendar.
+   *
+   * @returns {string} - Returns the converted date in the format "Kõki YYYY/MM"
+   */
+  translateJapaneseEraToKoki () {
+    const gregorianYearToExtract = this.#tryTranslateJapaneseEraToGregorian(this.#dateHolder.name, this.#dateHolder.year)
+    const extractedGregorianYear = gregorianYearToExtract.split(' ')[0]
+    const kokiFromJapaneseEraYear = temporalConverter.KokiFromGregorian(extractedGregorianYear, 'CE')
+    return this.#dateStringBuilder.addWesternMonthDate(kokiFromJapaneseEraYear, this.#dateHolder)
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
