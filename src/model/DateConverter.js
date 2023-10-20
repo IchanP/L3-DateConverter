@@ -85,7 +85,7 @@ export class DateConverter {
       return this.#converterWrapper.translateJapaneseEraToGregorian(this.#conversionDetails.dateToConvert)
     }
     if (this.#conversionDetails.toCalendar === 'Kōki') {
-      return this.#converterWrapper.convertJapaneseEraToKoki(this.#conversionDetails.dateToConvert)
+      return this.#converterWrapper.translateJapaneseEraToKoki(this.#conversionDetails.dateToConvert)
     }
   }
 

@@ -135,7 +135,7 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 In the unselectable input field "Kõki 2660/12/25" is rendered.
 
-### TC4 Converting to Japanese Era
+## TC4 Converting to Japanese Era
 
 ### TC4.1 User should be able to convert from Gregorian to Japanese Era
 
@@ -163,22 +163,7 @@ In the unselectable input field "Heisei 12" is rendered.
 
 In the unselectable input field "Ryakuõ 4" is rendered.
 
-// TODO move this somewhere else?
-
-### TC4.3 User errors should be handled when converting from Gregorian to Japanese Era
-
-#### Test Steps
-
-1. Select the Gregorian Calendar to convert from
-2. Select the Japanese Era Calendar to convert to
-3. In the input field type "644/12/25" // TODO fix this
-4. Press Convert
-
-#### Expected
-
-An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Date on that day.
-
-### Date Formats for Japense Calendar style
+## TC5 Date Formats for Japense Calendar style
 
 #### Common Steps
 
@@ -206,3 +191,5 @@ In the unselectable input field "2000 CE" is rendered.
 #### Expected
 
 In the unselectable input field "December 2000 CE" is rendered.
+
+## TC6 User should be ablet o convert from Japanese Era
