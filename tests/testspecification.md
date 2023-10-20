@@ -13,14 +13,12 @@
 
 The front page of the application should now be rendered
 
-// TODO insert image here
-
 ### TC1.2 Clicking the Big Conversion Page link in the header should render the second page
 
 #### Test Steps
 
 1. Test step 1.1 done
-2. Click on the "Big Text Conversion Page" // TODO rename // link in the header.
+2. Click on the "Big Text Conversion Page"1 link in the header.
 
 #### Expected Result
 
@@ -64,7 +62,7 @@ An error message is displayed to the user telling them they cannot perform that 
 
 An error message is displayed to the user telling them they cannot perform that operation as it is not an accepted date.
 
-## TC 3 - Gregorian to Kõki Conversions
+## TC 3 - Date Formats
 
 #### Common Steps
 
@@ -124,62 +122,32 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 In the unselectable input field "Kõki 2660/12/25" is rendered.
 
-## TC 4 - Kõki to Gregorian Conversions
+### TC4 Gregorian to Japanese Era Conversions
 
-#### Common Steps
+### TC4.1 User should be able to convert from Gregorian to Japanese Era
 
-1. Select the Kõki Calendar to convert from
-2. Select the Gregorian Calendar to convert to
+#### Test Steps
 
-### TC4.1 User should be able to convert using MM/YYYY format
-
-### Test Steps
-
-3. In the input field type "12/2000"
-4. Press Convert
-
-### Expected
-
-In the unselectable input field "Kõki 2660/12" is rendered.
-
-### TC 4.2 User should be able to convert using YYYY/MM format
-
-3. In the input field type "2000/12"
-4. Press Convert
-
-### Expected
-
-In the unselectable input field "Kõki 2660/12" is rendered.
-
-### TC4.3 User should be able to convert using MM/DD/YYYY format
-
-### Test Steps
-
-3. In the input field type "12/25/2000"
-4. Press Convert
-
-### Expected
-
-In the unselectable input field "Kõki 2660/12/25" is rendered.
-
-### TC4.4 User should be able to convert using DD/MM/YYYY format
-
-### Test Steps
-
-3. In the input field type "25/12/2000"
-4. Press Convert
-
-### Expected
-
-In the unselectable input field "Kõki 2660/12/25" is rendered.
-
-### TC4.5 User should be able to convert using YYYY/MM/DD format
-
-### Test Steps
-
+1. Select the Gregorian Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
 3. In the input field type "2000/12/25"
 4. Press Convert
 
-### Expected
+#### Expected
 
-In the unselectable input field "Kõki 2660/12/25" is rendered.
+In the unselectable input field "Heisei 12" is rendered.
+
+// TODO move this somewhere else?
+
+### TC4.2 User errors should be handled when converting from Gregorian to Japanese Era
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "644/12/25" // TODO fix this
+4. Press Convert
+
+#### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Date on that day.

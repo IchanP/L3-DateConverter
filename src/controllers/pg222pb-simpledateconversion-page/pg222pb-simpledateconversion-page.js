@@ -6,6 +6,7 @@ import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
 import { SmallDateConverter } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
 import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
 import { DateConverter } from '../../model/DateConverter.js'
+import { CannotConvertError } from '../../model/Errors/CannotConvertError.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -69,6 +70,7 @@ class SimpleDateConversionPage extends HTMLElement {
       return dateConverter.convertDate()
     } catch (error) {
       console.error(error.message + ' in convertDate, in pg222pb-simpledateconversion-page.js') // TODO add path ?
+      console.log(typeof error)
       this.#handleUserError(error)
     }
   }
@@ -79,11 +81,21 @@ class SimpleDateConversionPage extends HTMLElement {
    * @param {Error} error - The error to handle.
    */
   #handleUserError (error) {
-    if (Validator.isSameType(error, SameCalendarError) || Validator.isSameType(error, InvalidDateFormatError)) {
+    if (this.#isUserError(error)) {
       const errorElement = this.#dateConverter.getErrorElement()
       const errorRenderer = new ErrorRenderer(errorElement, error)
       errorRenderer.renderError(errorElement, error)
     }
+  }
+
+  /**
+   * Checks whether the error is a user error.
+   *
+   * @param {Error} error - The error to check instance of.
+   * @returns {boolean} - Returns true if the error is a user error, false otherwise.
+   */
+  #isUserError (error) {
+    return (Validator.isSameType(error, SameCalendarError) || Validator.isSameType(error, InvalidDateFormatError)) || Validator.isSameType(error, CannotConvertError)
   }
 }
 
