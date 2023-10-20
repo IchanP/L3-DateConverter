@@ -24,13 +24,9 @@ Not entirely sure how to avoid the duplication of the #dateHolder field as movin
 
 I've tried to give all my variable names meaningful and unique names, the unique names to make them more searchable. The one place I ran into issues was in the `Transformer` classes where very similar operations are performed with only slight differences, I added some more context to the names as can be seen below however as these specific variables are not likely to be searched for specifically as in this context the algorithm itself is more likely to be of interest rather than the specific variable names, in this regard the method names are aptly named in my opinion as they clearly state the format of date which is being worked on.
 
-Initially I did not follow the One Word Per Concept in the `Transformer` and `TemporalConverterWrapper` classes either as the methods in both classes shared the word `convert` while performing different things. Therefore one of these concepts had to be renamed and I selected // TODO
+Initially I did not follow the One Word Per Concept in the `Transformer` and `TemporalConverterWrapper` classes either as the methods in both classes shared the word `convert` while performing different things. Therefore one of these concepts had to be renamed and I selected the ones inside the `TemporalConverterWrapper` class for this, changing the concept word to `translate` instead.
 
 // TODO rename the method names to not all be convert
-
-![Bad-Names](./reportimages/badnames.png)
-
-The names that were poor
 
 ![Good-Names](./reportimages/updated-names.png)
 
@@ -38,7 +34,7 @@ The updated names, the `convert` issue is also visible here in the DateConverter
 
 ![Wrapper-Method-Names](./reportimages/wrapper-method-names.png)
 
-The method names sharing `convert` in the `TemporalConverterWrapper` class.
+`Translate` method names in the `TemporalConverterWrapper` class.	
 
 ## Chapter 3 Functions
 

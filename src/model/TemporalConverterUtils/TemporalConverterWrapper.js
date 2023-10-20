@@ -27,7 +27,7 @@ export class TemporalConverterWrapper {
    *
    * @returns {string} - Returns the converted date in the format "Kõki YYYY/MM"
    */
-  convertGregorianToKoki () {
+  translateGregorianToKoki () {
     const kokiFromGregorianYear = temporalConverter.KokiFromGregorian(this.#dateHolder.year, 'CE')
     return this.#dateStringBuilder.addWesternMonthDate(kokiFromGregorianYear, this.#dateHolder)
   }
@@ -37,7 +37,7 @@ export class TemporalConverterWrapper {
    *
    * @returns {string} - Returns the converted date in the format "DD Month YYYY BCE/CE"
    */
-  convertKokiToGregorian () {
+  translateKokiToGregorian () {
     const gregorianFromKokiYear = temporalConverter.KokiToFormattedGregorian(Number(this.#dateHolder.year))
     return this.#dateStringBuilder.addMonthDateToGregorian(gregorianFromKokiYear, this.#dateHolder)
   }
@@ -47,10 +47,10 @@ export class TemporalConverterWrapper {
    *
    * @returns {string} - Returns the converted date in the format "Japanese Era YY"
    */
-  convertKokiToJapaneseEra () {
+  translateKokiToJapaneseEra () {
     const yearToExtract = temporalConverter.KokiToFormattedGregorian(Number(this.#dateHolder.year))
     const extractedGregorianYear = yearToExtract.split(' ')[0]
-    return this.#tryConvertGregorianToJapaneseEra(extractedGregorianYear, this.#dateHolder.month)
+    return this.#tryTranslateGregorianToJapaneseEra(extractedGregorianYear, this.#dateHolder.month)
   }
 
   /**
@@ -58,8 +58,8 @@ export class TemporalConverterWrapper {
    *
    * @returns {string} - Returns a string in the format "Japanese Era YY".
    */
-  convertGregorianToJapaneseEra () {
-    return this.#tryConvertGregorianToJapaneseEra(this.#dateHolder.year, this.#dateHolder.month)
+  translateGregorianToJapaneseEra () {
+    return this.#tryTranslateGregorianToJapaneseEra(this.#dateHolder.year, this.#dateHolder.month)
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -71,7 +71,7 @@ export class TemporalConverterWrapper {
    * @param {string} month - May be of both string or number format, conversion is made inside the function.
    * @returns {string} - Returns a string in the format "Japanese Era YY".
    */
-  #tryConvertGregorianToJapaneseEra (year, month) {
+  #tryTranslateGregorianToJapaneseEra (year, month) {
     try {
       return temporalConverter.GregorianToFormattedJpEra(Number(year), Number(month))
     } catch (error) {
@@ -93,7 +93,7 @@ export class TemporalConverterWrapper {
   /**
    * Converts from the Japanese Era Calendar to the Gregorian Calendar.
    */
-  convertJapaneseEraToGregorian () {
+  translateJapaneseEraToGregorian () {
 
   }
 }
