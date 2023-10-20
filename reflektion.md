@@ -2,17 +2,17 @@
 
 ### Index
 
-* ![Sidenote](#sidenote)
-* ![Chapter 2 Meaningful Names](#chapter-2-meaningful-names)
-* ![Chapter 3 Functions](#chapter-3-functions)
-* ![Chapter 4 Comments](#chapter-4-comments)
-* ![Chapter 5 Formatting](#chapter-5-formatting)
-* ![Chapter 6 Objects and Data Structures](#chapter-6-objects-and-data-structures)
-* ![Chapter 7 Error Handling](#chapter-7-error-handling)
-* ![Chapter 8 Boundaries](#chapter-8-boundaries)
-* ![Chapter 9 Unit Tests](#chapter-9-unit-tests)
-* ![Chapter 10 Classes](#chapter-10-classes)
-* ![Chapter 11 Systems](#chapter-11-systems)
+* [Sidenote](#sidenote)
+* [Chapter 2 Meaningful Names](#chapter-2-meaningful-names)
+* [Chapter 3 Functions](#chapter-3-functions)
+* [Chapter 4 Comments](#chapter-4-comments)
+* [Chapter 5 Formatting](#chapter-5-formatting)
+* [Chapter 6 Objects and Data Structures](#chapter-6-objects-and-data-structures)
+* [Chapter 7 Error Handling](#chapter-7-error-handling)
+* [Chapter 8 Boundaries](#chapter-8-boundaries)
+* [Chapter 9 Unit Tests](#chapter-9-unit-tests)
+* [Chapter 10 Classes](#chapter-10-classes)
+* [Chapter 11 Systems](#chapter-11-systems)
 
 ## Sidenote
 
