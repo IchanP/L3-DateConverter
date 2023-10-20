@@ -1,31 +1,21 @@
 import { DateObject } from '../DataStructure/DateObject'
 import { AcceptableBasicDateFormats } from '../AcceptableDateFormats'
+import { DateTransformer } from './DateTransformer'
 
 /**
  * Converts dates in various formats to a data structure split between date, month and year.
  */
-export class BasicDateTransformer {
-  #acceptableFormats
-  #dateFormat
-  #dateObject
+export class BasicDateTransformer extends DateTransformer {
+  #dateHolder
   /**
    * Initializes the fields.
+   * Creates a field containing a DateObject created from the information passed by the dateToConvert argument.
    *
    * @param {string} dateToConvert - The date from which the DateObject is constructed from.
    */
   constructor (dateToConvert) {
-    this.#acceptableFormats = AcceptableBasicDateFormats
-    this.#dateObject = this.#formatDate(dateToConvert)
-  }
-
-  /**
-   * Returns the date format which the date object is constructed from.
-   *
-   * @returns {string} - Returns a string from which the the date object is constructed from. Possible values are:
-   * monthYear, yearMonth, monthDateYear, dateMonthYear, yearMonthDate.
-   */
-  get dateFormat () {
-    return this.#dateFormat
+    super(AcceptableBasicDateFormats, dateToConvert)
+    this.#dateHolder = this.#formatDate(dateToConvert)
   }
 
   /**
@@ -34,46 +24,31 @@ export class BasicDateTransformer {
    * @returns {DateObject} - Returns a DateObject which may have a null day field.
    */
   getDateObject () {
-    return this.#dateObject
+    return this.#dateHolder
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Formats the date to a data structure containing the date, month and year.
    *
-   * @param {string} dateToFormat - The date to format.
+   * @param {string} dateToFormat - The string to convert.
    * @returns {DateObject} - Returns a DateObject which may have a null day field.
    */
   #formatDate (dateToFormat) {
-    this.#setDateFormat(dateToFormat)
-    if (this.#dateFormat === 'monthYear') {
+    if (this.dateFormat === 'monthYear') {
       return this.#convertMonthYear(dateToFormat)
     }
-    if (this.#dateFormat === 'yearMonth') {
+    if (this.dateFormat === 'yearMonth') {
       return this.#convertYearMonth(dateToFormat)
     }
-    if (this.#dateFormat === 'monthDateYear') {
+    if (this.dateFormat === 'monthDateYear') {
       return this.#convertMonthDateYear(dateToFormat)
     }
-    if (this.#dateFormat === 'dateMonthYear') {
+    if (this.dateFormat === 'dateMonthYear') {
       return this.#convertDateMonthYear(dateToFormat)
     }
-    if (this.#dateFormat === 'yearMonthDate') {
+    if (this.dateFormat === 'yearMonthDate') {
       return this.#convertYearMonthDate(dateToFormat)
-    }
-  }
-
-  // eslint-disable-next-line jsdoc/require-returns-check
-  /**
-   * Matches the date to the acceptable formats.
-   *
-   * @param {string} dateToMatch - The date to match.
-   */
-  #setDateFormat (dateToMatch) {
-    for (const [key, value] of Object.entries(this.#acceptableFormats)) {
-      if (value.test(dateToMatch)) {
-        this.#dateFormat = key
-      }
     }
   }
 

@@ -1,39 +1,44 @@
 import { AcceptableJapaneseEraDateFormats } from '../AcceptableDateFormats'
+import { NamedDateObject } from '../DataStructure/NamedDateObject'
+import { DateTransformer } from './DateTransformer'
 
 /**
  * Converts Japanese Era dates to a format split between name, year, month and day.
  */
-export class JapaneseEraDateTransformer {
-  #dateObject
-  #dateFormat
-  #acceptableFormats
+export class JapaneseEraDateTransformer extends DateTransformer {
+  #dateHolder
   /**
-   * Initializes the fields
+   * Initializes the fields.
+   * Creates a field containing a NamedDateObject created from the information passed by the dateToConvert argument.
    *
    * @param {string} dateToConvert - The date from which the DateObject is constructed from.
    */
   constructor (dateToConvert) {
-    this.#acceptableFormats = AcceptableJapaneseEraDateFormats
-    // this.#setDateFormat(dateToConvert)
-    // this.#dateObject = this.#formatDate(dateToConvert)
-  }
-
-  /**
-   * Returns the date format which the date object is constructed from.
-   *
-   * @returns {string} - Returns a string from which the date object is constructed from. Possible values are:
-   * yearMonth, year .
-   */
-  get dateFormat () {
-    return this.#dateFormat
+    super(AcceptableJapaneseEraDateFormats, dateToConvert)
+    this.#dateHolder = this.#formatDate(dateToConvert)
   }
 
   /**
    * Returns the formatted date.
-   * 
-   * @returns {}
+   *
+   * @returns {NamedDateObject} - Returns a NamedDateObject which may have a null month and day field.
    */
   getDateObject () {
-    return this.#dateObject
+    return this.#dateHolder
   }
+
+  /**
+   * Formats the date to a data structure containg the name, year, month and day.
+   *
+   * @param {string} dateToFormat
+   */
+   #formatDate (dateToFormat) {
+    this.getDateFormat(dateToFormat)
+    if (this.dateFormat === 'yearMonth') {
+      return this.#convertYearMonth(dateToFormat)
+    }
+    if (this.dateFormat === 'year') {
+      return this.#convertYear(dateToFormat)
+    }
+  } 
 }

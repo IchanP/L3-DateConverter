@@ -4,6 +4,8 @@
 
 I would have liked to use OOP concepts more such as interfaces and abstract classes to better adhere to things such as DRY and just general file structure, however you cannot create interfaces or abstract classes in Javascript, only Typescript...
 
+Not entirely sure how to avoid the duplication of the #dateHolder field as moving this field up the class hierarchy would add an immense amount of complexity to the class hierarchy since Javascript does not support protected fields and only private/public.
+
 ## Chapter 3
 
 I've done a reasonably good job at not mixing the abstraction levels of my functions, the essence of this rule is to keep things non-confusing and the author Robert, states that mixing them is always confusing. I have conciously violated this rule in my `convertKokiToJapaneseEra` function, seen below, where the operation to split the returned string is of medium level abstraction. It is a concious choice as I feel like the operation is simple enough and the variable names clear enough for this to not cause confusion. I believe a worse offense would have been to perform a low level operation in a high abstraction method.
