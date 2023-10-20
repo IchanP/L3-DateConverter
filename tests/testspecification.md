@@ -192,4 +192,58 @@ In the unselectable input field "2000 CE" is rendered.
 
 In the unselectable input field "December 2000 CE" is rendered.
 
-## TC6 User should be ablet o convert from Japanese Era
+## TC6 User should be able to convert to Kõki
+
+### TC6.1 User should be able to convert from Gregorian to Kõki
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Kõki Calendar to convert to
+3. In the input field type "2000/12/25"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2660/12/25" is rendered.
+
+### TC6.2 User should be able to convert from Japanese Era to Kõki
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Kõki Calendar to convert to
+3. In the input field type "Heisei 12/12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2660/12/25" is rendered.
+
+## TC7 User should be able to convert to Gregorian
+
+### TC7.1 User should be able to convert from Kõki to Gregorian
+
+#### Test Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "2660/12/25"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000/12/25" is rendered.
+
+### TC7.2 User should be able to convert from Japanese Era to Gregorian
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "Heisei 12/12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000/12/25" is rendered.
