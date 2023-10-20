@@ -2,7 +2,6 @@
 
 ### Index
 
-* [Sidenote](#sidenote)
 * [Chapter 2 Meaningful Names](#chapter-2-meaningful-names)
 * [Chapter 3 Functions](#chapter-3-functions)
 * [Chapter 4 Comments](#chapter-4-comments)
@@ -13,12 +12,6 @@
 * [Chapter 9 Unit Tests](#chapter-9-unit-tests)
 * [Chapter 10 Classes](#chapter-10-classes)
 * [Chapter 11 Systems](#chapter-11-systems)
-
-## Sidenote
-
-I would have liked to use OOP concepts more such as interfaces and abstract classes to better adhere to things such as DRY and just general file structure, however you cannot create interfaces or abstract classes in Javascript, only Typescript...
-
-Not entirely sure how to avoid the duplication of the #dateHolder field as moving this field up the class hierarchy would add an immense amount of complexity to the class hierarchy since Javascript does not support protected fields and only private/public.
 
 ## Chapter 2 Meaningful Names
 
@@ -34,7 +27,7 @@ The updated names, the `convert` issue is also visible here in the DateConverter
 
 ![Wrapper-Method-Names](./reportimages/wrapper-method-names.png)
 
-`Translate` method names in the `TemporalConverterWrapper` class.	
+`Translate` method names in the `TemporalConverterWrapper` class. 
 
 ## Chapter 3 Functions
 
@@ -117,6 +110,3 @@ Example of public>private>public methods.
 
 // TODO
 
-### Overall
-
-I WISH I WAS WRITING TYPESCRIPT RIGHT NOW

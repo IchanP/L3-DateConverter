@@ -75,7 +75,7 @@ An error message is displayed to the user telling them they cannot perform that 
 
 An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Era on that day.
 
-## TC 3 - Date Formats
+## TC 3 - Date Formats for Western Calendar Types
 
 #### Common Steps
 
@@ -177,3 +177,32 @@ In the unselectable input field "Ryakuõ 4" is rendered.
 #### Expected
 
 An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Date on that day.
+
+### Date Formats for Japense Calendar style
+
+#### Common Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+
+### TC5.1 User should be able to convert using EraName YY format
+
+#### Test Steps
+
+3. In the input field type "Heisei 12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000 CE" is rendered.
+
+### TC5.2 User should be able to convert using EraName YY/MM format
+
+#### Test Steps
+
+3. In the input field type "Heisei 12/12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "December 2000 CE" is rendered.

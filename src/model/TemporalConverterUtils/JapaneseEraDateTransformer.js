@@ -15,7 +15,7 @@ export class JapaneseEraDateTransformer extends DateTransformer {
    */
   constructor (dateToConvert) {
     super(AcceptableJapaneseEraDateFormats, dateToConvert)
-    this.#dateHolder = this.#formatDate(dateToConvert)
+    this.#dateHolder = this.#convertDate(dateToConvert)
   }
 
   /**
@@ -34,8 +34,7 @@ export class JapaneseEraDateTransformer extends DateTransformer {
    * @param {string} dateToFormat - The date to convert to a NamedDateObject.
    * @returns {NamedDateObject} - Returns a NamedDateObject which may have a null month and day field.
    */
-  #formatDate (dateToFormat) {
-    this.getDateFormat(dateToFormat)
+  #convertDate (dateToFormat) {
     if (this.dateFormat === 'yearMonth') {
       return this.#convertYearMonth(dateToFormat)
     }
