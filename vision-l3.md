@@ -19,6 +19,8 @@ Anyone who wishes to convert a date to another form of calendar or quickly edit 
 
 * All code must be encapsulated inside a class, unless it is required to start the code.
 
+* The code should follow the [LNU Codestandard](https://www.npmjs.com/package/@lnu/eslint-config)
+
 ### Tech Stack
 
 Webserver: Vite

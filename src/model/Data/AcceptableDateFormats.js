@@ -7,6 +7,6 @@ export const AcceptableBasicDateFormats = {
 }
 
 export const AcceptableJapaneseEraDateFormats = {
-  yearMonth: /^[a-zA-Z]{1,30}\s(?!0{2})(0?\d{1,2})\/(0?\d{1,2})$/,
-  year: /^[a-zA-Z]{1,30}\s(?!0{1,2})\d{1,2}$/
+  yearMonth: /^[a-zA-Z]{1,30}\s(?!0{1,2})([1-9]\d?)\/(0?[1-9]|1[0-2])$/,
+  year: /^[a-zA-Z]{1,30}\s([1-9]\d?)$/
 }

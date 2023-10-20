@@ -35,9 +35,9 @@ The "Big Text Conversion" page of the application is now rendered.
 
 The "Small Date Conversion Page" is now rendered.
 
-## TC 2 Error Rendering
+## TC 2 Error Rendering on Small Date Conversion Page
 
-### TC2.1 User should be informed of same calendar errors in Small Date Converter
+### TC2.1 User should be informed of same calendar errors
 
 ### Test Steps
 
@@ -49,7 +49,7 @@ The "Small Date Conversion Page" is now rendered.
 
 An error message is displayed to the user telling them they cannot perform that operation as they are the same calendar.
 
-### TC2.2 User should be informed of invalid date format errors in Small Date Converter
+### TC2.2 User should be informed of invalid date format errors
 
 ### Test Steps
 
@@ -75,19 +75,46 @@ An error message is displayed to the user telling them they cannot perform that 
 
 An error message is displayed to the user telling them they cannot perform that operation as there is no Japanese Era on that day.
 
+### TC2.4 User should be informed if the Japanese Era name is invalid
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "Invalidname 12/12"
+4. Press Convert
+
+#### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as the Japanese Era name is invalid.
+
+### TC2.5 User should be informed if the Japanese Era year is invalid
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "Heisei 90/12"
+4. Press Convert
+
+#### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as the Japanese Era year does not exist.
+
 ## TC 3 - Date Formats for Western Calendar Types
 
 #### Common Steps
 
-1. Select the Gregorian Calendar to convert from
-2. Select the Kõki Calendar to convert to
+1. Navigate to the "Small Date Conversion Page"
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
 
 ### TC3.1 User should be able to convert using MM/YYYY format
 
 ### Test Steps
 
-3. In the input field type "12/2000"
-4. Press Convert
+4. In the input field type "12/2000"
+5. Press Convert
 
 ### Expected
 
@@ -95,8 +122,8 @@ In the unselectable input field "Kõki 2660/12" is rendered.
 
 ### TC 3.2 User should be able to convert using YYYY/MM format
 
-3. In the input field type "2000/12"
-4. Press Convert
+4. In the input field type "2000/12"
+5. Press Convert
 
 ### Expected
 
@@ -106,8 +133,8 @@ In the unselectable input field "Kõki 2660/12" is rendered.
 
 ### Test Steps
 
-3. In the input field type "12/25/2000"
-4. Press Convert
+4. In the input field type "12/25/2000"
+5. Press Convert
 
 ### Expected
 
@@ -117,8 +144,8 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 ### Test Steps
 
-3. In the input field type "25/12/2000"
-4. Press Convert
+4. In the input field type "25/12/2000"
+5. Press Convert
 
 ### Expected
 
@@ -128,14 +155,14 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 ### Test Steps
 
-3. In the input field type "2000/12/25"
-4. Press Convert
+4. In the input field type "2000/12/25"
+5. Press Convert
 
 ### Expected
 
 In the unselectable input field "Kõki 2660/12/25" is rendered.
 
-## TC4 Converting to Japanese Era
+## TC4 User should be able to convert to Japanese Era using the Small Date Converter
 
 ### TC4.1 User should be able to convert from Gregorian to Japanese Era
 
@@ -167,15 +194,16 @@ In the unselectable input field "Ryakuõ 4" is rendered.
 
 #### Common Steps
 
-1. Select the Japanese Era Calendar to convert from
-2. Select the Gregorian Calendar to convert to
+1. Navigate to the "Small Date Conversion Page"
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
 
 ### TC5.1 User should be able to convert using EraName YY format
 
 #### Test Steps
 
-3. In the input field type "Heisei 12"
-4. Press Convert
+4. In the input field type "Heisei 12"
+5. Press Convert
 
 #### Expected
 
@@ -185,14 +213,14 @@ In the unselectable input field "2000 CE" is rendered.
 
 #### Test Steps
 
-3. In the input field type "Heisei 12/12"
-4. Press Convert
+4. In the input field type "Heisei 12/12"
+5. Press Convert
 
 #### Expected
 
 In the unselectable input field "December 2000 CE" is rendered.
 
-## TC6 User should be able to convert to Kõki
+## TC6 User should be able to convert to Kõki using the Small Date Converter
 
 ### TC6.1 User should be able to convert from Gregorian to Kõki
 
@@ -220,7 +248,7 @@ In the unselectable input field "2660/12/25" is rendered.
 
 In the unselectable input field "2660/12/25" is rendered.
 
-## TC7 User should be able to convert to Gregorian
+## TC7 User should be able to convert to Gregorian using the Small Date Converter
 
 ### TC7.1 User should be able to convert from Kõki to Gregorian
 

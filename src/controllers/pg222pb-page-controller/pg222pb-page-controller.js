@@ -55,8 +55,8 @@ class PageController extends HTMLElement {
    */
   #buildHeader () {
     const aBuilders = [new AElementBuilder('Front Page', this.#frontPageOnClickCallback.bind(this)),
-      new AElementBuilder('Big Text Conversion Page', this.#bigTextConversionPageOnClickCallback.bind(this)),
-      new AElementBuilder('Small Date Conversion Page', this.#smallDateConversionPageOnClickCallback.bind(this))
+      new AElementBuilder('Big Text Conversion ', this.#bigTextConversionPageOnClickCallback.bind(this)),
+      new AElementBuilder('Small Date Conversion ', this.#smallDateConversionPageOnClickCallback.bind(this))
     ]
     const header = new LinkHeader(aBuilders)
     this.shadowRoot.querySelector('.root').prepend(header)
