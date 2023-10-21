@@ -17,6 +17,7 @@ template.innerHTML = `
     }
     h1 {
         text-align: center;
+        font-family: arial;
     }
     form {
         display: flex; 
@@ -47,6 +48,8 @@ template.innerHTML = `
     }
     button {
       cursor: pointer;
+    }
+    .styledbutton {
       background-color: #110914;
       border: none;
       color: white;
@@ -54,24 +57,39 @@ template.innerHTML = `
       padding: 10px 20px;                   
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), inset 0px -2px 2px rgba(255, 255, 255, 0.2);
       text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); 
-      transition: all 0.2s ease-in-out;    
+      transition: all 0.2s ease-in-out;
     }
-    button:hover {
+    .styledbutton:hover {
       background-color: #191a1f;
       box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4), inset 0px -3px 3px rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
     }
-    button:active {
+    .styledbutton:active {
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.2);
       transform: translateY(1px);
     }
-    #convert-wrapper {
+    #middle-wrapper {
       display: flex;
       justify-content: flex-end;
+      align-items: center;
       flex-direction: column;
+      gap: 15%;
     }
     #convertbutton {
+      display: flex;
       height: 55%;
+      font-family: var(--stylish-font);
+      font-weight: bold;
+      align-items: center;
+    }
+    #helpbutton {
+      border-radius: 50%;
+      border: none;
+      font-weight: bold;
+      background-color: #38373d;
+      color: white;
+      position: relative;  
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);  
     }
     select {
         display: inline-block;
@@ -97,7 +115,10 @@ template.innerHTML = `
       width: 30%;
       height: 25px;
       color: white;
-      font-family: arial;
+      font-family: var(--stylish-font);
+    }
+    input:focus {
+      outline: 1px solid #49495f;
     }
 </style>
 <div id="small-date-wrapper">
@@ -112,9 +133,11 @@ template.innerHTML = `
             <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
         </div>
 
-        <div id="convert-wrapper">
-          <button id="convertbutton">Convert</button>
+        <div id="middle-wrapper">
+          <button id="helpbutton">?</button>
+          <button id="convertbutton" class="styledbutton">Convert</button>
         </div>
+
         <div class="input-group" id="right-input-group">
             <div class="above-input">
                 <select name="toDropdown">
@@ -123,7 +146,7 @@ template.innerHTML = `
             </div>
             <div id="right-input-wrapper">
             <input type="text" name="toDate" id="totextinput" disabled>
-            <button id="copybutton">
+            <button id="copybutton" class="styledbutton">
               <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
                 📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
               </span>
@@ -204,11 +227,19 @@ export class SmallDateConverter extends HTMLElement {
    * Responsible for declaring event listeners for the different input fields.
    */
   connectedCallback () {
+    const helpButton = this.shadowRoot.querySelector('#helpbutton')
+
+    helpButton.addEventListener('mouseover', this.#handleHelpOver)
     this.#convertButton.addEventListener('click', this.#handleConvertEvent.bind(this))
     this.#copyButton.addEventListener('click', this.#handleCopyEvent.bind(this))
   }
 
-  // TODO make a note about the ordering of the methods in this class
+  /**
+   * Inserts the div that displays the acceptable date formats into the DOM.
+   */
+  #handleHelpOver () {
+    console.log('yoho')
+  }
 
   /**
    * Prevents default execution of event and dispatches the event 'convert' with the data from the input field.

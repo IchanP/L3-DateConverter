@@ -58,8 +58,6 @@ export class LinkHeader extends HTMLElement {
   // NOTE this does break the single responsibility principle.
   // However I'm not sure how to do this without putting the try catch in the constructor which I feel is worse..
 
-  // TODO maybe move the validateArray out to controller instead?
-
   /**
    * Construct the a elements, also performs validation before constructing the elements.
    *

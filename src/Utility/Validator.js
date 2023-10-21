@@ -1,5 +1,3 @@
-// TODO I think this breaks against the single responsibility principle.
-// I think it should be split into multiple classes.
 /**
  * General purpose validator class.
  */

@@ -68,7 +68,7 @@ An error message is displayed to the user telling them they cannot perform that 
 
 1. Select the Gregorian Calendar to convert from
 2. Select the Japanese Era Calendar to convert to
-3. In the input field type "644/12/25" // TODO fix this
+3. In the input field type "644/12/25"
 4. Press Convert
 
 #### Expected

@@ -87,7 +87,6 @@ class SimpleDateConversionPage extends HTMLElement {
       const dateConverter = new DateConverter(dateDetailsToConvert)
       return dateConverter.convertDate()
     } catch (error) {
-      console.error(error.message + ' in convertDate, in pg222pb-simpledateconversion-page.js') // TODO add path ?
       this.#handleUserError(error)
     }
   }

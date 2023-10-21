@@ -1,5 +1,3 @@
-// TODO a shitload of imports
-
 import '../pg222pb-front-page/index.js'
 import '../../view/pg222pb-link-header/index.js'
 import '../pg222pb-bigconversion-page/index.js'
