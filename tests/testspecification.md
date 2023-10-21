@@ -275,3 +275,27 @@ In the unselectable input field "2000/12/25" is rendered.
 #### Expected
 
 In the unselectable input field "2000/12/25" is rendered.
+
+### TC8 User should be informed of possible date formats
+
+### TC8.1 User should be informed of possible date formats on the Small Date Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Small Date Conversion Page"
+2. Hover over the "?" in the middle of the app.
+
+#### Expected
+
+A tooltip is displayed to the user telling them the possible date formats.
+
+### TC8.2 User should be informed of possible date formats on the Big Text Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Big Text Conversion Page"
+2. Hover over the "?".
+
+#### Expected
+
+A tooltip is displayed to the user telling them the possible date formats.
