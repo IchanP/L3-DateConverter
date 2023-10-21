@@ -4,30 +4,78 @@ import { Validator } from '../../Utility/Validator'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+    :host(pg222pb-smalldateconverter) {
+      width: 100%;
+    }
+    #small-date-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto;
+    }
     h1 {
         text-align: center;
     }
     form {
         display: flex; 
         gap: 16px;
-        align-items: flex-end;
+        justify-content: center;
+        width: 80%;
     }
-
     .input-group {
         display: flex;
-        flex-direction: column; 
+        flex: 1;
+        flex-direction: column;
         gap: 8px; 
     }
-
+    #left-input-group {
+      align-items: flex-end;
+    }
+    #right-input-group {
+      align-items: flex-start;
+    }
+    #right-input-wrapper {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      gap: 8px;
+    }
     form label {
         display: inline-block;
     }
     button {
-        cursor: pointer;
+      cursor: pointer;
+      background-color: #110914;
+      border: none;
+      color: white;
+      border-radius: 5px;                    
+      padding: 10px 20px;                   
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), inset 0px -2px 2px rgba(255, 255, 255, 0.2);
+      text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); 
+      transition: all 0.2s ease-in-out;    
+    }
+    button:hover {
+      background-color: #191a1f;
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4), inset 0px -3px 3px rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    button:active {
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.2);
+      transform: translateY(1px);
+    }
+    #convert-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
+    #convertbutton {
+      height: 55%;
     }
     select {
         display: inline-block;
-        width: 65%;
+        width: 100%;
     }
     .above-input {
         display: flex;
@@ -38,11 +86,24 @@ template.innerHTML = `
         font-size: 0.7rem;
         font-family: arial;
     }
+    label {
+      font-family: arial;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    input {
+      background-color: var(--background);
+      border: 3px solid #272735;
+      width: 30%;
+      height: 25px;
+      color: white;
+      font-family: arial;
+    }
 </style>
-<div>
+<div id="small-date-wrapper">
     <h1>Small Date Converter</h1>
     <form>
-        <div class="input-group">
+        <div class="input-group" id="left-input-group">
             <div class="above-input">
                 <label for="fromDate">From</label>
                 <select name="fromDropdown">
@@ -51,24 +112,29 @@ template.innerHTML = `
             <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
         </div>
 
-        <button id="convertbutton">Convert</button>
-
-        <div class="input-group">
+        <div id="convert-wrapper">
+          <button id="convertbutton">Convert</button>
+        </div>
+        <div class="input-group" id="right-input-group">
             <div class="above-input">
-                <label for="toDate">To</label>
                 <select name="toDropdown">
                 </select>
+                <label for="toDate">To</label>
             </div>
+            <div id="right-input-wrapper">
             <input type="text" name="toDate" id="totextinput" disabled>
+            <button id="copybutton">
+              <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+                📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
+              </span>
+            </button>
+           </div>
         </div>
-        <button id="copybutton">Copy</button>
     </form>
     <p id="errordisplayer"></p>
 </div>
 `
-
 // TODO write explanation for what is accepted as input.
-// TODO also need to make a dropdown for the different calendars
 
 /**
  * Defines the component responsible for rendering the elements for converting dates.
@@ -78,6 +144,7 @@ export class SmallDateConverter extends HTMLElement {
   #fromTextInputField
   #fromDropdown
   #toDropdown
+  #copyButton
   /**
    * Initialize the fields of the class.
    *
@@ -94,6 +161,7 @@ export class SmallDateConverter extends HTMLElement {
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
     this.#fromDropdown = this.shadowRoot.querySelector('select[name="fromDropdown"]')
     this.#toDropdown = this.shadowRoot.querySelector('select[name="toDropdown"]')
+    this.#copyButton = this.shadowRoot.querySelector('#copybutton')
   }
 
   // TODO reflect over the placement of the methods in this class
@@ -137,7 +205,10 @@ export class SmallDateConverter extends HTMLElement {
    */
   connectedCallback () {
     this.#convertButton.addEventListener('click', this.#handleConvertEvent.bind(this))
+    this.#copyButton.addEventListener('click', this.#handleCopyEvent.bind(this))
   }
+
+  // TODO make a note about the ordering of the methods in this class
 
   /**
    * Prevents default execution of event and dispatches the event 'convert' with the data from the input field.
@@ -162,6 +233,32 @@ export class SmallDateConverter extends HTMLElement {
       bubbles: true,
       composed: true,
       detail: { data: new DateConversionDetail(this.#fromDropdown.value, this.#toDropdown.value, this.#fromTextInputField.value) }
+    })
+  }
+
+  /**
+   * Prevents default execution of the event and dispatches a 'copy' event with the data from the unselectable field.
+   *
+   * @param {Event} event - The event object which triggered the callback.
+   */
+  #handleCopyEvent (event) {
+    event.preventDefault()
+    if (!Validator.isStringEmpty(this.shadowRoot.querySelector('#totextinput').value)) {
+      this.dispatchEvent(this.#buildCopyEvent())
+    }
+  }
+
+  /**
+   * Builds a copy event and returns it.
+   * The value from the #totextinput field is sent as data for the event.
+   *
+   * @returns {CustomEvent} - Returns the event 'copy' with the data from the input field.
+   */
+  #buildCopyEvent () {
+    return new CustomEvent('copy', {
+      bubbles: true,
+      composed: true,
+      detail: { data: this.shadowRoot.querySelector('#totextinput').value }
     })
   }
 }

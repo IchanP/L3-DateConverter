@@ -13,6 +13,9 @@ import { EraYearTooHighError } from '../../model/Errors/EraYearTooHighError.js'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  :root {
+    width: 100vw;
+  }
 </style>
 `
 
@@ -42,7 +45,20 @@ class SimpleDateConversionPage extends HTMLElement {
    *
    */
   connectedCallback () {
-    this.addEventListener('convert', this.#buttonOnClickCallback.bind(this))
+    this.addEventListener('convert', this.#convertOnClickCallback.bind(this))
+    this.addEventListener('copy', this.#copyOnClickCallback.bind(this))
+  }
+
+  // TODO make a note since I'm not ordering the methods in this class the same as the others
+
+  /**
+   * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
+   *
+   * @param {Event}  event - The event which triggered the callback.
+   */
+  #copyOnClickCallback (event) {
+    const textToCopy = event.detail.data
+    navigator.clipboard.writeText(textToCopy)
   }
 
   /**
@@ -50,7 +66,7 @@ class SimpleDateConversionPage extends HTMLElement {
    *
    * @param {Event} event - The event that triggered the callback.
    */
-  #buttonOnClickCallback (event) {
+  #convertOnClickCallback (event) {
     const conversionDetails = event.detail.data
 
     //  this.#checkForUserErrors(conversionDetails)

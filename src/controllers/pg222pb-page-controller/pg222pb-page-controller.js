@@ -20,6 +20,9 @@ template.innerHTML = `
     height: 100vh; 
     margin: 0 auto;
 }
+  .page-container {
+    width: 100vw;
+  }
 
  </style>
     <div class="root">
