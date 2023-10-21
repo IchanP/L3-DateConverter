@@ -1,10 +1,12 @@
+import '../../view/pg222pb-greeter/index.js'
+
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
 </style>
-<p>
-YO THIS IS FRONTPAGE
-</p>`
+
+<pg222pb-greeter></pg222pb-greeter>
+`
 
 /**
  * Defines the front page of this web application.

@@ -14,11 +14,6 @@ template.innerHTML = `
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      margin: 0 auto;
-    }
-    h1 {
-        text-align: center;
-        font-family: arial;
     }
     form {
         display: flex; 
@@ -131,7 +126,7 @@ template.innerHTML = `
     #help-wrapper {
       position: absolute;
       background-color: #38373d;
-      width: 450%;
+      width: 400%;
       top: 50%;
       z-index: 10;
       box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 

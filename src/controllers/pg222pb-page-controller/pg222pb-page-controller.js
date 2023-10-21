@@ -56,15 +56,12 @@ class PageController extends HTMLElement {
    */
   #buildHeader () {
     const aBuilders = [new AElementBuilder('Front Page', this.#frontPageOnClickCallback.bind(this)),
-      new AElementBuilder('Big Text Conversion ', this.#bigTextConversionPageOnClickCallback.bind(this)),
+    //  new AElementBuilder('Big Text Conversion ', this.#bigTextConversionPageOnClickCallback.bind(this)),
       new AElementBuilder('Small Date Conversion ', this.#smallDateConversionPageOnClickCallback.bind(this))
     ]
     const header = new LinkHeader(aBuilders)
     this.shadowRoot.querySelector('.root').prepend(header)
   }
-
-  // NOTE grouping these together and keeping header above
-  // makes it easier to see what is going on.
 
   /**
    * Called when the element is inserted into the DOM.
@@ -72,7 +69,7 @@ class PageController extends HTMLElement {
    */
   connectedCallback () {
     this.#buildHeader()
-    this.#renderPage(this.#smallDateConversionPageElement)
+    this.#renderPage(this.#frontPageElement)
   }
 
   /**
