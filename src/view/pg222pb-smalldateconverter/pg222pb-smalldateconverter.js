@@ -1,5 +1,6 @@
 import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail'
 import { Validator } from '../../Utility/Validator'
+import '../pg222pb-helptable/index.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -69,6 +70,7 @@ template.innerHTML = `
       transform: translateY(1px);
     }
     #middle-wrapper {
+      position: relative;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -120,6 +122,22 @@ template.innerHTML = `
     input:focus {
       outline: 1px solid #49495f;
     }
+    .visible {
+      display: block;
+    }
+    .invisible {
+      display: none;
+    }
+    #help-wrapper {
+      position: absolute;
+      background-color: #38373d;
+      width: 450%;
+      top: 50%;
+      z-index: 10;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
+      border: 1px solid rgba(255, 255, 255, 0.1); 
+      border-radius: 4px; 
+    }
 </style>
 <div id="small-date-wrapper">
     <h1>Small Date Converter</h1>
@@ -136,6 +154,9 @@ template.innerHTML = `
         <div id="middle-wrapper">
           <button id="helpbutton">?</button>
           <button id="convertbutton" class="styledbutton">Convert</button>
+          <div class="invisible" id="help-wrapper">
+            <pg222pb-helptable></pg222pb-helptable>
+          </div>
         </div>
 
         <div class="input-group" id="right-input-group">
@@ -229,16 +250,28 @@ export class SmallDateConverter extends HTMLElement {
   connectedCallback () {
     const helpButton = this.shadowRoot.querySelector('#helpbutton')
 
-    helpButton.addEventListener('mouseover', this.#handleHelpOver)
+    helpButton.addEventListener('mouseover', this.#handleHelpOver.bind(this))
+    helpButton.addEventListener('mouseleave', this.#handleHelpLeave.bind(this))
     this.#convertButton.addEventListener('click', this.#handleConvertEvent.bind(this))
     this.#copyButton.addEventListener('click', this.#handleCopyEvent.bind(this))
   }
 
   /**
-   * Inserts the div that displays the acceptable date formats into the DOM.
+   * Sets the class value of the div responsible for displaying user help to 'visible'.
    */
   #handleHelpOver () {
-    console.log('yoho')
+    const helpWrapper = this.shadowRoot.querySelector('#help-wrapper')
+    helpWrapper.classList.add('visible')
+    helpWrapper.classList.remove('invisible')
+  }
+
+  /**
+   * Sets the class value of the div responsible for displaying user help to 'invisible'.
+   */
+  #handleHelpLeave () {
+    const helpWrapper = this.shadowRoot.querySelector('#help-wrapper')
+    helpWrapper.classList.add('invisible')
+    helpWrapper.classList.remove('visible')
   }
 
   /**
