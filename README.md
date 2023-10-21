@@ -16,11 +16,15 @@ This app does not yet handle negative year conversions, meaning that it is curre
 ### How to install
 
 1. Clone this repo
-2. Run npm install to install the required dependencies
+2. Run `npm install` to install the required dependencies
 3. `npm run dev` to start the development server
-4. Open `http://localhost:5173` in your browser
+4. Open the URL that Vite provides, likely: `http://localhost:5173`, however it may vary.
 
-### Contributing
+### Using the application
+
+// TODO write this section
+
+## Contributing
 
 If you wish to contribute to the project follow the below steps:
 
