@@ -52,7 +52,7 @@ I am aware that JSDOC goes against the superflous comments rule or whatever, how
 
 ## Chapter 5 Formatting
 
-// TODO
+// TODO Mention the Veritcal Distance rule and how it doesn't work that well with the public>private>public rule as my `tryTranslate` methods in `TemporalConverterWrapper` don't end up next to eachother, I have to pick which one to choose..
 
 ## Chapter 6 Objects and Data Structures
 

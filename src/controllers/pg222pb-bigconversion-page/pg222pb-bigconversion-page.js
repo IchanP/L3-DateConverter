@@ -1,10 +1,12 @@
+import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail'
+import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator'
+import { DateConvertRenderer } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter'
+
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
 </style>
-<p>
-YO THIS IS BIG-CONVERSION-PAGE
-</p>`
+`
 
 /**
  * Defines the page of the application responsible for converting dates in longer text.
@@ -17,6 +19,12 @@ class BigConversionPage extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+    const calendarTypes = new DateConvertorDetailValidator(new DateConversionDetail())
+    const titleOfConverter = 'Text Converter'
+
+    const largeConvertorElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter)
+    this.shadowRoot.appendChild(largeConvertorElement)
   }
 
   /**

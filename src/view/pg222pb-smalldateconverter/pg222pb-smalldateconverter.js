@@ -54,6 +54,8 @@ template.innerHTML = `
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), inset 0px -2px 2px rgba(255, 255, 255, 0.2);
       text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); 
       transition: all 0.2s ease-in-out;
+      height: 100%;
+      max-height: 39px;
     }
     .styledbutton:hover {
       background-color: #191a1f;
@@ -67,10 +69,10 @@ template.innerHTML = `
     #middle-wrapper {
       position: relative;
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: center;
       flex-direction: column;
-      gap: 15%;
+      gap: 8px;
     }
     #convertbutton {
       display: flex;
@@ -110,7 +112,6 @@ template.innerHTML = `
       background-color: var(--background);
       border: 3px solid #272735;
       width: 30%;
-      height: 25px;
       color: white;
       font-family: var(--stylish-font);
     }
@@ -143,7 +144,7 @@ template.innerHTML = `
                 <select name="fromDropdown">
                 </select>
             </div>
-            <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
+            <textarea style="width: 30%" ></textarea>
         </div>
 
         <div id="middle-wrapper">
@@ -161,7 +162,7 @@ template.innerHTML = `
                 <label for="toDate">To</label>
             </div>
             <div id="right-input-wrapper">
-            <input type="text" name="toDate" id="totextinput" disabled>
+            <textarea style="width: 30%" ></textarea>
             <button id="copybutton" class="styledbutton">
               <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
                 📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
@@ -175,10 +176,13 @@ template.innerHTML = `
 `
 // TODO write explanation for what is accepted as input.
 
+//  <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
+//  <input type="text" name="toDate" id="totextinput" disabled>
+
 /**
  * Defines the component responsible for rendering the elements for converting dates.
  */
-export class SmallDateConverter extends HTMLElement {
+export class DateConvertRenderer extends HTMLElement {
   #convertButton
   #fromTextInputField
   #fromDropdown
@@ -188,13 +192,16 @@ export class SmallDateConverter extends HTMLElement {
    * Initialize the fields of the class.
    *
    * @param {Array<string>} calendarsToPickFrom - An array of the calendar names the user shall be able to pick from.
+   * @param {string} title - The title of the type of converter.
+   * @param {} sizeOfInputs // TODO create a type for this?
    */
-  constructor (calendarsToPickFrom) {
+  constructor (calendarsToPickFrom, title, sizeOfInputs) {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     this.#buildDropDowns(calendarsToPickFrom)
+    this.#setTitle(title)
 
     this.#convertButton = this.shadowRoot.querySelector('button')
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
@@ -218,6 +225,15 @@ export class SmallDateConverter extends HTMLElement {
       this.shadowRoot.querySelector('select[name="fromDropdown"]').appendChild(option)
       this.shadowRoot.querySelector('select[name="toDropdown"]').appendChild(option.cloneNode(true))
     })
+  }
+
+  /**
+   * Sets the H1 title of the component.
+   *
+   * @param {string} title - The title to set the H1 element to.
+   */
+  #setTitle (title) {
+    this.shadowRoot.querySelector('h1').textContent = title
   }
 
   /**
@@ -322,4 +338,4 @@ export class SmallDateConverter extends HTMLElement {
   }
 }
 
-customElements.define('pg222pb-smalldateconverter', SmallDateConverter)
+customElements.define('pg222pb-smalldateconverter', DateConvertRenderer)
