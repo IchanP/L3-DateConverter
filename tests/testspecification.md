@@ -1,5 +1,23 @@
 # Test Specification
 
+#### Index
+
+* [TC1](#tc-1-page-rendering)
+* [TC2](#tc-2-error-rendering-on-small-date-conversion-page)
+* [TC3](#tc-3---date-formats-for-western-calendar-types)
+* [TC4](#tc4-user-should-be-able-to-convert-to-japanese-era-using-the-small-date-converter)
+* [TC5](#tc5-date-formats-for-japense-calendar-style)
+* [TC6](#tc6-user-should-be-able-to-convert-to-kõki-using-the-small-date-converter)
+* [TC7](#tc7-user-should-be-able-to-convert-to-gregorian-using-the-small-date-converter)
+* [TC8](#tc8-user-should-be-informed-of-possible-date-formats)
+* [TC9](#tc9-user-should-be-able-to-convert-to-japanese-era-using-the-big-text-converter)
+* [TC10](#tc10-user-should-be-able-to-convert-from-western-calendar-types-using-many-different-formats-using-the-big-text-converter)
+* [TC11](#tc11-user-should-be-able-to-convert-to-kõki-using-the-big-text-converter)
+* [TC12](#tc12-user-should-be-able-to-convert-to-gregorian-using-the-big-text-converter)
+* [TC13](#tc13-user-should-be-able-to-copy-the-converted)
+* [TC14](#tc14-user-should-be-informed-of-user-errors-on-the-big-text-conversion-page)
+* [TC15](#tc15-user-should-be-able-to-convert-from-japanese-era-using-many-different-formats)
+
 ## TC 1 Page Rendering
 
 #### Connected Issue
