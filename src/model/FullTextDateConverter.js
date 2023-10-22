@@ -2,7 +2,7 @@
 
 import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { DateExtractor } from './DateExtractor'
-import { AcceptableBasicDateFormats, AcceptableJapaneseEraDateFormats } from './Data/AcceptableDateFormatRegexes'
+import { LargeTextAcceptableBasicDateFormats, LargeTextAccpetableJapaneseEraDateFormats } from './Data/AcceptableDateFormatRegexes'
 
 /**
  * Translates all the dates found in the text to the desired calendar.
@@ -47,7 +47,7 @@ export class FullTextDateConverter {
    *
    */
   #extractWesternStyleDates () {
-    const dateExtractor = new DateExtractor(AcceptableBasicDateFormats, this.#fullText)
+    const dateExtractor = new DateExtractor(LargeTextAcceptableBasicDateFormats, this.#fullText)
     dateExtractor.extractDates()
   }
 
