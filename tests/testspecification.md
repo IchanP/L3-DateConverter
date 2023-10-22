@@ -428,7 +428,7 @@ In the unselectable input field "TestCase 10 25 December 2001 CE TestCase 10 26 
 
 #### Expected
 
-In the unselectable input field "TestCase 10 Heisei 12/12 TestCase 10 Heisei 12/12 TestCase 10 Heisei 12/12 TestCase 10 Heisei 12/12 TestCase 10 Heisei 12/12" is rendered.
+In the unselectable input field "TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
 
 ### TC11 User should be able to convert to Kõki using the Big Text Converter
 
