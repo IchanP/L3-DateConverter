@@ -1,6 +1,6 @@
 # Vision
 
-## DateConverter (TBD)
+## DateConverter
 
  Should be an easy and painless way for users to quickly edit dates in longer articles/texts to fit a different calendar.
  DateConverter aims to be a seamless, non-confusing way for users to quickly convert dates in larger texts, or simply dates to different calendars.

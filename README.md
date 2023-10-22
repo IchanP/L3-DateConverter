@@ -1,8 +1,8 @@
-# Laboration 3 - Application
+# Laboration 3 - DateConverter
 
 This application is part of the course `1DV610 - Introduction to Software Quality` at [Linneaus University](https://lnu.se/), Sweden.
 
-## DateConverter (TBD)
+## DateConverter
 
  Should be an easy and painless way for users to quickly edit dates in longer articles/texts to fit a different calendar.
  DateConverter aims to be a seamless, non-confusing way for users to quickly convert dates in larger texts, or simply dates to different calendars.
@@ -33,8 +33,7 @@ If you wish to contribute to the project follow the below steps:
 3. Work in this branch
 4. Open up a pull request
 
-Your pull request is now submitted for review.
-Contributors to the original repository will review your changes, suggest modifications if necessary, and discuss the proposed changes with you.
+Someone will then review the changes and ultimately accept or decline.
 
 ### License
 
