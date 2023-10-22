@@ -554,11 +554,10 @@ In the input field the text "TestCase 13 Kõki 2660/12/25 TestCase 13" is render
 
 #### Test Steps
 
-2. Navigate to the "Big Text Conversion Page"
-3. Select the Gregorian Calendar to convert from
-4. Select the Gregorian Calendar to convert to
-5. In the input field type "TestCase 14 2000/12/25 TestCase 14"
-6. Press Convert
+2. Select the Gregorian Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 14 2000/12/25 TestCase 14"
+5. Press Convert
 
 #### Expected
 
