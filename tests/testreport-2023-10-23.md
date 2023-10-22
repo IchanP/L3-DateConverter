@@ -58,3 +58,9 @@
 | [TC14.1]() | User should be informed of same calendar erors |  <span style="color: green">PASS</span> | |
 | [TC15]() | **`User should be able to convert from Japanese Era using many different formats`** | <span style="color: green">ALL PASS</span> | |
 | [TC15.1]() | User should be able to convert from Japanese Era to Gregorian using many different formats | <span style="color: green">PASS</span> | |
+
+## Automatic tests
+
+![Test results](./images/auto-test-10-23.png)
+
+Automatic tests ran on 2023-10-23 at 00:27
