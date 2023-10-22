@@ -145,6 +145,10 @@ template.innerHTML = `
       width: 50%;
       height: 350px;
     }
+    #totextinput {
+      background-color: #32323b;
+      border: 3px solid #46465a;
+    }
 </style>
 <div id="small-date-wrapper">
     <h1>Small Date Converter</h1>
@@ -207,6 +211,7 @@ export class DateConvertRenderer extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+
     this.#insertDropDowns(calendarsToPickFrom)
     this.#insertTitle(title)
     this.#setInputAttributes(inputFields)
