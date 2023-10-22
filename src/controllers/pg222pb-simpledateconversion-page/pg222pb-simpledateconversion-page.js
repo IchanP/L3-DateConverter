@@ -3,7 +3,7 @@ import { ErrorRenderer } from '../../view/ErrorRenderer.js'
 import { Validator } from '../../Utility/Validator.js'
 import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator.js'
 import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
-import { DateConvertRenderer } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
+import { DateConvertRenderer } from '../../view/pg222pb-dateconverter/pg222pb-dateconverter.js'
 import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
 import { NoErasOnThatDateError } from '../../model/Errors/NoErasOnThatDateError.js'
 import { NotAnEraError } from '../../model/Errors/NotAnEraError.js'
@@ -28,11 +28,26 @@ class SimpleDateConversionPage extends HTMLElement {
 
     const calendarTypes = new DateConvertorDetailValidator(new DateConversionDetail())
     const titleOfConverter = 'Small Date Converter'
+    const inputFields = this.#buildInputFields()
 
-    const smallConvertortElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter)
+    const smallConvertortElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter, inputFields)
     this.shadowRoot.appendChild(smallConvertortElement)
 
     this.#dateConverter = this.shadowRoot.querySelector('pg222pb-smalldateconverter')
+  }
+
+  /**
+   * Builds the input fields for the Simple Date Conversion Page.
+   *
+   * @returns {Array<HTMLInputElement>} - Returns an array of the two input fields.
+   */
+  #buildInputFields () {
+    const userInputField = document.createElement('input')
+    userInputField.setAttribute('type', 'text')
+    userInputField.setAttribute('placeholder', 'Enter a date here')
+    const copyFromClipboardField = document.createElement('input')
+    copyFromClipboardField.setAttribute('type', 'text')
+    return [userInputField, copyFromClipboardField]
   }
 
   /**

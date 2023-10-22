@@ -55,7 +55,7 @@ template.innerHTML = `
       text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); 
       transition: all 0.2s ease-in-out;
       height: 100%;
-      max-height: 39px;
+      max-height: 35px;
     }
     .styledbutton:hover {
       background-color: #191a1f;
@@ -108,16 +108,6 @@ template.innerHTML = `
       font-weight: bold;
       letter-spacing: 2px;
     }
-    input {
-      background-color: var(--background);
-      border: 3px solid #272735;
-      width: 30%;
-      color: white;
-      font-family: var(--stylish-font);
-    }
-    input:focus {
-      outline: 1px solid #49495f;
-    }
     .visible {
       display: block;
     }
@@ -134,6 +124,19 @@ template.innerHTML = `
       border: 1px solid rgba(255, 255, 255, 0.1); 
       border-radius: 4px; 
     }
+    /* Styles for the input element passed in the constructor */
+    input {
+      background-color: var(--background);
+      border: 3px solid #272735;
+      width: 30%;
+      color: white;
+      font-family: var(--stylish-font);
+      min-height: 35px;
+      padding-left: 1rem;
+    }
+    input:focus {
+      outline: 1px solid #49495f;
+    }
 </style>
 <div id="small-date-wrapper">
     <h1>Small Date Converter</h1>
@@ -144,7 +147,6 @@ template.innerHTML = `
                 <select name="fromDropdown">
                 </select>
             </div>
-            <textarea style="width: 30%" ></textarea>
         </div>
 
         <div id="middle-wrapper">
@@ -162,7 +164,6 @@ template.innerHTML = `
                 <label for="toDate">To</label>
             </div>
             <div id="right-input-wrapper">
-            <textarea style="width: 30%" ></textarea>
             <button id="copybutton" class="styledbutton">
               <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
                 📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
@@ -174,7 +175,6 @@ template.innerHTML = `
     <p id="errordisplayer"></p>
 </div>
 `
-// TODO write explanation for what is accepted as input.
 
 //  <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
 //  <input type="text" name="toDate" id="totextinput" disabled>
@@ -193,17 +193,19 @@ export class DateConvertRenderer extends HTMLElement {
    *
    * @param {Array<string>} calendarsToPickFrom - An array of the calendar names the user shall be able to pick from.
    * @param {string} title - The title of the type of converter.
-   * @param {} sizeOfInputs // TODO create a type for this?
+   * @param {Array<HTMLElement>} inputFields - The element pairs that the conversions shall be taken from and pasted to, only text and textareas have pre-defined styles.
    */
-  constructor (calendarsToPickFrom, title, sizeOfInputs) {
+  constructor (calendarsToPickFrom, title, inputFields) {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.#buildDropDowns(calendarsToPickFrom)
-    this.#setTitle(title)
+    this.#insertDropDowns(calendarsToPickFrom)
+    this.#insertTitle(title)
+    this.#setInputAttributes(inputFields)
+    this.#insertInputFields(inputFields)
 
-    this.#convertButton = this.shadowRoot.querySelector('button')
+    this.#convertButton = this.shadowRoot.querySelector('#convertbutton')
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
     this.#fromDropdown = this.shadowRoot.querySelector('select[name="fromDropdown"]')
     this.#toDropdown = this.shadowRoot.querySelector('select[name="toDropdown"]')
@@ -217,7 +219,7 @@ export class DateConvertRenderer extends HTMLElement {
    *
    * @param {Array<string>} calendarsToPickFrom - The calendars the user can pick from.
    */
-  #buildDropDowns (calendarsToPickFrom) {
+  #insertDropDowns (calendarsToPickFrom) {
     calendarsToPickFrom.forEach(calendar => {
       const option = document.createElement('option')
       option.value = calendar
@@ -232,8 +234,35 @@ export class DateConvertRenderer extends HTMLElement {
    *
    * @param {string} title - The title to set the H1 element to.
    */
-  #setTitle (title) {
+  #insertTitle (title) {
     this.shadowRoot.querySelector('h1').textContent = title
+  }
+
+  // TODO remove if statements
+  /**
+   * Sets the attributes of the input fields.
+   *
+   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
+   */
+  #setInputAttributes (inputFields) {
+    if (inputFields) {
+      inputFields[0].setAttribute('id', 'fromtextinput')
+      inputFields[0].setAttribute('autocomplete', 'off')
+      inputFields[1].setAttribute('id', 'totextinput')
+      inputFields[1].setAttribute('disabled', '')
+    }
+  }
+
+  /**
+   * Inserts the input fields into the shadow DOM.
+   *
+   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
+   */
+  #insertInputFields (inputFields) {
+    if (inputFields) {
+      this.shadowRoot.querySelector('#left-input-group').appendChild(inputFields[0])
+      this.shadowRoot.querySelector('#right-input-wrapper').prepend(inputFields[1])
+    }
   }
 
   /**
@@ -291,6 +320,7 @@ export class DateConvertRenderer extends HTMLElement {
    * @param {Event} event - The event object which triggered the callback.
    */
   #handleConvertEvent (event) {
+    console.log('hello?')
     event.preventDefault()
     if (!Validator.isStringEmpty(this.#fromTextInputField.value)) {
       this.dispatchEvent(this.#buildConvertEvent())
@@ -338,4 +368,4 @@ export class DateConvertRenderer extends HTMLElement {
   }
 }
 
-customElements.define('pg222pb-smalldateconverter', DateConvertRenderer)
+customElements.define('pg222pb-dateconverter', DateConvertRenderer)

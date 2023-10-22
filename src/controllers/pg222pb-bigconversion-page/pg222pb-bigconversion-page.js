@@ -1,6 +1,6 @@
 import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail'
 import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator'
-import { DateConvertRenderer } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter'
+import { DateConvertRenderer } from '../../view/pg222pb-dateconverter/pg222pb-dateconverter'
 
 const template = document.createElement('template')
 template.innerHTML = `
