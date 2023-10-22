@@ -13,7 +13,7 @@ Anyone who wishes to convert a date to another form of calendar or quickly edit 
 
 ### Functional Requirements
 
-* See [issues](https://github.com/IchanP/L3-DateConverter/issues)
+* See [issues](https://github.com/IchanP/L3-DateConverter/issues?q=+label%3Afunctional+)
 
 ### Non-Functional Requirements
 
