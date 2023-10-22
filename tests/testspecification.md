@@ -355,3 +355,59 @@ In the unselectable input field "2000/12/25 TestCase 10 2000/12/26 TestCase 10 2
 #### Expected
 
 In the unselectable input field "Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
+
+### TC11 User should be able to convert to Kõki using the Big Text Converter
+
+### TC11.1 User should be able to convert from Gregorian to Kõki
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Kõki Calendar to convert to
+3. In the input field type "TestCase 11 2000/12/25 TestCase 11"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2660/12/25" is rendered.
+
+### TC11.2 User should be able to convert from Japanese Era to Kõki
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Kõki Calendar to convert to
+3. In the input field type "TestCase 11 Heisei 12 TestCase 11"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2660/12/25" is rendered.
+
+## TC12 User should be able to convert to Gregorian using the Big Text Converter
+
+### TC12.1 User should be able to convert from Kõki to Gregorian
+
+#### Test Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "TestCase 12 2660/12/25 TestCase 12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000/12/25" is rendered.
+
+### TC12.2 User should be able to convert from Japanese Era to Gregorian
+
+#### Test Steps
+
+1. Select the Japanese Era Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "TestCase 12 Heisei 12 TestCase 12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000/12/25" is rendered.

@@ -34,13 +34,13 @@ export class DateConverter {
    */
   translateDate () {
     if (this.#conversionDetails.fromCalendar === 'Gregorian') {
-      return this.#convertFromGregorian()
+      return this.#translateFromGregorian()
     }
     if (this.#conversionDetails.fromCalendar === 'Kōki') {
-      return this.#convertFromKoki()
+      return this.#translateFromKoki()
     }
     if (this.#conversionDetails.fromCalendar === 'Japanese Era') {
-      return this.#convertFromJapaneseEra()
+      return this.#translateFromJapaneseEra()
     }
   }
 
@@ -50,7 +50,7 @@ export class DateConverter {
    *
    * @returns {string} - Returns the converted date in either Kōki or Japanese Era format.
    */
-  #convertFromGregorian () {
+  #translateFromGregorian () {
     if (this.#conversionDetails.toCalendar === 'Kōki') {
       return this.#converterWrapper.translateGregorianToKoki(this.#conversionDetails.dateToConvert)
     }
@@ -65,7 +65,7 @@ export class DateConverter {
    *
    * @returns {string} - Returns the converted date in either Gregorian or Japanese Era format.
    */
-  #convertFromKoki () {
+  #translateFromKoki () {
     if (this.#conversionDetails.toCalendar === 'Gregorian') {
       return this.#converterWrapper.translateKokiToGregorian(this.#conversionDetails.dateToConvert)
     }
@@ -80,7 +80,7 @@ export class DateConverter {
    *
    * @returns {string} - Returns the converted date in either Gregorian or Kõki format.
    */
-  #convertFromJapaneseEra () {
+  #translateFromJapaneseEra () {
     if (this.#conversionDetails.toCalendar === 'Gregorian') {
       return this.#converterWrapper.translateJapaneseEraToGregorian(this.#conversionDetails.dateToConvert)
     }

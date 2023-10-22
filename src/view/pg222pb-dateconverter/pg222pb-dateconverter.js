@@ -278,7 +278,6 @@ export class DateConvertRenderer extends HTMLElement {
    * @param {string} convertedDate - The converted date to render
    */
   renderResult (convertedDate) {
-    console.log('reached here?')
     this.shadowRoot.querySelector('#totextinput').value = convertedDate
   }
 

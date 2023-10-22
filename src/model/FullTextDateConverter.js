@@ -4,6 +4,8 @@ import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { DateExtractor } from './DateExtractor'
 import { LargeTextAcceptableBasicDateFormats, LargeTextAccpetableJapaneseEraDateFormats } from './Data/AcceptableDateFormatRegexes'
 import { DateConverter } from './DateConverter'
+import { NotAnEraError } from './Errors/NotAnEraError'
+import { Validator } from '../Utility/Validator'
 
 /**
  * Translates all the dates found in the text to the desired calendar.
@@ -34,7 +36,7 @@ export class FullTextDateConverter {
       return this.#translateWesternStyleDates()
     }
     if (this.#isJapaneseEraCalendar()) {
-      return this.#isJapaneseEraCalendar()
+      return this.#translateJapenseDates()
     }
   }
 
@@ -64,19 +66,57 @@ export class FullTextDateConverter {
   }
 
   /**
+   * Performs translation of all the dates in the text from Japanese Era style calendars to the calendar specified by the #toCalendar field.
+   *
+   * @returns {string} - Returns the text with the translated dates.
+   */
+  #translateJapenseDates () {
+    const extractedDates = this.#extractJapaneseEraDates()
+    const translatedDates = this.#translateAllDates(extractedDates)
+    this.#replaceDates(extractedDates, translatedDates)
+    return this.#fullText
+  }
+
+  /**
+   * Creates a new DateExtractor object and extracts the dates from the text.
+   *
+   * @returns {Array<string>} - Returns the extracted dates.
+   */
+  #extractJapaneseEraDates () {
+    const dateExtractor = new DateExtractor(LargeTextAccpetableJapaneseEraDateFormats, this.#fullText)
+    return dateExtractor.extractDates()
+  }
+
+  /**
    * Translates the dates passed in the array to the calendar specified by the #toCalendar field.
    *
    * @param {Array<string>} datesToTranslate - The dates to perform the translation on.
    * @returns {Array<string>} - Returns the translated dates.
    */
   #translateAllDates (datesToTranslate) {
-    const translatedDates = []
-    for (const date of datesToTranslate) {
+    return datesToTranslate.map((date) => {
       const dateConversionDetail = new DateConversionDetail(this.#fromCalendar, this.#toCalendar, date)
       const dateConverter = new DateConverter(dateConversionDetail)
-      translatedDates.push(dateConverter.translateDate())
+      return this.#handleTranslateDate(dateConverter)
+    })
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Calls the translateDate method on the passed in dateConverter and handles any errors thrown.
+   *
+   * @param {DateConverter} dateConverter - The date converter to call the translation on.
+   * @returns {string} - Returns the translated date or null, depending on whether the translation succeded.
+   */
+  #handleTranslateDate (dateConverter) {
+    try {
+      const translatedDate = dateConverter.translateDate()
+      return translatedDate.trim()
+    } catch (error) {
+      if (Validator.isSameType(error, NotAnEraError)) {
+        return null
+      }
     }
-    return translatedDates
   }
 
   /**
@@ -87,7 +127,9 @@ export class FullTextDateConverter {
    */
   #replaceDates (originalDates, translatedDates) {
     for (let i = 0; i < originalDates.length; i++) {
-      this.#fullText = this.#fullText.replace(originalDates[i], translatedDates[i])
+      if (translatedDates[i] !== null) {
+        this.#fullText = this.#fullText.replace(originalDates[i], translatedDates[i])
+      }
     }
   }
 

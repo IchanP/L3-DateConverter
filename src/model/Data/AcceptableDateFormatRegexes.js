@@ -20,6 +20,6 @@ export const LargeTextAcceptableBasicDateFormats = {
 }
 
 export const LargeTextAccpetableJapaneseEraDateFormats = {
-  yearMonth: /[a-zA-Z]{1,30}\s(?!0{1,2})([1-9]\d?)\/(0?[1-9]|1[0-2])/g,
-  year: /[a-zA-Z]{1,30}\s([1-9]\d?)/g
+  yearMonth: /(?<=^|\s)[a-zA-Z]{1,30}\s(?!0{1,2})([1-9]\d?)\/(0?[1-9]|1[0-2])(?=\s|$)/g,
+  year: /(?<=^|\s)[a-zA-Z]{1,30}\s([1-9]\d?)(?=\s|$)/g
 }
