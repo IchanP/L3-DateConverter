@@ -3,6 +3,7 @@
 import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { DateExtractor } from './DateExtractor'
 import { LargeTextAcceptableBasicDateFormats, LargeTextAccpetableJapaneseEraDateFormats } from './Data/AcceptableDateFormatRegexes'
+import { DateConverter } from './DateConverter'
 
 /**
  * Translates all the dates found in the text to the desired calendar.
@@ -36,19 +37,42 @@ export class FullTextDateConverter {
     }
   }
 
+  // x 2000/12/23 x 1999/12/24 x 12/1990
+
   /**
-   *
+   * Performs translation of all the dates in the text from western style calendars to the calendar specified by the #toCalendar field.
+   * Western style calendars are Gregorian and Kōki.
    */
   #translateWesternStyleDates () {
-    this.#extractWesternStyleDates()
+    const extractedDates = this.#extractWesternStyleDates()
+    const translatedDates = this.#translateAllDates(extractedDates)
+    console.log(translatedDates)
   }
 
   /**
+   * Creates a new DateExtractor object and extracts the dates from the text.
    *
+   * @returns {Array<string>} - Returns the extracted dates.
    */
   #extractWesternStyleDates () {
     const dateExtractor = new DateExtractor(LargeTextAcceptableBasicDateFormats, this.#fullText)
-    dateExtractor.extractDates()
+    return dateExtractor.extractDates()
+  }
+
+  /**
+   * Translates the dates passed in the array to the calendar specified by the #toCalendar field.
+   *
+   * @param {Array<string>} datesToTranslate - The dates to perform the translation on.
+   * @returns {Array<string>} - Returns the translated dates.
+   */
+  #translateAllDates (datesToTranslate) {
+    const translatedDates = []
+    for (const date of datesToTranslate) {
+      const dateConversionDetail = new DateConversionDetail(this.#fromCalendar, this.#toCalendar, date.trim())
+      const dateConverter = new DateConverter(dateConversionDetail)
+      translatedDates.push(dateConverter.translateDate())
+    }
+    return translatedDates
   }
 
   // TODO another note about formatting here.

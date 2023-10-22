@@ -15,6 +15,8 @@ export class DateExtractor {
     this.#fullText = fullText
   }
 
+  // TODO requires testing with japanese era dates.
+
   /**
    * Extracts the dates from the full text.
    *
@@ -24,26 +26,10 @@ export class DateExtractor {
     const matchedDates = []
     for (const format of Object.values(this.#acceptableDateFormats)) {
       const matchedExpressions = this.#fullText.match(format)
-      console.log(matchedExpressions)
       if (matchedExpressions) {
         matchedDates.push(...matchedExpressions)
       }
     }
-
-    this.#trimExtractedDates(matchedDates)
-    return matchedDates
-  }
-
-  /**
-   * Trims the extracted dates from whitespace.
-   *
-   * @param {Array<string>} extractedDates - The dates to trim.
-   */
-  #trimExtractedDates (extractedDates) {
-    for (const date of extractedDates) {
-      date.trim()
-    }
+    return matchedDates.map(element => element.trim())
   }
 }
-
-// x 2000/12/23 x 1999/12/24 x 12/1990
