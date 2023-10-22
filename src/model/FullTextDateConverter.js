@@ -1,5 +1,3 @@
-// TODO rename this class.
-
 import { DateConversionDetail } from './DataStructure/DateConversionDetail'
 import { DateExtractor } from './DateExtractor'
 import { LargeTextAcceptableBasicDateFormats, LargeTextAccpetableJapaneseEraDateFormats } from './Data/AcceptableDateFormatRegexes'

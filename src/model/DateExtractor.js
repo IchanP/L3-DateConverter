@@ -15,8 +15,6 @@ export class DateExtractor {
     this.#fullText = fullText
   }
 
-  // TODO requires testing with japanese era dates.
-
   /**
    * Extracts the dates from the full text.
    *

@@ -250,19 +250,16 @@ export class DateConvertRenderer extends HTMLElement {
     this.shadowRoot.querySelector('h1').textContent = title
   }
 
-  // TODO remove if statements
   /**
    * Sets the attributes of the input fields.
    *
    * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
    */
   #setInputAttributes (inputFields) {
-    if (inputFields) {
-      inputFields[0].setAttribute('id', 'fromtextinput')
-      inputFields[0].setAttribute('autocomplete', 'off')
-      inputFields[1].setAttribute('id', 'totextinput')
-      inputFields[1].setAttribute('disabled', '')
-    }
+    inputFields[0].setAttribute('id', 'fromtextinput')
+    inputFields[0].setAttribute('autocomplete', 'off')
+    inputFields[1].setAttribute('id', 'totextinput')
+    inputFields[1].setAttribute('disabled', '')
   }
 
   /**
