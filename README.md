@@ -33,8 +33,7 @@ If you wish to contribute to the project follow the below steps:
 3. Work in this branch
 4. Open up a pull request
 
-Your pull request is now submitted for review.
-Contributors to the original repository will review your changes, suggest modifications if necessary, and discuss the proposed changes with you.
+Someone will then review the changes and ultimately accept or decline.
 
 ### License
 
