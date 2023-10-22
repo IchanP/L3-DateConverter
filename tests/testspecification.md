@@ -466,7 +466,7 @@ In the unselectable input field "TestCase 11 Kõki 2660/12/25 TestCase 11" is re
 
 #### Expected
 
-In the unselectable input field "TestCase 11 Kõki 2660/12/25 TestCase 11" is rendered.
+In the unselectable input field "TestCase 11 Kõki 2660 TestCase 11" is rendered.
 
 ## TC12 User should be able to convert to Gregorian using the Big Text Converter
 
