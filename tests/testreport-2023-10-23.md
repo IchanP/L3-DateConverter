@@ -64,3 +64,11 @@
 ![Test results](./images/auto-test-10-23.png)
 
 Automatic tests ran on 2023-10-23 at 00:27
+
+### How to run
+
+To run these tests locally simply fork or download this repository, install the dependencies and run:
+
+``` commandline
+npm run test
+```
