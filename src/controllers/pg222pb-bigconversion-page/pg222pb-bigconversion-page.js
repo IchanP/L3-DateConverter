@@ -64,7 +64,7 @@ class BigConversionPage extends HTMLElement {
    * @param {Event}  event - The event which triggered the callback.
    */
   #copyOnClickCallback (event) {
-    const textToCopy = event.detail
+    const textToCopy = event.detail.data
     navigator.clipboard.writeText(textToCopy)
   }
 

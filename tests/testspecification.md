@@ -411,3 +411,37 @@ In the unselectable input field "2000/12/25" is rendered.
 #### Expected
 
 In the unselectable input field "2000/12/25" is rendered.
+
+## TC13 User should be able to copy the converted date
+
+### TC13.1 User should be able to copy the converted date on the Small Date Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Small Date Conversion Page"
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "2000/12/25"
+5. Press Convert
+6. Press the button to the right of the unselectable input field.
+7. Paste the copied text into the input field.
+
+#### Expected
+
+In the input field the text "Kõki 2660/12/25" is rendered.
+
+### TC13.2 User should be able to copy the converted date on the Big Text Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Big Text Conversion Page"
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "TestCase 13 2000/12/25 TestCase 13"
+5. Press Convert
+6. Press the button to the right of the unselectable input field.
+7. Paste the copied text into the input field.
+
+#### Expected
+
+In the input field the text "TestCase 13 Kõki 2660/12/25 TestCase 13" is rendered.
