@@ -306,6 +306,8 @@ export class DateConvertRenderer extends HTMLElement {
     helpButton.addEventListener('mouseleave', this.#handleHelpLeave.bind(this))
     this.#convertButton.addEventListener('click', this.#handleConvertEvent.bind(this))
     this.#copyButton.addEventListener('click', this.#handleCopyEvent.bind(this))
+
+    this.shadowRoot.querySelector('form').addEventListener('submit', event => event.preventDefault())
   }
 
   /**
