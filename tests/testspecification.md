@@ -415,7 +415,7 @@ In the unselectable input field "TestCase 9 Heisei 13 TestCase 9" is rendered.
 
 #### Expected
 
-In the unselectable input field "TestCase 10 25 December 2000 TestCase 10 26 December 2000 TestCase 10 25 December 2000 TestCase 10  December 2000 TestCase 10 December 2000" is rendered.
+In the unselectable input field "TestCase 10 25 December 2000 CE TestCase 10 26 December 2000 CE TestCase 10 25 December 2000 CE TestCase 10  December 2000 CE TestCase 10 December 2000 CE" is rendered.
 
 ### TC10.2 User should be able to convert from Gregorian to Japanese Era using many different formats
 
