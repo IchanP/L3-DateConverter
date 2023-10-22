@@ -1,6 +1,9 @@
+import { Validator } from '../../Utility/Validator'
 import { DateConversionDetail } from '../../model/DataStructure/DateConversionDetail'
 import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator'
+import { SameCalendarError } from '../../model/Errors/SameCalendarError'
 import { FullTextDateConverter } from '../../model/FullTextDateConverter'
+import { ErrorRenderer } from '../../view/ErrorRenderer'
 import { DateConvertRenderer } from '../../view/pg222pb-dateconverter/pg222pb-dateconverter'
 
 const template = document.createElement('template')
@@ -13,6 +16,7 @@ template.innerHTML = `
  * Defines the page of the application responsible for converting dates in longer text.
  */
 class BigConversionPage extends HTMLElement {
+  #dateConverter
   /**
    * Create an instance of the component.
    */
@@ -27,6 +31,8 @@ class BigConversionPage extends HTMLElement {
 
     const largeConvertorElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter, inputFields)
     this.shadowRoot.appendChild(largeConvertorElement)
+
+    this.#dateConverter = this.shadowRoot.querySelector('pg222pb-dateconverter')
   }
 
   /**
@@ -73,19 +79,50 @@ class BigConversionPage extends HTMLElement {
   #convertOnclickCallback (event) {
     const conversionDetails = event.detail.data
     const convertedText = this.#translateDatesInText(conversionDetails)
+    if (convertedText) {
+      this.#dateConverter.renderResult(convertedText)
+    }
   }
 
+  // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Converts the dates in the text to the desired calendar.
    *
    * @param {DateConversionDetail} conversionDetails - The text to find the dates and translate in.
+   * @returns {string} - Returns the text with the translated dates.
    */
   #translateDatesInText (conversionDetails) {
-    const largeDateConverter = new FullTextDateConverter(conversionDetails)
-    const convertedText = largeDateConverter.translateDates()
-    // TODO I think I need to make a new class for this
-    // Essentially I need to get the dates from inside the text and then call convert date on each of them
-    // Then re-add them to the text at their correct position...
+    try {
+      const largeDateConverter = new FullTextDateConverter(conversionDetails)
+      return largeDateConverter.translateDates()
+    } catch (error) {
+      console.error(error.message + ' in translateDatesInText, in pg222pb-bigconversion-page.js')
+      this.#isUserError() || this.#handleUserError(error)
+    }
+  }
+
+  // TODO DRY, I can't make this class abstract and this method is vital for delegating responsibility
+  // to different methods rather than doing everything in the try catch
+
+  /**
+   * Checks whether the error is a user error, and if so, renders it to the view.
+   *
+   * @param {Error} error - The error to handle.
+   */
+  #handleUserError (error) {
+    const errorElement = this.#dateConverter.getErrorElement()
+    const errorRenderer = new ErrorRenderer(errorElement, error)
+    errorRenderer.renderError(errorElement, error)
+  }
+
+  /**
+   * Checks whether the error is a user error.
+   *
+   * @param {Error} error - The error to check instance of.
+   * @returns {boolean} - Returns true if the error is a user error, false otherwise.
+   */
+  #isUserError (error) {
+    return Validator.isSameType(error, SameCalendarError)
   }
 }
 

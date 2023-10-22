@@ -99,8 +99,8 @@ class SimpleDateConversionPage extends HTMLElement {
       const dateConverter = new DateConverter(dateDetailsToConvert)
       return dateConverter.translateDate()
     } catch (error) {
-      console.error(error.message + ' in convertDate, in pg222pb-simpledateconversion-page.js') // TODO add path ?
-      this.#handleUserError(error)
+      console.error(error.message + ' in translateDate, in pg222pb-simpledateconversion-page.js')
+      this.#isUserError() || this.#handleUserError(error)
     }
   }
 
@@ -110,11 +110,9 @@ class SimpleDateConversionPage extends HTMLElement {
    * @param {Error} error - The error to handle.
    */
   #handleUserError (error) {
-    if (this.#isUserError(error)) {
-      const errorElement = this.#dateConverter.getErrorElement()
-      const errorRenderer = new ErrorRenderer(errorElement, error)
-      errorRenderer.renderError(errorElement, error)
-    }
+    const errorElement = this.#dateConverter.getErrorElement()
+    const errorRenderer = new ErrorRenderer(errorElement, error)
+    errorRenderer.renderError(errorElement, error)
   }
 
   /**

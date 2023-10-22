@@ -22,7 +22,6 @@ export class ErrorRenderer {
    * @param {Error} error - The error.
    */
   renderError (elementToRenderTo, error) {
-    console.error(error)
     elementToRenderTo.textContent = error.message
   }
 }

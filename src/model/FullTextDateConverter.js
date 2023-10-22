@@ -23,6 +23,7 @@ export class FullTextDateConverter {
     this.#toCalendar = conversionDetails.toCalendar
   }
 
+  // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Performs the translation of all the dates in the text.
    *
@@ -42,11 +43,14 @@ export class FullTextDateConverter {
   /**
    * Performs translation of all the dates in the text from western style calendars to the calendar specified by the #toCalendar field.
    * Western style calendars are Gregorian and Kōki.
+   *
+   * @returns {string} - Returns the text with the translated dates.
    */
   #translateWesternStyleDates () {
     const extractedDates = this.#extractWesternStyleDates()
     const translatedDates = this.#translateAllDates(extractedDates)
-    console.log(translatedDates)
+    this.#replaceDates(extractedDates, translatedDates)
+    return this.#fullText
   }
 
   /**
@@ -68,11 +72,23 @@ export class FullTextDateConverter {
   #translateAllDates (datesToTranslate) {
     const translatedDates = []
     for (const date of datesToTranslate) {
-      const dateConversionDetail = new DateConversionDetail(this.#fromCalendar, this.#toCalendar, date.trim())
+      const dateConversionDetail = new DateConversionDetail(this.#fromCalendar, this.#toCalendar, date)
       const dateConverter = new DateConverter(dateConversionDetail)
       translatedDates.push(dateConverter.translateDate())
     }
     return translatedDates
+  }
+
+  /**
+   * Replaces the dates in the text with the translated dates.
+   *
+   * @param {Array<string>} originalDates - The dates to be replaced
+   * @param {Array<string>} translatedDates - The translated dates.
+   */
+  #replaceDates (originalDates, translatedDates) {
+    for (let i = 0; i < originalDates.length; i++) {
+      this.#fullText = this.#fullText.replace(originalDates[i], translatedDates[i])
+    }
   }
 
   // TODO another note about formatting here.

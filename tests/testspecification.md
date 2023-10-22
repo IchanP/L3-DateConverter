@@ -276,7 +276,7 @@ In the unselectable input field "2000/12/25" is rendered.
 
 In the unselectable input field "2000/12/25" is rendered.
 
-### TC8 User should be informed of possible date formats
+## TC8 User should be informed of possible date formats
 
 ### TC8.1 User should be informed of possible date formats on the Small Date Conversion Page
 
@@ -299,3 +299,59 @@ A tooltip is displayed to the user telling them the possible date formats.
 #### Expected
 
 A tooltip is displayed to the user telling them the possible date formats.
+
+## TC9 User should be able to convert to Japanese Era using the Big Text Converter
+
+### TC9.1 User should be able to convert from Gregorian to Japanese Era
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "TestCase 9 2000/12/25 TestCase 9"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "Heisei 12" is rendered.
+
+### TC9.2 User should be able to convert from Kõki to Japanese Era
+
+#### Test Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "TestCase 9 2660/12/25 TestCase 9"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "Heisei 13" is rendered.
+
+## TC10 User should be able to convert from Western Calendar types using many different formats
+
+### TC10.1 User should be able to convert from Kõki to Gregorian using many different formats
+
+#### Test Steps
+
+1. Select the Kõki Calendar to convert from
+2. Select the Gregorian Calendar to convert to
+3. In the input field type "TestCase 10 2660/12/25 TestCase 10 2660/12/26 TestCase 10 2660/12/25 TestCase 10 2660/12 TestCase 10 2660/12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "2000/12/25 TestCase 10 2000/12/26 TestCase 10 2000/12/25 TestCase 10 2000/12 TestCase 10 2000/12" is rendered.
+
+### TC10.2 User should be able to convert from Gregorian to Japanese Era using many different formats
+
+#### Test Steps
+
+1. Select the Gregorian Calendar to convert from
+2. Select the Japanese Era Calendar to convert to
+3. In the input field type "TestCase 10 2000/12/25 TestCase 10 26/12/2000 TestCase 10 12/25/2000 TestCase 10 12/2000 TestCase 10 2000/12"
+4. Press Convert
+
+#### Expected
+
+In the unselectable input field "Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
