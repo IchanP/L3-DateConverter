@@ -69,7 +69,7 @@ class PageController extends HTMLElement {
    */
   connectedCallback () {
     this.#buildHeader()
-    this.#renderPage(this.#bigTextConversionPageElement)
+    this.#renderPage(this.#frontPageElement)
   }
 
   /**
