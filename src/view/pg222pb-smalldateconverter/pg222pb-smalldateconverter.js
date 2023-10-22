@@ -196,7 +196,7 @@ export class SmallDateConverter extends HTMLElement {
 
     this.#buildDropDowns(calendarsToPickFrom)
 
-    this.#convertButton = this.shadowRoot.querySelector('button')
+    this.#convertButton = this.shadowRoot.querySelector('#convertbutton')
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
     this.#fromDropdown = this.shadowRoot.querySelector('select[name="fromDropdown"]')
     this.#toDropdown = this.shadowRoot.querySelector('select[name="toDropdown"]')
