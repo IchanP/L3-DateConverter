@@ -415,7 +415,7 @@ In the unselectable input field "TestCase 9 Heisei 13 TestCase 9" is rendered.
 
 #### Expected
 
-In the unselectable input field "2000/12/25 TestCase 10 2000/12/26 TestCase 10 2000/12/25 TestCase 10 2000/12 TestCase 10 2000/12" is rendered.
+In the unselectable input field "TestCase 10 2000/12/25 TestCase 10 2000/12/26 TestCase 10 2000/12/25 TestCase 10 2000/12 TestCase 10 2000/12" is rendered.
 
 ### TC10.2 User should be able to convert from Gregorian to Japanese Era using many different formats
 
@@ -428,7 +428,7 @@ In the unselectable input field "2000/12/25 TestCase 10 2000/12/26 TestCase 10 2
 
 #### Expected
 
-In the unselectable input field "Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
+In the unselectable input field "TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
 
 ### TC11 User should be able to convert to Kõki using the Big Text Converter
 
