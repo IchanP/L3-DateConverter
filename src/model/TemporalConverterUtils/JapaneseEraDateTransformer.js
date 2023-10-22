@@ -1,4 +1,4 @@
-import { AcceptableJapaneseEraDateFormats } from '../Data/AcceptableDateFormats'
+import { AcceptableJapaneseEraDateFormats } from '../Data/AcceptableDateFormatRegexes'
 import { NamedDateObject } from '../DataStructure/NamedDateObject'
 import { DateTransformer } from './DateTransformer'
 

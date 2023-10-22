@@ -8,6 +8,7 @@ import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatErro
 import { NoErasOnThatDateError } from '../../model/Errors/NoErasOnThatDateError.js'
 import { NotAnEraError } from '../../model/Errors/NotAnEraError.js'
 import { EraYearTooHighError } from '../../model/Errors/EraYearTooHighError.js'
+import { DateConverter } from '../../model/DateConverter.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -33,7 +34,7 @@ class SimpleDateConversionPage extends HTMLElement {
     const smallConvertortElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter, inputFields)
     this.shadowRoot.appendChild(smallConvertortElement)
 
-    this.#dateConverter = this.shadowRoot.querySelector('pg222pb-smalldateconverter')
+    this.#dateConverter = this.shadowRoot.querySelector('pg222pb-dateconverter')
   }
 
   /**
@@ -62,6 +63,7 @@ class SimpleDateConversionPage extends HTMLElement {
 
   // TODO make a note since I'm not ordering the methods in this class the same as the others
 
+  // TODO DRY, same thing is seen in BigConversionPage.js
   /**
    * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
    *
@@ -80,8 +82,7 @@ class SimpleDateConversionPage extends HTMLElement {
   #convertOnClickCallback (event) {
     const conversionDetails = event.detail.data
 
-    //  this.#checkForUserErrors(conversionDetails)
-    const convertedDate = this.#convertDate(conversionDetails)
+    const convertedDate = this.#translateDate(conversionDetails)
     if (convertedDate) {
       this.#dateConverter.renderResult(convertedDate)
     }
@@ -93,10 +94,10 @@ class SimpleDateConversionPage extends HTMLElement {
    *
    * @param {DateConversionDetail} dateDetailsToConvert - The date details to convert.
    */
-  #convertDate (dateDetailsToConvert) {
+  #translateDate (dateDetailsToConvert) {
     try {
-      const dateConverter = new DateConvertRenderer(dateDetailsToConvert)
-      return dateConverter.convertDate()
+      const dateConverter = new DateConverter(dateDetailsToConvert)
+      return dateConverter.translateDate()
     } catch (error) {
       console.error(error.message + ' in convertDate, in pg222pb-simpledateconversion-page.js') // TODO add path ?
       this.#handleUserError(error)

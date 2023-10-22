@@ -73,6 +73,7 @@ template.innerHTML = `
       align-items: center;
       flex-direction: column;
       gap: 8px;
+      height: max-content;
     }
     #convertbutton {
       display: flex;
@@ -118,24 +119,31 @@ template.innerHTML = `
       position: absolute;
       background-color: #38373d;
       width: 400%;
-      top: 50%;
+      top: 45%;
       z-index: 10;
       box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
       border: 1px solid rgba(255, 255, 255, 0.1); 
       border-radius: 4px; 
     }
     /* Styles for the input element passed in the constructor */
-    input {
+    input, textarea {
       background-color: var(--background);
       border: 3px solid #272735;
-      width: 30%;
-      color: white;
       font-family: var(--stylish-font);
-      min-height: 35px;
+      color: white;
       padding-left: 1rem;
     }
-    input:focus {
+    input {
+      width: 30%;
+      min-height: 35px;
+    }
+    input:focus, textarea:focus {
       outline: 1px solid #49495f;
+    }
+    textarea {
+      resize: none;
+      width: 50%;
+      height: 350px;
     }
 </style>
 <div id="small-date-wrapper">
@@ -199,7 +207,6 @@ export class DateConvertRenderer extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-
     this.#insertDropDowns(calendarsToPickFrom)
     this.#insertTitle(title)
     this.#setInputAttributes(inputFields)
@@ -271,6 +278,7 @@ export class DateConvertRenderer extends HTMLElement {
    * @param {string} convertedDate - The converted date to render
    */
   renderResult (convertedDate) {
+    console.log('reached here?')
     this.shadowRoot.querySelector('#totextinput').value = convertedDate
   }
 
@@ -320,7 +328,6 @@ export class DateConvertRenderer extends HTMLElement {
    * @param {Event} event - The event object which triggered the callback.
    */
   #handleConvertEvent (event) {
-    console.log('hello?')
     event.preventDefault()
     if (!Validator.isStringEmpty(this.#fromTextInputField.value)) {
       this.dispatchEvent(this.#buildConvertEvent())

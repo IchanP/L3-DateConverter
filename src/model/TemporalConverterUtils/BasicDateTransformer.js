@@ -1,5 +1,5 @@
 import { DateObject } from '../DataStructure/DateObject'
-import { AcceptableBasicDateFormats } from '../Data/AcceptableDateFormats'
+import { AcceptableBasicDateFormats } from '../Data/AcceptableDateFormatRegexes'
 import { DateTransformer } from './DateTransformer'
 
 /**

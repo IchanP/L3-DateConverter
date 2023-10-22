@@ -32,7 +32,7 @@ export class DateConverter {
    *
    * @returns {string} - Returns the converted date.
    */
-  convertDate () {
+  translateDate () {
     if (this.#conversionDetails.fromCalendar === 'Gregorian') {
       return this.#convertFromGregorian()
     }
