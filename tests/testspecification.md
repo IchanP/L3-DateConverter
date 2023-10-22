@@ -1,6 +1,28 @@
 # Test Specification
 
+#### Index
+
+* [TC1](#tc-1-page-rendering)
+* [TC2](#tc-2-error-rendering-on-small-date-conversion-page)
+* [TC3](#tc-3---date-formats-for-western-calendar-types)
+* [TC4](#tc4-user-should-be-able-to-convert-to-japanese-era-using-the-small-date-converter)
+* [TC5](#tc5-date-formats-for-japense-calendar-style)
+* [TC6](#tc6-user-should-be-able-to-convert-to-kõki-using-the-small-date-converter)
+* [TC7](#tc7-user-should-be-able-to-convert-to-gregorian-using-the-small-date-converter)
+* [TC8](#tc8-user-should-be-informed-of-possible-date-formats)
+* [TC9](#tc9-user-should-be-able-to-convert-to-japanese-era-using-the-big-text-converter)
+* [TC10](#tc10-user-should-be-able-to-convert-from-western-calendar-types-using-many-different-formats-using-the-big-text-converter)
+* [TC11](#tc11-user-should-be-able-to-convert-to-kõki-using-the-big-text-converter)
+* [TC12](#tc12-user-should-be-able-to-convert-to-gregorian-using-the-big-text-converter)
+* [TC13](#tc13-user-should-be-able-to-copy-the-converted)
+* [TC14](#tc14-user-should-be-informed-of-user-errors-on-the-big-text-conversion-page)
+* [TC15](#tc15-user-should-be-able-to-convert-from-japanese-era-using-many-different-formats)
+
 ## TC 1 Page Rendering
+
+#### Connected Issue
+
+[Issue #6](https://github.com/IchanP/L3-DateConverter/issues/6)
 
 ### TC 1.1 The front page should render on application start
 
@@ -37,13 +59,21 @@ The "Small Date Conversion Page" is now rendered.
 
 ## TC 2 Error Rendering on Small Date Conversion Page
 
+#### Connected Issue
+
+[Issue #8](https://github.com/IchanP/L3-DateConverter/issues/8)
+
+### Common steps
+
+1. Navigate to the "Small Date Conversion Page"
+
 ### TC2.1 User should be informed of same calendar errors
 
 ### Test Steps
 
-1. Select the same calendar to from and to convert to.
-2. Write in a [valid date](https://github.com/IchanP/L3-DateConverter/issues/4) format based on calendar you selected.
-3. Press the `convert` button.
+2. Select the same calendar to from and to convert to.
+3. Write in a [valid date](https://github.com/IchanP/L3-DateConverter/issues/4) format based on calendar you selected.
+4. Press the `convert` button.
 
 ### Expected
 
@@ -53,10 +83,10 @@ An error message is displayed to the user telling them they cannot perform that 
 
 ### Test Steps
 
-1. Select the Gregorian Calendar to convert from
-2. Select the Kõki Calendar to convert to
-3. In the input field type in "27/1990"
-4. Press convert
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type in "27/1990"
+5. Press convert
 
 ### Expected
 
@@ -66,10 +96,10 @@ An error message is displayed to the user telling them they cannot perform that 
 
 #### Test Steps
 
-1. Select the Gregorian Calendar to convert from
-2. Select the Japanese Era Calendar to convert to
-3. In the input field type "644/12/25"
-4. Press Convert
+2. Select the Gregorian Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "644/12/25"
+5. Press Convert
 
 #### Expected
 
@@ -79,10 +109,10 @@ An error message is displayed to the user telling them they cannot perform that 
 
 #### Test Steps
 
-1. Select the Japanese Era Calendar to convert from
-2. Select the Gregorian Calendar to convert to
-3. In the input field type "Invalidname 12/12"
-4. Press Convert
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "Invalidname 12/12"
+5. Press Convert
 
 #### Expected
 
@@ -92,16 +122,20 @@ An error message is displayed to the user telling them they cannot perform that 
 
 #### Test Steps
 
-1. Select the Japanese Era Calendar to convert from
-2. Select the Gregorian Calendar to convert to
-3. In the input field type "Heisei 90/12"
-4. Press Convert
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "Heisei 90/12"
+5. Press Convert
 
 #### Expected
 
 An error message is displayed to the user telling them they cannot perform that operation as the Japanese Era year does not exist.
 
 ## TC 3 - Date Formats for Western Calendar Types
+
+#### Connected Issue
+
+[Issue #4](https://github.com/IchanP/L3-DateConverter/issues/4)
 
 #### Common Steps
 
@@ -164,14 +198,24 @@ In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 ## TC4 User should be able to convert to Japanese Era using the Small Date Converter
 
+#### Connected Issue
+
+[Issue #7](https://github.com/IchanP/L3-DateConverter/issues/7)
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+#### Common Steps
+
+1. Navigate to the "Small Date Conversion Page"
+
 ### TC4.1 User should be able to convert from Gregorian to Japanese Era
 
 #### Test Steps
 
-1. Select the Gregorian Calendar to convert from
-2. Select the Japanese Era Calendar to convert to
-3. In the input field type "2000/12/25"
-4. Press Convert
+2. Select the Gregorian Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "2000/12/25"
+5. Press Convert
 
 #### Expected
 
@@ -181,16 +225,20 @@ In the unselectable input field "Heisei 12" is rendered.
 
 #### Test Steps
 
-1. Select the Kõki Calendar to convert from
-2. Select the Japanese Era Calendar to convert to
-3. In the input field type "2000/12/25"
-4. Press Convert
+2. Select the Kõki Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "2000/12/25"
+5. Press Convert
 
 #### Expected
 
 In the unselectable input field "Ryakuõ 4" is rendered.
 
 ## TC5 Date Formats for Japense Calendar style
+
+#### Connected Issue
+
+[Issue #4](https://github.com/IchanP/L3-DateConverter/issues/4)
 
 #### Common Steps
 
@@ -222,61 +270,85 @@ In the unselectable input field "December 2000 CE" is rendered.
 
 ## TC6 User should be able to convert to Kõki using the Small Date Converter
 
+#### Connected Issue
+
+[Issue #7](https://github.com/IchanP/L3-DateConverter/issues/7)
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+### Common Steps
+
+1. Navigate to the "Small Date Conversion Page"
+
 ### TC6.1 User should be able to convert from Gregorian to Kõki
 
 #### Test Steps
 
-1. Select the Gregorian Calendar to convert from
-2. Select the Kõki Calendar to convert to
-3. In the input field type "2000/12/25"
-4. Press Convert
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "Kõki 2000/12/25"
+5. Press Convert
 
 #### Expected
 
-In the unselectable input field "2660/12/25" is rendered.
+In the unselectable input field "Kõki 2660/12/25" is rendered.
 
 ### TC6.2 User should be able to convert from Japanese Era to Kõki
 
 #### Test Steps
 
-1. Select the Japanese Era Calendar to convert from
-2. Select the Kõki Calendar to convert to
-3. In the input field type "Heisei 12/12"
-4. Press Convert
+2. Select the Japanese Era Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "Heisei 12/12"
+5. Press Convert
 
 #### Expected
 
-In the unselectable input field "2660/12/25" is rendered.
+In the unselectable input field "Kõki 2660/12" is rendered.
 
 ## TC7 User should be able to convert to Gregorian using the Small Date Converter
+
+#### Connected Issue
+
+[Issue #7](https://github.com/IchanP/L3-DateConverter/issues/7)
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+### Common Steps
+
+1. Navigate to the "Small Date Conversion Page"
 
 ### TC7.1 User should be able to convert from Kõki to Gregorian
 
 #### Test Steps
 
-1. Select the Kõki Calendar to convert from
-2. Select the Gregorian Calendar to convert to
-3. In the input field type "2660/12/25"
-4. Press Convert
+2. Select the Kõki Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "2660/12/25"
+5. Press Convert
 
 #### Expected
 
-In the unselectable input field "2000/12/25" is rendered.
+In the unselectable input field "25 December 2001 CE" is rendered.
 
 ### TC7.2 User should be able to convert from Japanese Era to Gregorian
 
 #### Test Steps
 
-1. Select the Japanese Era Calendar to convert from
-2. Select the Gregorian Calendar to convert to
-3. In the input field type "Heisei 12/12"
-4. Press Convert
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "Heisei 12/12"
+5. Press Convert
 
 #### Expected
 
-In the unselectable input field "2000/12/25" is rendered.
+In the unselectable input field "December 2000 CE" is rendered.
 
-### TC8 User should be informed of possible date formats
+## TC8 User should be informed of possible date formats
+
+#### Connected Issue
+
+[Issue #10](https://github.com/IchanP/L3-DateConverter/issues/10)
 
 ### TC8.1 User should be informed of possible date formats on the Small Date Conversion Page
 
@@ -299,3 +371,234 @@ A tooltip is displayed to the user telling them the possible date formats.
 #### Expected
 
 A tooltip is displayed to the user telling them the possible date formats.
+
+## TC9 User should be able to convert to Japanese Era using the Big Text Converter
+
+#### Connected Issue
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+[Issue #1](https://github.com/IchanP/L3-DateConverter/issues/1)
+
+### Common Steps
+
+1. Navigate to the "Big Text Conversion Page"
+
+### TC9.1 User should be able to convert from Gregorian to Japanese Era
+
+#### Test Steps
+
+2. Select the Gregorian Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "TestCase 9 2000/12/25 TestCase 9"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 9 Heisei 12 TestCase 9" is rendered.
+
+### TC9.2 User should be able to convert from Kõki to Japanese Era
+
+#### Test Steps
+
+2. Select the Kõki Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "TestCase 9 2660/12/25 TestCase 9"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 9 Heisei 13 TestCase 9" is rendered.
+
+## TC10 User should be able to convert from Western Calendar types using many different formats using the Big Text Converter
+
+#### Connected Issue
+
+[Issue #11](https://github.com/IchanP/L3-DateConverter/issues/11)
+
+[Issue #4](https://github.com/IchanP/L3-DateConverter/issues/4)
+
+### Common Steps
+
+1. Navigate to the "Big Text Conversion Page"
+
+### TC10.1 User should be able to convert from Kõki to Gregorian using many different formats
+
+#### Test Steps
+
+2. Select the Kõki Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 10 2660/12/25 TestCase 10 2660/12/26 TestCase 10 2660/12/25 TestCase 10 2660/12 TestCase 10 2660/12"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 10 25 December 2001 CE TestCase 10 26 December 2001 CE TestCase 10 25 December 2001 CE TestCase 10  December 2001 CE TestCase 10 December 2001 CE" is rendered.
+
+### TC10.2 User should be able to convert from Gregorian to Japanese Era using many different formats
+
+#### Test Steps
+
+2. Select the Gregorian Calendar to convert from
+3. Select the Japanese Era Calendar to convert to
+4. In the input field type "TestCase 10 2000/12/25 TestCase 10 26/12/2000 TestCase 10 12/25/2000 TestCase 10 12/2000 TestCase 10 2000/12"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12 TestCase 10 Heisei 12" is rendered.
+
+### TC11 User should be able to convert to Kõki using the Big Text Converter
+
+#### Connected Issue
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+[Issue #1](https://github.com/IchanP/L3-DateConverter/issues/1)
+
+### Common Steps
+
+1. Navigate to the "Big Text Conversion Page"
+
+### TC11.1 User should be able to convert from Gregorian to Kõki
+
+#### Test Steps
+
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "TestCase 11 2000/12/25 TestCase 11"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 11 Kõki 2660/12/25 TestCase 11" is rendered.
+
+### TC11.2 User should be able to convert from Japanese Era to Kõki
+
+#### Test Steps
+
+2. Select the Japanese Era Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "TestCase 11 Heisei 12 TestCase 11"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 11 Kõki 2660 TestCase 11" is rendered.
+
+## TC12 User should be able to convert to Gregorian using the Big Text Converter
+
+#### Connected Issue
+
+[Issue #3](https://github.com/IchanP/L3-DateConverter/issues/3)
+
+[Issue #1](https://github.com/IchanP/L3-DateConverter/issues/1)
+
+### Common Steps
+
+1. Navigate to the "Big Text Conversion Page"
+
+### TC12.1 User should be able to convert from Kõki to Gregorian
+
+#### Test Steps
+
+2. Select the Kõki Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 12 2660/12/25 TestCase 12"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 12 25 December 2001 CE TestCase 12" is rendered.
+
+### TC12.2 User should be able to convert from Japanese Era to Gregorian
+
+#### Test Steps
+
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 12 Heisei 12 TestCase 12"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 12 25 December 2000 CE TestCase 12" is rendered.
+
+## TC13 User should be able to copy the converted date
+
+### TC13.1 User should be able to copy the converted date on the Small Date Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Small Date Conversion Page"
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "2000/12/25"
+5. Press Convert
+6. Press the button to the right of the unselectable input field.
+7. Paste the copied text into the input field.
+
+#### Expected
+
+In the input field the text "Kõki 2660/12/25" is rendered.
+
+### TC13.2 User should be able to copy the converted date on the Big Text Conversion Page
+
+#### Test Steps
+
+1. Navigate to the "Big Text Conversion Page"
+2. Select the Gregorian Calendar to convert from
+3. Select the Kõki Calendar to convert to
+4. In the input field type "TestCase 13 2000/12/25 TestCase 13"
+5. Press Convert
+6. Press the button to the right of the unselectable input field.
+7. Paste the copied text into the input field.
+
+#### Expected
+
+In the input field the text "TestCase 13 Kõki 2660/12/25 TestCase 13" is rendered.
+
+## TC14 User should be informed of user errors on the Big Text Conversion Page
+
+#### Conencted Issue
+
+[Issue #8](https://github.com/IchanP/L3-DateConverter/issues/8)
+
+### Common Steps
+
+1. Navigate to the "Big Text Conversion Page"
+
+### TC14.1 User should be informed of same calendar erors
+
+#### Test Steps
+
+2. Select the Gregorian Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 14 2000/12/25 TestCase 14"
+5. Press Convert
+
+#### Expected
+
+An error message is displayed to the user telling them they cannot perform that operation as they are the same calendar.
+
+## TC15 User should be able to convert from Japanese Era using many different formats
+
+#### Connected Issue
+
+[Issue #11](https://github.com/IchanP/L3-DateConverter/issues/11)
+
+[Issue #4](https://github.com/IchanP/L3-DateConverter/issues/4)
+
+### TC15.1 User should be able to convert from Japanese Era to Gregorian using many different formats
+
+#### Test Steps
+
+1. Navigate to the "Big Text Conversion Page"
+2. Select the Japanese Era Calendar to convert from
+3. Select the Gregorian Calendar to convert to
+4. In the input field type "TestCase 15 Heisei 12 TestCase 15 Heisei 12/2"
+5. Press Convert
+
+#### Expected
+
+In the unselectable input field "TestCase 15 2000 CE TestCase 15 February 2000 CE" is rendered.

@@ -54,6 +54,8 @@ template.innerHTML = `
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), inset 0px -2px 2px rgba(255, 255, 255, 0.2);
       text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); 
       transition: all 0.2s ease-in-out;
+      height: 100%;
+      max-height: 35px;
     }
     .styledbutton:hover {
       background-color: #191a1f;
@@ -67,10 +69,11 @@ template.innerHTML = `
     #middle-wrapper {
       position: relative;
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: center;
       flex-direction: column;
-      gap: 15%;
+      gap: 8px;
+      height: max-content;
     }
     #convertbutton {
       display: flex;
@@ -106,17 +109,6 @@ template.innerHTML = `
       font-weight: bold;
       letter-spacing: 2px;
     }
-    input {
-      background-color: var(--background);
-      border: 3px solid #272735;
-      width: 30%;
-      height: 25px;
-      color: white;
-      font-family: var(--stylish-font);
-    }
-    input:focus {
-      outline: 1px solid #49495f;
-    }
     .visible {
       display: block;
     }
@@ -127,11 +119,35 @@ template.innerHTML = `
       position: absolute;
       background-color: #38373d;
       width: 400%;
-      top: 50%;
+      top: 45%;
       z-index: 10;
       box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
       border: 1px solid rgba(255, 255, 255, 0.1); 
       border-radius: 4px; 
+    }
+    /* Styles for the input element passed in the constructor */
+    input, textarea {
+      background-color: var(--background);
+      border: 3px solid #272735;
+      font-family: var(--stylish-font);
+      color: white;
+      padding-left: 1rem;
+    }
+    input {
+      width: 30%;
+      min-height: 35px;
+    }
+    input:focus, textarea:focus {
+      outline: 1px solid #49495f;
+    }
+    textarea {
+      resize: none;
+      width: 50%;
+      height: 350px;
+    }
+    #totextinput {
+      background-color: #32323b;
+      border: 3px solid #46465a;
     }
 </style>
 <div id="small-date-wrapper">
@@ -143,7 +159,6 @@ template.innerHTML = `
                 <select name="fromDropdown">
                 </select>
             </div>
-            <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
         </div>
 
         <div id="middle-wrapper">
@@ -161,7 +176,6 @@ template.innerHTML = `
                 <label for="toDate">To</label>
             </div>
             <div id="right-input-wrapper">
-            <input type="text" name="toDate" id="totextinput" disabled>
             <button id="copybutton" class="styledbutton">
               <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
                 📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
@@ -173,12 +187,14 @@ template.innerHTML = `
     <p id="errordisplayer"></p>
 </div>
 `
-// TODO write explanation for what is accepted as input.
+
+//  <input type="text" placeholder="Enter a date" name="fromDate" id="fromtextinput" autocomplete="off">
+//  <input type="text" name="toDate" id="totextinput" disabled>
 
 /**
  * Defines the component responsible for rendering the elements for converting dates.
  */
-export class SmallDateConverter extends HTMLElement {
+export class DateConvertRenderer extends HTMLElement {
   #convertButton
   #fromTextInputField
   #fromDropdown
@@ -188,13 +204,18 @@ export class SmallDateConverter extends HTMLElement {
    * Initialize the fields of the class.
    *
    * @param {Array<string>} calendarsToPickFrom - An array of the calendar names the user shall be able to pick from.
+   * @param {string} title - The title of the type of converter.
+   * @param {Array<HTMLElement>} inputFields - The element pairs that the conversions shall be taken from and pasted to, only text and textareas have pre-defined styles.
    */
-  constructor (calendarsToPickFrom) {
+  constructor (calendarsToPickFrom, title, inputFields) {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.#buildDropDowns(calendarsToPickFrom)
+    this.#insertDropDowns(calendarsToPickFrom)
+    this.#insertTitle(title)
+    this.#setInputAttributes(inputFields)
+    this.#insertInputFields(inputFields)
 
     this.#convertButton = this.shadowRoot.querySelector('#convertbutton')
     this.#fromTextInputField = this.shadowRoot.querySelector('#fromtextinput')
@@ -210,7 +231,7 @@ export class SmallDateConverter extends HTMLElement {
    *
    * @param {Array<string>} calendarsToPickFrom - The calendars the user can pick from.
    */
-  #buildDropDowns (calendarsToPickFrom) {
+  #insertDropDowns (calendarsToPickFrom) {
     calendarsToPickFrom.forEach(calendar => {
       const option = document.createElement('option')
       option.value = calendar
@@ -218,6 +239,42 @@ export class SmallDateConverter extends HTMLElement {
       this.shadowRoot.querySelector('select[name="fromDropdown"]').appendChild(option)
       this.shadowRoot.querySelector('select[name="toDropdown"]').appendChild(option.cloneNode(true))
     })
+  }
+
+  /**
+   * Sets the H1 title of the component.
+   *
+   * @param {string} title - The title to set the H1 element to.
+   */
+  #insertTitle (title) {
+    this.shadowRoot.querySelector('h1').textContent = title
+  }
+
+  // TODO remove if statements
+  /**
+   * Sets the attributes of the input fields.
+   *
+   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
+   */
+  #setInputAttributes (inputFields) {
+    if (inputFields) {
+      inputFields[0].setAttribute('id', 'fromtextinput')
+      inputFields[0].setAttribute('autocomplete', 'off')
+      inputFields[1].setAttribute('id', 'totextinput')
+      inputFields[1].setAttribute('disabled', '')
+    }
+  }
+
+  /**
+   * Inserts the input fields into the shadow DOM.
+   *
+   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
+   */
+  #insertInputFields (inputFields) {
+    if (inputFields) {
+      this.shadowRoot.querySelector('#left-input-group').appendChild(inputFields[0])
+      this.shadowRoot.querySelector('#right-input-wrapper').prepend(inputFields[1])
+    }
   }
 
   /**
@@ -249,6 +306,8 @@ export class SmallDateConverter extends HTMLElement {
     helpButton.addEventListener('mouseleave', this.#handleHelpLeave.bind(this))
     this.#convertButton.addEventListener('click', this.#handleConvertEvent.bind(this))
     this.#copyButton.addEventListener('click', this.#handleCopyEvent.bind(this))
+
+    this.shadowRoot.querySelector('form').addEventListener('submit', event => event.preventDefault())
   }
 
   /**
@@ -322,4 +381,4 @@ export class SmallDateConverter extends HTMLElement {
   }
 }
 
-customElements.define('pg222pb-smalldateconverter', SmallDateConverter)
+customElements.define('pg222pb-dateconverter', DateConvertRenderer)

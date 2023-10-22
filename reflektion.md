@@ -36,6 +36,8 @@ I've done a reasonably good job at not mixing the abstraction levels of my funct
 
 Furthermore in accordance with the rule of extracting try/catch blocks, this has been done wherever possible. While this makes the code a lot easier to understand it also makes the handling of the error substantially easier, as the error is handled closer to where it was thrown, compared to how I was previously handling them, while also keeping the number of try/catches to a minimum. This also synergizes with the rule of DRY, as the error handling and catching is now done in one place, and one place only.
 
+I have where possible adhered to DRY but in the controllers `bigconversionpage` and `smallconversionpage` the event listeners and error handling is duplicated. I would have liked to make an abstract class and have them both inherit from that, but that would not have been possible in this scenario as they both are HTMLElements and already extend that... Therefore I settled on duplication in this case...
+
 ![mix-abstraction](./reportimages/mix-abstraction.png)
 
 The mixing of abstraction levels in the `convertKokiToJapaneseEra` function.
@@ -52,7 +54,7 @@ I am aware that JSDOC goes against the superflous comments rule or whatever, how
 
 ## Chapter 5 Formatting
 
-// TODO
+// TODO Mention the Veritcal Distance rule and how it doesn't work that well with the public>private>public rule as my `tryTranslate` methods in `TemporalConverterWrapper` don't end up next to eachother, I have to pick which one to choose..
 
 ## Chapter 6 Objects and Data Structures
 
@@ -83,6 +85,8 @@ Date string builder is held as a field in the `TemporalConverterWrapper` class.
 ## Chapter 9 Unit Tests
 
 I decided to follow a TTD, where I wrote tests right before the implementation code. This worked quite well, especially for the few automatic tests I wrote, as I was refactoring my code after writing it for the first time to see that it worked. This made the refactoring process a lot easier as I could quite easily tell whether something worked or not by simply running the test. The book also pressed that the test code should follow the same standard as the production code, I did not write that many automatic tests, however, I made a concious effort to group concepts/related tests together. Example being I grouped tests that SHOULD throw next to eachother.
+
+Something I noticed in regards to using TTD, is that my manual test cases ended up not being grouped together, but rather spread out. Meaning that test cases that dealt with, for example, testing whether the date format were supported for Western and Japanese style calendars ended up seperated as one was implemented before the other. While this is not code I feel like the same principle should be applied to the artifacts in some manner, however re-ordering the test cases is problematic as previous test reports would then not refer to the correct test case.
 
 // TODO expand on this
 

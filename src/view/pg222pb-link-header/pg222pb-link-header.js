@@ -67,7 +67,7 @@ export class LinkHeader extends HTMLElement {
     this.#validateArray(aLinkBuilderArray)
     const aElements = this.#buildLinkElements(aLinkBuilderArray)
     this.#addClassTagToElements(aElements)
-    this.#addToShadowRoot(aElements)
+    this.#appendToShadowroot(aElements)
   }
 
   /**
@@ -108,7 +108,7 @@ export class LinkHeader extends HTMLElement {
    *
    * @param {Array<HTMLAnchorElement>} aElements - The array of a elements to add to the shadow root.
    */
-  #addToShadowRoot (aElements) {
+  #appendToShadowroot (aElements) {
     const headerDiv = this.shadowRoot.querySelector('.header-div')
     aElements.forEach(aElement => headerDiv.appendChild(aElement))
   }

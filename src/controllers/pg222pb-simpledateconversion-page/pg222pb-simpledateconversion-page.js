@@ -3,12 +3,12 @@ import { ErrorRenderer } from '../../view/ErrorRenderer.js'
 import { Validator } from '../../Utility/Validator.js'
 import { DateConvertorDetailValidator } from '../../model/DateConvertorDetailValidator.js'
 import { SameCalendarError } from '../../model/Errors/SameCalendarError.js'
-import { SmallDateConverter } from '../../view/pg222pb-smalldateconverter/pg222pb-smalldateconverter.js'
+import { DateConvertRenderer } from '../../view/pg222pb-dateconverter/pg222pb-dateconverter.js'
 import { InvalidDateFormatError } from '../../model/Errors/InvalidDateFormatError.js'
-import { DateConverter } from '../../model/DateConverter.js'
 import { NoErasOnThatDateError } from '../../model/Errors/NoErasOnThatDateError.js'
 import { NotAnEraError } from '../../model/Errors/NotAnEraError.js'
 import { EraYearTooHighError } from '../../model/Errors/EraYearTooHighError.js'
+import { DateConverter } from '../../model/DateConverter.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -20,7 +20,7 @@ template.innerHTML = `
 class SimpleDateConversionPage extends HTMLElement {
   #dateConverter
   /**
-   * Create an instance of the component.
+   * Create an instance of the component and builds the elements of the page.
    */
   constructor () {
     super()
@@ -28,10 +28,27 @@ class SimpleDateConversionPage extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     const calendarTypes = new DateConvertorDetailValidator(new DateConversionDetail())
-    const dateConverter = new SmallDateConverter(calendarTypes.acceptableCalendars)
-    this.shadowRoot.appendChild(dateConverter)
+    const titleOfConverter = 'Small Date Converter'
+    const inputFields = this.#buildInputFields()
 
-    this.#dateConverter = this.shadowRoot.querySelector('pg222pb-smalldateconverter')
+    const smallConvertortElement = new DateConvertRenderer(calendarTypes.acceptableCalendars, titleOfConverter, inputFields)
+    this.shadowRoot.appendChild(smallConvertortElement)
+
+    this.#dateConverter = this.shadowRoot.querySelector('pg222pb-dateconverter')
+  }
+
+  /**
+   * Builds the input fields for the Simple Date Conversion Page.
+   *
+   * @returns {Array<HTMLInputElement>} - Returns an array of the two input fields.
+   */
+  #buildInputFields () {
+    const userInputField = document.createElement('input')
+    userInputField.setAttribute('type', 'text')
+    userInputField.setAttribute('placeholder', 'Enter a date here')
+    const copyFromClipboardField = document.createElement('input')
+    copyFromClipboardField.setAttribute('type', 'text')
+    return [userInputField, copyFromClipboardField]
   }
 
   /**
@@ -46,6 +63,7 @@ class SimpleDateConversionPage extends HTMLElement {
 
   // TODO make a note since I'm not ordering the methods in this class the same as the others
 
+  // TODO DRY, same thing is seen in BigConversionPage.js
   /**
    * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
    *
@@ -64,8 +82,7 @@ class SimpleDateConversionPage extends HTMLElement {
   #convertOnClickCallback (event) {
     const conversionDetails = event.detail.data
 
-    //  this.#checkForUserErrors(conversionDetails)
-    const convertedDate = this.#convertDate(conversionDetails)
+    const convertedDate = this.#translateDate(conversionDetails)
     if (convertedDate) {
       this.#dateConverter.renderResult(convertedDate)
     }
@@ -77,13 +94,13 @@ class SimpleDateConversionPage extends HTMLElement {
    *
    * @param {DateConversionDetail} dateDetailsToConvert - The date details to convert.
    */
-  #convertDate (dateDetailsToConvert) {
+  #translateDate (dateDetailsToConvert) {
     try {
       const dateConverter = new DateConverter(dateDetailsToConvert)
-      return dateConverter.convertDate()
+      return dateConverter.translateDate()
     } catch (error) {
-      console.error(error.message + ' in convertDate, in pg222pb-simpledateconversion-page.js') // TODO add path ?
-      this.#handleUserError(error)
+      console.error(error.message + ' in translateDate, in pg222pb-simpledateconversion-page.js')
+      this.#isUserError() || this.#handleUserError(error)
     }
   }
 
@@ -93,11 +110,9 @@ class SimpleDateConversionPage extends HTMLElement {
    * @param {Error} error - The error to handle.
    */
   #handleUserError (error) {
-    if (this.#isUserError(error)) {
-      const errorElement = this.#dateConverter.getErrorElement()
-      const errorRenderer = new ErrorRenderer(errorElement, error)
-      errorRenderer.renderError(errorElement, error)
-    }
+    const errorElement = this.#dateConverter.getErrorElement()
+    const errorRenderer = new ErrorRenderer(errorElement, error)
+    errorRenderer.renderError(errorElement, error)
   }
 
   /**
