@@ -13,16 +13,16 @@ This application is part of the course `1DV610 - Introduction to Software Qualit
 
 This app does not yet handle negative year conversions, meaning that it is currently not possible to convert a year from before BC using the Gregorian Calendar or to perform a conversion from before Kõki 0.
 
-### How to install
+### Live Version
+
+Live Version can be found at: // TODO
+
+### Install Locally
 
 1. Clone this repo
 2. Run `npm install` to install the required dependencies
 3. `npm run dev` to start the development server
 4. Open the URL that Vite provides, likely: `http://localhost:5173`, however it may vary.
-
-### Using the application
-
-// TODO write this section
 
 ## Contributing
 

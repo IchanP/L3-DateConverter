@@ -56,8 +56,6 @@ class BigConversionPage extends HTMLElement {
     this.addEventListener('copy', this.#copyOnClickCallback.bind(this))
   }
 
-  // TODO DRY, same thing is seen in SimpleDateConversionPage.js
-
   /**
    * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
    *
@@ -100,9 +98,6 @@ class BigConversionPage extends HTMLElement {
       this.#isUserError() || this.#handleUserError(error)
     }
   }
-
-  // TODO DRY, I can't make this class abstract and this method is vital for delegating responsibility
-  // to different methods rather than doing everything in the try catch
 
   /**
    * Checks whether the error is a user error, and if so, renders it to the view.

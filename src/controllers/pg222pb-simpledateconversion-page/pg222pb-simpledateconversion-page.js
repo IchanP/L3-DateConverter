@@ -63,7 +63,6 @@ class SimpleDateConversionPage extends HTMLElement {
 
   // TODO make a note since I'm not ordering the methods in this class the same as the others
 
-  // TODO DRY, same thing is seen in BigConversionPage.js
   /**
    * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
    *
