@@ -11,33 +11,43 @@ template.innerHTML = `
       width: 100vw;
     }
     .header-div {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 5rem;
-        width: 100vw;
-        height: 5vh;
-        font-size: 1.2rem;
-        background-image: url(${IMG_URL});
-        background-size: cover;
+      background-image: url(${IMG_URL});
+      background-size: cover;
     }
 
     .header-a {
-        text-decoration: none;
-        color: white;
-        font-family: Arial;
-        color: rgb(189, 189, 181);
-        background-color: rgba(44, 12, 12, 0);
-        padding: 1rem;
+      display: flex;
+      align-items: centeR;
+      text-decoration: none;
+      color: white;
+      font-family: Arial;
+      color: rgb(189, 189, 181);
+      background-color: rgba(65, 56, 56, 0.3);
+      height: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
 
     .header-a:hover {
       background-color: rgba(44, 12, 12, 0.5);
     }
 
+    .background-filter {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      width: 100vw;
+      height: 5vh;
+      font-size: 1.2rem;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
 </style>
 <div class="header-div">
+  <div class="background-filter">
+  </div>
 </div>`
 
 /**
@@ -110,7 +120,7 @@ export class LinkHeader extends HTMLElement {
    * @param {Array<HTMLAnchorElement>} aElements - The array of a elements to add to the shadow root.
    */
   #appendToShadowroot (aElements) {
-    const headerDiv = this.shadowRoot.querySelector('.header-div')
+    const headerDiv = this.shadowRoot.querySelector('.background-filter')
     aElements.forEach(aElement => headerDiv.appendChild(aElement))
   }
 }
