@@ -3,6 +3,7 @@ import { DateStringBuilder } from '../DateStringBuilder'
 import { NoErasOnThatDateError } from '../Errors/NoErasOnThatDateError'
 import { NotAnEraError } from '../Errors/NotAnEraError'
 import { EraYearTooHighError } from '../Errors/EraYearTooHighError'
+import { DateTransformer } from './DateTransformer'
 
 /**
  * Wraps the temporalConverter public interface in a class.
@@ -13,7 +14,7 @@ export class TemporalConverterWrapper {
   /**
    * Create an instance of the class.
    *
-   * @param {object} dateTransformer - Shall be an object of either the BasicDateTransformer or the JapaneseEraDateTransformer.
+   * @param {DateTransformer} dateTransformer - Shall be an object of either the BasicDateTransformer or the JapaneseEraDateTransformer.
    */
   constructor (dateTransformer) {
     this.#dateStringBuilder = new DateStringBuilder()

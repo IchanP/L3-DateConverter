@@ -124,4 +124,12 @@ Example of public>private>public methods.
 
 ## Chapter 11 Systems
 
-// TODO
+I struggle to relate much of what was mentioned in this chapter to my project. The main takeaway I bring from it is separation of concerns and the usefulness of abstractions. In my project I made an attempt to abstract. For example in the `TemporalConverterWrapper` the dateTransformer paramater is of the abstract class `DateTransformer`, true abstract classes are not possible in Javascript nor are interfaces which made working with abstractions as taught through the OOP courses previously incredibly difficult or flat out impossible. However this was my attempt at using `Dependency Injection` in Javascript.
+
+![construction](./reportimages/construction.png)
+
+Type of date transformer being conditionally constructed and passed as an argument.
+
+![abstract-class](./reportimages/abstract-class.png)
+
+Abstract class in question.

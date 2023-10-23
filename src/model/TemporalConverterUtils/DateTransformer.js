@@ -9,7 +9,7 @@ export class DateTransformer {
   /**
    * Initializes the private fields.
    *
-   * @throws {Error} - Throws an error if the class is instantiated directly.
+   * @throws {AbstractClassError} - Throws an error if the class is instantiated directly.
    * @param {Array<RegExp>} acceptableDateFormats - Ana rray of regex expressiosn detailing the acceptable date formats.
    * @param {string} dateToConvert - The date to convert the format of.
    */
