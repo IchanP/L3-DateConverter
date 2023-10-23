@@ -20,6 +20,7 @@ template.innerHTML = `
         height: 5vh;
         font-size: 1.2rem;
         background-image: url(${IMG_URL});
+        background-size: cover;
     }
 
     .header-a {
