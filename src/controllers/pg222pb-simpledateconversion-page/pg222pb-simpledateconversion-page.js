@@ -61,8 +61,6 @@ class SimpleDateConversionPage extends HTMLElement {
     this.addEventListener('copy', this.#copyOnClickCallback.bind(this))
   }
 
-  // TODO make a note since I'm not ordering the methods in this class the same as the others
-
   /**
    * Handles the custom event 'copy' which is triggered when the user clicks the copy button in the SmallDateConverter component.
    *

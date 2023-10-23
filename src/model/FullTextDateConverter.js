@@ -131,8 +131,6 @@ export class FullTextDateConverter {
     }
   }
 
-  // TODO another note about formatting here.
-
   /**
    * Checks whether the #fromCalendar field is a western style calendar.
    *

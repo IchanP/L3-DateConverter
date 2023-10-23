@@ -19,15 +19,13 @@ I've tried to give all my variable names meaningful and unique names, the unique
 
 Initially I did not follow the One Word Per Concept in the `Transformer` and `TemporalConverterWrapper` classes either as the methods in both classes shared the word `convert` while performing different things. Therefore one of these concepts had to be renamed and I selected the ones inside the `TemporalConverterWrapper` class for this, changing the concept word to `translate` instead.
 
-// TODO rename the method names to not all be convert
-
 ![Good-Names](./reportimages/updated-names.png)
 
 The updated names, the `convert` issue is also visible here in the DateConverter
 
 ![Wrapper-Method-Names](./reportimages/wrapper-method-names.png)
 
-`Translate` method names in the `TemporalConverterWrapper` class. 
+`Translate` method names in the `TemporalConverterWrapper` class.
 
 ## Chapter 3 Functions
 
@@ -48,19 +46,29 @@ Found in [temporalconverterwrapper.js](./src/model/TemporalConverterUtils/Tempor
 
 ## Chapter 4 Comments
 
-I am aware that JSDOC goes against the superflous comments rule or whatever, however I feel like this stands in contrast to the code standard followed by my fellow students @lnu-eslint-config or w/e
+In regards to comments I made a concious choice to use the [lnu eslint standard](https://www.npmjs.com/package/@lnu/eslint-config), with no modifications. This standard enforces JSDOC for ALL non-anonymous methods. And while I did make an effort to not have redundant JSDOC comments it is quite hard when following good naming standards, I am aware that this is a clear violation of the `Mandated Comments` rule, which states that it is silly to enforce JSDOC/Javadocs for every method. The choice to use the lnu standard without modification was to illustrate that I understand the idea that the `Team Rules` rule found in Chapter 5 may and will result in messier code, and because I am simply comfortable/like the lnu standard. Howver JSDOCs do bring one good point, which is the type expected to be passed to a method, which is otherwise invisible, atleast in my IDE.
 
-//TODO - talk about this
+Outside of the codestandard I did not interact much with comments while working in the project. In a few JSDOC's I listed the date formats which would result in an error not being thrown, which I believe fulfils the rule about `Informative Comments`. This information I believe is hard to fulfil with only a good function name.
+
+![informative-comment](./reportimages/informative-comment.png)
+
+Example of an informative comment, this explanation of date formats is also found in another similar function.
 
 ## Chapter 5 Formatting
 
-// TODO Mention the Veritcal Distance rule and how it doesn't work that well with the public>private>public rule as my `tryTranslate` methods in `TemporalConverterWrapper` don't end up next to eachother, I have to pick which one to choose..
+I feel like the rule/guideline mentioned in Chapter 10; `Public functions should follow the list of variables. We like to put the private utilities called by a public function right after the public function itself.` is quite difficult to implement while also keepin the rule regarding `Vertical Distance` in mind. Vertical Distance states that closely related concepts should be grouped near eachother.  This means that a choice has to be made, which I made in my `TemporalConverterWrapper` class. I have two `tryTranslate` methods which encapsulates two different calls in a try catch. In this instance I decided to put them right below the method that called each seperate `tryTranslate`. The same was done for `handle` methods I included in this class, where they are listed right below the `tryTranslate`. Meaning that in this instance I adhered to the `Class Organization` rule instead. Rather than the `Vertical Distance` rule. I have however consistently followed the `Vertical Ordering` rule where function calls flow downward.
+
+In regards to the Chapter 10 rule mentioned above and the rule regarding `Dependant Functions` I have in my [pg222pb-dateconverter](../src/view/pg222pb-dateconverter/pg222pb-dateconverter.js) component opted to put the methods that the constructor calls, right below it, eventhough they are private methods, and this therefore breaks against the Chapter 10 rule. I opted to do this to give context to the constructor as what follows are the public methods, and later on the event handlers which are tied to elements inside the components shadow DOM. I feel like this is a sensible structure for this class. An argument could be made that the class should be broken up as it can be divided into 3 parts, however as the event listeners work on some of the elements being worked on in the constructor and the public methods I feel like this is not sensible.
+
+![Formatting-rules](./reportimages/formatting-rules.png)
+
+Function calls flow downward, but don't adhere to `Vertical Distance` rule in this scenario.
 
 ## Chapter 6 Objects and Data Structures
 
 Decided to make a class for building an "a" element. I wanted to create a more general header which would build any number of "a" elements. This required me to make a data structure which held the fields required to build it. I originally considered simply making it an anonymous object, however since that would make it hard for the caller to know what to pass, as well as make error handling hard I decided to make a class out of it. The class only consists of 2 fields and they both have getters, which I suppose breaks against the "Data Abstraction" rule, which is to hide the implementation, but as the job of the class is to act as a Data Structure rather than a proper object I feel like this is acceptable. Especially as it does not have any setters.
 
-// TODO IMAGES!!!
+![data-structure](./reportimages/data-structure.png)
 
 ## Chapter 7 Error Handling
 
@@ -86,9 +94,13 @@ Date string builder is held as a field in the `TemporalConverterWrapper` class.
 
 I decided to follow a TTD, where I wrote tests right before the implementation code. This worked quite well, especially for the few automatic tests I wrote, as I was refactoring my code after writing it for the first time to see that it worked. This made the refactoring process a lot easier as I could quite easily tell whether something worked or not by simply running the test. The book also pressed that the test code should follow the same standard as the production code, I did not write that many automatic tests, however, I made a concious effort to group concepts/related tests together. Example being I grouped tests that SHOULD throw next to eachother.
 
-Something I noticed in regards to using TTD, is that my manual test cases ended up not being grouped together, but rather spread out. Meaning that test cases that dealt with, for example, testing whether the date format were supported for Western and Japanese style calendars ended up seperated as one was implemented before the other. While this is not code I feel like the same principle should be applied to the artifacts in some manner, however re-ordering the test cases is problematic as previous test reports would then not refer to the correct test case.
+Something I noticed in regards to using TTD, is that my manual test cases ended up not being grouped together, but rather spread out. Meaning that test cases that dealt with, for example, whether the date format were supported for Western and Japanese style calendars ended up seperated as one was implemented before the other. While this is not code I feel like the same principle should be applied to the artifacts in some manner, however re-ordering the test cases is problematic as previous test reports would then not refer to the correct test case.
 
-// TODO expand on this
+![grouped-jp-validator](./reportimages/grouped-jp-validator.png)
+
+![grouped-linkheader](./reportimages/grouped-linkheader.png)
+
+Conciously made an effort to group the `should throw` and `should log texts`, although the example is extremely small.
 
 ## Chapter 10 Classes
 
@@ -113,4 +125,3 @@ Example of public>private>public methods.
 ## Chapter 11 Systems
 
 // TODO
-

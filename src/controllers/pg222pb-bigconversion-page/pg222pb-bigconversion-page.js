@@ -66,9 +66,6 @@ class BigConversionPage extends HTMLElement {
     navigator.clipboard.writeText(textToCopy)
   }
 
-  // TODO make note about conversionDetails in regards to meaningful names
-  // Since I can't see what type it is even in my IDE I think naming it after the data structure it is is fine
-  // As it's merely being passed around as the type it is here.
   /**
    * Called when the custom event "convert" is caught.
    *

@@ -224,7 +224,17 @@ export class DateConvertRenderer extends HTMLElement {
     this.#copyButton = this.shadowRoot.querySelector('#copybutton')
   }
 
-  // TODO reflect over the placement of the methods in this class
+  /**
+   * Sets the attributes of the input fields.
+   *
+   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
+   */
+  #setInputAttributes (inputFields) {
+    inputFields[0].setAttribute('id', 'fromtextinput')
+    inputFields[0].setAttribute('autocomplete', 'off')
+    inputFields[1].setAttribute('id', 'totextinput')
+    inputFields[1].setAttribute('disabled', '')
+  }
 
   /**
    * Builds the dropdown options that the user can choose from.
@@ -248,18 +258,6 @@ export class DateConvertRenderer extends HTMLElement {
    */
   #insertTitle (title) {
     this.shadowRoot.querySelector('h1').textContent = title
-  }
-
-  /**
-   * Sets the attributes of the input fields.
-   *
-   * @param {Array<HTMLElement>} inputFields - The input fields that the component shall use for the conversions.
-   */
-  #setInputAttributes (inputFields) {
-    inputFields[0].setAttribute('id', 'fromtextinput')
-    inputFields[0].setAttribute('autocomplete', 'off')
-    inputFields[1].setAttribute('id', 'totextinput')
-    inputFields[1].setAttribute('disabled', '')
   }
 
   /**
